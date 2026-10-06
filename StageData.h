@@ -1,0 +1,21 @@
+#pragma once
+#include"CharacterObject.h"
+#include"EnemyObject.h"
+#include<vector>
+#include<string>
+#include<memory>
+namespace StageData {//负责数据交接
+	struct WaitingForFight_publicData {//公有数据
+		size_t* dimension_index;//直接把原始地址给出了
+		size_t* stage_index;//之后战斗结算阶段要修改
+	};
+	struct WaitingForFight_to_Fight {
+		const std::vector<std::unique_ptr<BasicObject>>* FrontCharacter=nullptr;//太大而不方便拷贝
+		const std::vector<std::unique_ptr<BasicObject>>* BackCharacter = nullptr;
+		std::string stagetype;//小数据直接拷贝
+		const std::vector<EnemyObject>* Enemys = nullptr;
+		int difficulty = 0;
+	};
+	extern WaitingForFight_publicData g_WaitingForFight_publicData;
+	extern WaitingForFight_to_Fight g_WaitingForFight_to_Fight;
+}

@@ -1,0 +1,41 @@
+#include"BasicGameResource.h"
+#include"Logger.h"
+using Logger::Log;
+void BasicGameResource::init() {
+	GamePath = SDL_GetBasePath();
+	GameConfig.LoadConfig(GamePath);
+	Log("SDL_Init",__func__, SDL_Init(GameConfig.GameMode)?Logcode::OK:Logcode::ERROR);
+	GameWindow = SDL_CreateWindow(
+		GameConfig.GameName.c_str(),
+		static_cast<int>(GameConfig.WindowW),
+		static_cast<int>(GameConfig.WindowH),
+		GameConfig.WindowMode
+	);
+	Log("Window", __func__, GameWindow == nullptr?Logcode::CREATEFAILED:Logcode::OK);
+	GameRenderer = SDL_CreateRenderer(GameWindow, NULL);
+	Log("Renderer", __func__, GameRenderer == nullptr ? Logcode::CREATEFAILED : Logcode::OK);
+	TTF_Init();
+	GameFont = TTF_OpenFont((GamePath / "assets" / GameConfig.FontName).string().c_str(), GameConfig.FontSize);
+	Log("Font", __func__, GameFont == nullptr ? Logcode::CREATEFAILED : Logcode::OK);
+	SDL_SetRenderDrawBlendMode(GameRenderer, SDL_BLENDMODE_BLEND);
+	FrameTime = GameConfig.FrameTime;
+}
+void BasicGameResource::quit() {
+	if (GameFont) {
+		TTF_CloseFont(GameFont);
+	}
+	if (GameRenderer) {
+		SDL_DestroyRenderer(GameRenderer);
+	}
+	if (GameWindow) {
+		SDL_DestroyWindow(GameWindow);
+	}
+	SDL_Quit();
+}
+BasicGameResource::~BasicGameResource() {
+	quit();
+	GameFont = nullptr;
+	GameRenderer = nullptr;
+	GameWindow = nullptr;
+}
+BasicGameResource BasicGameRes;

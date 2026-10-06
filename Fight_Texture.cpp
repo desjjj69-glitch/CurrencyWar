@@ -1,0 +1,171 @@
+#include"Fight_Texture.h"
+#include"Fight_Logic.h"
+#include<fstream>
+#include"json.hpp"
+#include"Logger.h"
+#include<filesystem>
+using json = nlohmann::json;
+using Logger::Log;
+namespace Fight {
+	void Fight_Texture::Draw(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
+		SDL_RenderClear(rdr);
+		Draw_Background(rdr);
+		Draw_ActionList(rdr);
+	}
+	Fight_Texture::~Fight_Texture() {
+		if (uiloaded == false)return;
+		for (auto& [key, value] : ui_tex) {
+			for (auto& var : value) {
+				SDL_DestroyTexture(var);
+			}
+			value.clear();
+		}
+		ui_index_reflect.clear();
+		ui_place.clear();
+		ui_path.clear();
+		uiloaded = false;
+		jsloaded = false;
+	}
+	void Fight_Texture::Loadin(const std::filesystem::path& gp, SDL_Renderer*& rdr) {
+		if (!jsloaded) {
+			LoadinJson(gp);
+			jsloaded = true;
+		}
+		if (!uiloaded) {
+			LoadinPic(gp, rdr);
+			uiloaded = true;
+		}
+	}
+	void Fight_Texture::ReadActionListPosition(const json& js, ActionListTexture &a) {
+		a.startx = js.value("startx", 0.0f);
+		a.starty = js.value("starty", 0.0f);
+		a.startw = js.value("startw", 0.0f);
+		a.starth = js.value("starth", 0.0f);//起始单元格
+
+
+		a.endy = js.value("endy", 0.0f);//最下方的y
+
+		a.extrax = js.value("extrax", 0.0f);
+		a.extray = js.value("extray", 0.0f);
+		a.extraw = js.value("extraw", 0.0f);
+		a.extrah = js.value("extrah", 0.0f);//额外回合
+
+		a.extraendx = js.value("extraendx", 0.0f);//额外回合的最右方x
+	}
+	void Fight_Texture::LoadinJson(const std::filesystem::path& gp) {
+		std::ifstream uiin(gp / "data" / "Fight_Texture.json");
+		json jsui;
+		Log("", __FUNCSIG__, uiin.is_open() ? Logcode::OK : Logcode::OPENFAILED);
+		auto ParseFRect = [](const std::string& s) -> SDL_FRect {
+			SDL_FRect r{ 0.0f, 0.0f, 0.0f, 0.0f };
+			std::istringstream iss(s);
+			iss >> r.x >> r.y >> r.w >> r.h;
+			return r;
+			};
+		try {
+			uiin >> jsui;
+			for (const auto& item : jsui.at("ui")) {
+				if (!item.contains("type")) {
+					continue;
+				}
+				std::string type = item.at("type").get<std::string>();
+				ui_tex[type];
+				ui_place[type];
+				if (!item.contains(type))continue;
+				for (const auto& var : item.at(type)) {
+					std::string name = var.value("name", "unknown");
+					ui_index_reflect[type+":"+name] = ui_place[type].size();
+					ui_place[type].push_back(ParseFRect(var.value("place", "0 0 0 0")));
+					//ui_tex[type].push_back(nullptr);
+					ui_path[type].push_back(var.value("path", "unknown"));
+				}
+			}
+			if (jsui.contains("actionlist")) {
+				auto& arr = jsui.at("actionlist");
+				if(!arr.empty())
+				ReadActionListPosition(arr[0], actionlist_place);
+			}
+			if (jsui.contains("actors")) {
+				auto& arr = jsui.at("actors");
+				actor_name = arr.get<std::vector<std::string>>();
+			}
+		}
+		catch (const json::parse_error&e ) {
+			Log(e.what(), __func__, Logcode::PARSEERROR);
+		}
+		catch (const std::exception& e) {
+			Log(e.what(), __func__, Logcode::ERROR);
+		}
+	}
+	void Fight_Texture::LoadinPic(const std::filesystem::path& gp, SDL_Renderer*& rdr) {
+		std::filesystem::path uip = gp /"assets"/ "Fight" / "UI_Tex";//导入ui图片
+		for (auto& [key, vec] : ui_path) {
+			ui_tex[key].resize(ui_path[key].size(), nullptr);
+			for (size_t i = 0;i < vec.size();i++) {
+				if (ui_tex[key][i] || ui_path[key].empty() || ui_path[key][i] == "unknown")continue;
+				try {
+					auto tmp = IMG_LoadTexture(rdr, (uip / ui_path[key][i]).string().c_str());
+					if (tmp == nullptr) {
+						throw std::runtime_error(
+							std::string("IMG_LoadTexture failed: ") + SDL_GetError()
+						);
+					}
+					Log(key + "+" + ui_path[key][i], __func__, Logcode::OK);
+					ui_tex[key][i] = tmp;
+				}
+				catch (const std::exception&e) {
+					Log(e.what(), __func__, Logcode::ERROR);
+				}
+				
+			}
+		}
+
+		//接下来导入行动条头像
+		std::filesystem::path actp=gp / "assets" / "Fight" / "ActorHead";
+		for (auto& var : actor_name) {
+			auto tmp = IMG_LoadTexture(rdr, (actp / (var + ".png")).string().c_str());
+			actor_tex[var] = tmp;
+		}
+	}
+	size_t Fight_Texture::QuickIndex(const std::string& type, const std::string& name) {
+		return ui_index_reflect[(type + ":" + name)];
+	}
+	void Fight_Texture::Draw_Background(SDL_Renderer*& rdr) {
+		SDL_RenderTexture(rdr, ui_tex["Background"][QuickIndex("Background","Amphoreus")], NULL, & ui_place["Background"][0]);
+	}
+	void Fight_Texture::Draw_ActionList(SDL_Renderer*& rdr) {
+		SDL_FRect nrect = {
+			actionlist_place.startx,
+			actionlist_place.starty,
+			actionlist_place.startw,
+			actionlist_place.starth
+		};
+		for (size_t i = 0;i < State.ActionList.size();i++) {
+			auto* p = State.FindActorFromActionList(i);
+			if (!p)break;
+
+			auto key = p->Name();
+			if (p->Type() == ActorType::Enemy) {
+				key += "_Head";
+			}
+			SDL_RenderTexture(rdr, actor_tex[key], NULL, &nrect);
+			
+			nrect.y += nrect.h;
+			if (nrect.y > actionlist_place.endy)break;//超出了就停止绘制
+		}
+		SDL_FRect exrect = {
+			actionlist_place.extrax,
+			actionlist_place.extray,
+			actionlist_place.extraw,
+			actionlist_place.extrah
+		};
+		for (size_t i = 0;i < State.ExtraAction.size();i++) {
+			auto* p = State.FindActorFromExtraAction(i);
+			if (!p)break;
+			SDL_RenderTexture(rdr, extraactor_tex[p->Name()], NULL, &exrect);
+			exrect.x += exrect.w;
+			if (exrect.x > actionlist_place.extraendx)break;
+		}
+	}
+}

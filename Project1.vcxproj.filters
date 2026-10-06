@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicGameResource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicConfig.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitingForFightTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitingForFight_CharacterTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitingForFight_InteractLogic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SDL_Functions.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitingForFight_Shop.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitingForFight_Update.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Fight_Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Fight_Logic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Fight_Update.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StageData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitingForFight_EnemyTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FightResult_Logic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FightResult_Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FightResult_Update.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Fight_CharacterActor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Fight_EnemyActor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="json.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicGameResource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicConfig.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingForFightTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_Functions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingForFight_CharacterTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingForFight_InteractLogic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingForFight_ResourceType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingForFight_Shop.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GetRandomNum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingForFight_Update.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Fight_Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Fight_Logic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicActor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Fight_ActorType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Fight_CharacterActor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Fight_Update.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StageData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingForFight_EnemyTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FightResult_Logic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FightResult_Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FightResult_Update.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterAttribute.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Fight_EnemyActor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AttributeTypes.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
