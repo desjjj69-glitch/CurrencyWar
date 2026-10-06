@@ -216,6 +216,32 @@ xcopy /y /i "$(SolutionDir)lib\bin\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="WaitingForFight_Shop.h" />
     <ClInclude Include="WaitingForFight_Update.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\新建 文本文档.py" />
+    <None Include="data\BasicCharacterSettings.json" />
+    <None Include="data\Enemy.json" />
+    <None Include="data\Fight_Texture.json" />
+    <None Include="data\WaitingForFight.json" />
+    <None Include="data\WaitingForFight_ObjectPlace.json" />
+    <None Include="lib\bin\libavif-16.dll" />
+    <None Include="lib\bin\libpng16-16.dll" />
+    <None Include="lib\bin\libtiff-6.dll" />
+    <None Include="lib\bin\libwebp-7.dll" />
+    <None Include="lib\bin\libwebpdemux-2.dll" />
+    <None Include="lib\bin\libwebpmux-3.dll" />
+    <None Include="lib\bin\SDL3.dll" />
+    <None Include="lib\bin\SDL3_image.dll" />
+    <None Include="lib\bin\SDL3_ttf.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\管理图像资源.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\Final_SSS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\simhei.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

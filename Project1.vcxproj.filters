@@ -174,4 +174,66 @@
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="data\BasicCharacterSettings.json">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="data\Enemy.json">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="data\Fight_Texture.json">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="data\WaitingForFight.json">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="data\WaitingForFight_ObjectPlace.json">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="assets\新建 文本文档.py">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="lib\bin\libavif-16.dll">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="lib\bin\libpng16-16.dll">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="lib\bin\libtiff-6.dll">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="lib\bin\libwebp-7.dll">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="lib\bin\libwebpdemux-2.dll">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="lib\bin\libwebpmux-3.dll">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="lib\bin\SDL3.dll">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="lib\bin\SDL3_image.dll">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="lib\bin\SDL3_ttf.dll">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\管理图像资源.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\Final_SSS.png">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\simhei.ttf">
+      <Filter>资源文件</Filter>
+    </Font>
+  </ItemGroup>
 </Project>

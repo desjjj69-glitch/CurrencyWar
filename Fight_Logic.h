@@ -54,6 +54,7 @@ namespace Fight {
 		};
 		StateType CurrentState = StateType::Idle;
 		void Tick(Uint64);//处理逻辑帧
+		std::unordered_map<StateType,Uint64>Animation_LogicDelay;
 		Uint64 Timer = 0;
 		BasicActor* NowActing=nullptr;
 	private:
@@ -69,6 +70,9 @@ namespace Fight {
 		void RemoveFromExtraList_index(size_t);
 		void StartActor();
 		void Log_Init();
+
+		void EnemyStart_Resolution();
+		void EnemyPreparing();
 	};
 	extern Fight_Logic State;
 }

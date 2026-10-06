@@ -43,6 +43,17 @@ namespace Fight {
 	}
 	void Fight_Logic::RemoveFromExtraList_id(int id) {
 		if (id == -1)return;
+		for (auto it = ExtraAction.begin();it != ExtraAction.end();) {
+			if (id == it->id) {
+				it = ExtraAction.erase(it);
+			}
+			else {
+				++it;
+			}
+		}
+	}
+	void Fight_Logic::RemoveFromExtraList_index(size_t index) {
+		ExtraAction.erase(ExtraAction.begin() + index);
 	}
 	void Fight_Logic::LoadinJson(const std::filesystem::path& gp) {//目前没有从json读入的内容，全是内部数据交接
 
@@ -160,11 +171,12 @@ namespace Fight {
 			};
 		if (!ExtraAction.empty()) {
 			NowActing = FindActorFromExtraAction(0);
-			RemoveFromActionList_index(0);
+			RemoveFromExtraList_index(0);
 			StateShifter(NowActing);
 		}
 		else if (!ActionList.empty()) {
 			NowActing = FindActorFromActionList(0);
+			RemoveFromActionList_index(0);
 			StateShifter(NowActing);
 		}
 		else {
@@ -178,7 +190,45 @@ namespace Fight {
 			Timer = 0;
 			break;
 		case StateType::PlayerStart:
+			Timer += dt;
+			if (Timer >= Animation_LogicDelay[StateType::PlayerStart]) {
+				CurrentState = StateType::PlayerSelecting;
+				Timer = 0;
+			}
+				
+			break;
+		case StateType::PlayerSelecting:
+			Timer += dt;
+			break;
+		case StateType::EnemyStart:
+			Timer += dt;
+			if (Timer >= Animation_LogicDelay[StateType::EnemyStart]) {
+				EnemyStart_Resolution();
+				CurrentState = StateType::EnemyPreparing;
+				Timer = 0;
+			}
+			break;
+		case StateType::EnemyPreparing:
+			Timer += dt;
+			if (Timer >= Animation_LogicDelay[StateType::EnemyPreparing]) {
+				EnemyPreparing();
+				CurrentState = StateType::EnemyExecuting;
+				Timer = 0;
+			}
+			break;
+		case StateType::EnemyExecuting:
+			Timer += dt;
+			if (Timer >= Animation_LogicDelay[StateType::EnemyExecuting]) {
+				CurrentState = StateType::Idle;
+				Timer = 0;
+			}
 			break;
 		}
+	}
+	void Fight_Logic::EnemyStart_Resolution() {
+		
+	}
+	void Fight_Logic::EnemyPreparing() {
+
 	}
 }
