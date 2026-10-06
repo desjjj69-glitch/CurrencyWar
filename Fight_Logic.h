@@ -40,6 +40,7 @@ namespace Fight {
 		std::vector<SDL_Event> EventQueue;
 		void PollEvents();
 		void DispatchEvent();
+		void Pause();
 		enum class StateType {//行动状态
 			Idle,               // 空闲：在等玩家输入 / 在等行动条的下一项
 			PlayerStart,//角色回合开始，结算角色身上挂的dot伤害
@@ -81,6 +82,7 @@ namespace Fight {
 		std::array<std::vector<std::unique_ptr<BasicActor>>, ActorCount >actors;
 		void BuildActionList();
 		void AddtoActionList(ActorList);
+		void AddtoActionList(BasicActor*);
 		void AddtoExtraAction(ExtraActorEntry);
 		void RemoveFromActionList_id(int);
 		void RemoveFromActionList_index(size_t);

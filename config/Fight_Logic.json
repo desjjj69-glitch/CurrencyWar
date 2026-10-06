@@ -6,7 +6,10 @@
     "PlayerExecuting": 1000,
     "EnemyStart": 1000,
     "EnemyPreparing": 1000,
-    "EnemyExecuting": 1000
+    "EnemyExecuting": 1000,
+    "PlayerUlt": 1000,
+    "PlayerUltSelecting": 1000,
+    "PlayerUltExecuting": 1000
   },
   "SkillPoint": 3,
   "SkillPointMax": 5

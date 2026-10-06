@@ -132,7 +132,7 @@
       <Command>xcopy /y /i /e "$(SolutionDir)assets" "$(OutDir)assets\"
 xcopy /y /i /e "$(SolutionDir)config" "$(OutDir)config\"
 xcopy /y /i /e "$(SolutionDir)data" "$(OutDir)data\"
-xcopy /y /i "$(SolutionDir)lib\bin\*.dll" "$(OutDir)"</Command>
+xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -157,7 +157,7 @@ xcopy /y /i "$(SolutionDir)lib\bin\*.dll" "$(OutDir)"</Command>
       <Command>xcopy /y /i /e "$(SolutionDir)assets" "$(OutDir)assets\"
 xcopy /y /i /e "$(SolutionDir)config" "$(OutDir)config\"
 xcopy /y /i /e "$(SolutionDir)data" "$(OutDir)data\"
-xcopy /y /i "$(SolutionDir)lib\bin\*.dll" "$(OutDir)"</Command>
+xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

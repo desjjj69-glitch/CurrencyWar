@@ -10,8 +10,27 @@ using Logger::Log;
 using json = nlohmann::json;
 namespace Fight {
 	Fight_Logic State;
+	void Fight_Logic::Pause() {
+		SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+			case SDL_EVENT_QUIT:
+				exit(0);
+				break;
+			case SDL_EVENT_KEY_DOWN:
+				Log("Key down scancode: " + std::to_string(event.key.scancode), __func__);
+				if (event.key.scancode == SDL_SCANCODE_ESCAPE)
+					AtFight = FightGlobalState::EndFight;
+				else if (event.key.scancode == SDL_SCANCODE_SPACE) {
+					AtFight = FightGlobalState::AtFight;
+				}
+				break;
+			}
+		}
+	}
 	void Fight_Logic::BuildActionList() {
 		ActionList.clear();
+		ExtraAction.clear();
 		for (auto& var : actors) {
 			for (auto& act : var) {
 				if (!act || act->id() == -1 || act->Speed == 0) {
@@ -25,7 +44,24 @@ namespace Fight {
 		sort(ActionList.begin(), ActionList.end());
 	}
 	void Fight_Logic::AddtoActionList(ActorList act) {
-
+		if (act.id == -1)
+			return;
+		auto it = ActionList.begin();
+		for (auto& var : ActionList) {
+			if (var.id == act.id)
+				return;
+		}
+		while (it != ActionList.end() && it->ActionValue <= act.ActionValue) {
+			it++;
+		}
+		ActionList.insert(it, act);
+	}
+	void Fight_Logic::AddtoActionList(BasicActor* act) {
+		if (!act || act->id() == -1 || act->Speed == 0) {
+			return;
+		}
+		act->ActionValue = ActionValueInaRound / act->Speed;
+		AddtoActionList({ act->id(),act->ActionValue });
 	}
 	void Fight_Logic::AddtoExtraAction(ExtraActorEntry act) {
 		if (act.id == -1)return;
@@ -50,7 +86,9 @@ namespace Fight {
 		}
 	}
 	void Fight_Logic::RemoveFromActionList_index(size_t index) {
-		ActionList.erase(ActionList.begin() + index);
+		if (ActionList.size() > index) {
+			ActionList.erase(ActionList.begin() + index);
+		}
 	}
 	void Fight_Logic::RemoveFromExtraList_id(int id) {
 		if (id == -1)return;
@@ -64,7 +102,9 @@ namespace Fight {
 		}
 	}
 	void Fight_Logic::RemoveFromExtraList_index(size_t index) {
-		ExtraAction.erase(ExtraAction.begin() + index);
+		if (ExtraAction.size() > index) {
+			ExtraAction.erase(ExtraAction.begin() + index);
+		}
 	}
 	void Fight_Logic::LoadinJson(const std::filesystem::path& gp) {
 		std::ifstream configin(gp / "config" / "Fight_Logic.json");//从配置读入
@@ -77,7 +117,9 @@ namespace Fight {
 			configin >> js;
 		}
 		catch (const std::exception& e) {
-			Log("Failed to parse Fight_Logic.json", __FUNCSIG__, Logcode::PARSEERROR);
+			std::string err = "Failed to parse Fight_Logic.json";
+			err+=e.what();
+			Log(err, __FUNCSIG__, Logcode::PARSEERROR);
 		}
 		auto StateTypeFromString = [](const std::string& str) {
 			if (str == "Idle")return StateType::Idle;
@@ -212,6 +254,8 @@ namespace Fight {
 		auto CheckIfUltbyPos = [&](float x, float y)->bool {//坐标版，是否点击了大招并处理
 			for (size_t i = 0;i < ui_place["Ult"].size();i++) {
 				if (PlaceInside(x, y, ui_place["Ult"][i])) {
+					if(i>=Actor(PlaceType::FrontCharacter).size())
+						continue;
 					auto* p = dynamic_cast<Character_Actor*>(Actor(PlaceType::FrontCharacter)[i].get());
 					if (p->Energy >= p->config.basic_attribute.EnergyLimit&&p->heart>0) {
 						AddtoExtraAction({ p->id(),ExtraPriority::CharacterUlt });
@@ -225,6 +269,8 @@ namespace Fight {
 		auto CheckIfUltbyKey = [&](const SDL_KeyboardEvent& key) {//键盘版，是否按下了大招并处理
 			for (size_t i = 0;i < ui_place["Ult"].size();i++) {
 				if (key.scancode == SDL_SCANCODE_1 + i) {
+					if (i >= Actor(PlaceType::FrontCharacter).size())
+						continue;
 					auto* p = dynamic_cast<Character_Actor*>(Actor(PlaceType::FrontCharacter)[i].get());
 					if (p->Energy >= p->config.basic_attribute.EnergyLimit && p->heart > 0) {
 						AddtoExtraAction({ p->id(),ExtraPriority::CharacterUlt });
@@ -375,11 +421,11 @@ namespace Fight {
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 			EventQueue.push_back(event);
-			
-
 		}
 	}
 	BasicActor* Fight_Logic::FindActorFromActionList(size_t index) {
+		if (index >= ActionList.size())
+			return nullptr;
 		auto& wact = ActionList[index];
 		for (auto& var : actors) {
 			for (auto& act : var) {
@@ -391,6 +437,8 @@ namespace Fight {
 		return nullptr;
 	}
 	BasicActor* Fight_Logic::FindActorFromExtraAction(size_t index) {
+		if (index >= ExtraAction.size())
+			return nullptr;
 		auto& wact = ExtraAction[index];
 		for (auto& var : actors) {
 			for (auto& act : var) {
@@ -466,6 +514,7 @@ namespace Fight {
 		case StateType::PlayerExecuting:
 			Timer += dt;
 			if (Timer >= Animation_LogicDelay[StateType::PlayerExecuting]) {
+				AddtoActionList(NowActing);
 				CurrentState = StateType::Idle;
 				Timer = 0;
 			}
@@ -489,6 +538,8 @@ namespace Fight {
 		case StateType::EnemyExecuting:
 			Timer += dt;
 			if (Timer >= Animation_LogicDelay[StateType::EnemyExecuting]) {
+				EnemyExecuting();
+				AddtoActionList(NowActing);
 				CurrentState = StateType::Idle;
 				Timer = 0;
 			}
@@ -503,7 +554,7 @@ namespace Fight {
 
 	}
 	void Fight_Logic::EnemyExecuting() {
-
+		Log(NowActing->Name(), __func__);
 	}
 	void Fight_Logic::CharacterStart_Resolution(Character_Actor* act) {
 		

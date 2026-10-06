@@ -10,8 +10,14 @@ namespace Fight {
 	void Fight_Texture::Draw(SDL_Renderer*& rdr, TTF_Font*& ft) {
 		SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 		SDL_RenderClear(rdr);
+
 		Draw_Background(rdr);
 		Draw_ActionList(rdr);
+		if (State.AtFight == Fight_Logic::FightGlobalState::Pause) {
+			Draw_Pause(rdr, ft);
+
+		}
+		
 	}
 	Fight_Texture::~Fight_Texture() {
 		if (!uiloaded) return;
@@ -172,5 +178,17 @@ namespace Fight {
 			exrect.x += exrect.w;
 			if (exrect.x > actionlist_place.extraendx)break;
 		}
+	}
+	void Fight_Texture::Draw_Pause(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		int w = 0, h = 0;
+		SDL_GetRenderOutputSize(rdr, &w, &h);   // SDL3，比 GetWindowSize 更准
+
+		
+		SDL_SetRenderDrawColor(rdr, 128, 128, 128, 128);
+		SDL_FRect full{ 0.f, 0.f, (float)w, (float)h };
+		SDL_RenderFillRect(rdr, &full);
+
+		
+
 	}
 }

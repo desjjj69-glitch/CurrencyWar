@@ -7,6 +7,13 @@
 #include<iostream>
 namespace FightResult {
 	void Update() {
+		static FightResult::FightResult_Texture f;
+		static bool loaded = false;
+		if (!loaded) {
+			loaded = true;
+			f.Loadin(BasicGameRes.GamePath, BasicGameRes.GameRenderer);
+			
+		}
 		State.AtFightResult = true;
 		State.Handle();//这个阶段的游戏资源逻辑一开始就结算完了
 		while (1) {
@@ -14,6 +21,9 @@ namespace FightResult {
 			if (State.AtFightResult == false) {
 				break;
 			}
+			f.Draw(BasicGameRes.GameRenderer, BasicGameRes.GameFont);
+			SDL_RenderPresent(BasicGameRes.GameRenderer);
+			SDL_Delay(BasicGameRes.FrameTime);
 		}
 	}
 }

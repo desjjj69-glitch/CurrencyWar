@@ -15,10 +15,17 @@ namespace Fight {
 			Uint64 now = SDL_GetTicks();
 			Uint64 dt = now - prev;
 			prev = now;
+			switch (State.AtFight) {
+			case Fight_Logic::FightGlobalState::AtFight:
+				State.PollEvents();
+				State.DispatchEvent();
+				State.Tick(dt);
+				break;
+			case Fight_Logic::FightGlobalState::Pause:
+				State.Pause();
+				break;
+			}
 			
-			State.PollEvents();
-			State.DispatchEvent();
-			State.Tick(dt);
 			f.Draw(BasicGameRes.GameRenderer, BasicGameRes.GameFont);
 			SDL_RenderPresent(BasicGameRes.GameRenderer);
 			SDL_Delay(BasicGameRes.FrameTime);//渲染帧
