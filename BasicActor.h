@@ -17,9 +17,23 @@ namespace Fight {
 		
 		int id_=-1;
 	};
+	enum class ExtraPriority {
+		FieldAssist,
+		CharacterCounter,
+		EnemyCounter,
+		CharacterUlt,
+		CharacterEnforced,
+		EnemyEnforced,
+		Normal
+	};
 	struct ActorList {
 		int id = -1;
 		double ActionValue = -1;
+		
+	};
+	struct ExtraActorEntry {
+		int id = -1;
+		ExtraPriority Priority = ExtraPriority::Normal;
 	};
 	inline bool operator<(const BasicActor& a, const BasicActor& b) {
 		if (a.ActionValue != b.ActionValue) {

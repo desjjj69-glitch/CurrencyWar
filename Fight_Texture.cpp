@@ -14,16 +14,18 @@ namespace Fight {
 		Draw_ActionList(rdr);
 	}
 	Fight_Texture::~Fight_Texture() {
-		if (uiloaded == false)return;
-		for (auto& [key, value] : ui_tex) {
-			for (auto& var : value) {
-				SDL_DestroyTexture(var);
+		if (!uiloaded) return;
+
+		for (auto& [type, map] : dynamic_ui_tex) {
+			for (auto& [picType, tex] : map) {
+				if (tex) SDL_DestroyTexture(tex);
 			}
-			value.clear();
+			map.clear();
 		}
-		ui_index_reflect.clear();
+		dynamic_ui_tex.clear();
+		dynamic_ui_path.clear();
 		ui_place.clear();
-		ui_path.clear();
+
 		uiloaded = false;
 		jsloaded = false;
 	}
@@ -66,19 +68,21 @@ namespace Fight {
 		try {
 			uiin >> jsui;
 			for (const auto& item : jsui.at("ui")) {
-				if (!item.contains("type")) {
-					continue;
-				}
+				if (!item.contains("type")) continue;
 				std::string type = item.at("type").get<std::string>();
-				ui_tex[type];
-				ui_place[type];
-				if (!item.contains(type))continue;
+				if (!item.contains(type)) continue;
+
 				for (const auto& var : item.at(type)) {
-					std::string name = var.value("name", "unknown");
-					ui_index_reflect[type+":"+name] = ui_place[type].size();
+					
 					ui_place[type].push_back(ParseFRect(var.value("place", "0 0 0 0")));
-					//ui_tex[type].push_back(nullptr);
-					ui_path[type].push_back(var.value("path", "unknown"));
+				}
+			}
+			if (jsui.contains("dynamic_ui") && jsui["dynamic_ui"].is_object()) {
+				for (auto& [type, map] : jsui["dynamic_ui"].items()) {
+					if (!map.is_object()) continue;
+					for (auto& [picType, path] : map.items()) {
+						dynamic_ui_path[type][picType] = path.get<std::string>();
+					}
 				}
 			}
 			if (jsui.contains("actionlist")) {
@@ -100,27 +104,24 @@ namespace Fight {
 	}
 	void Fight_Texture::LoadinPic(const std::filesystem::path& gp, SDL_Renderer*& rdr) {
 		std::filesystem::path uip = gp /"assets"/ "Fight" / "UI_Tex";//导入ui图片
-		for (auto& [key, vec] : ui_path) {
-			ui_tex[key].resize(ui_path[key].size(), nullptr);
-			for (size_t i = 0;i < vec.size();i++) {
-				if (ui_tex[key][i] || ui_path[key].empty() || ui_path[key][i] == "unknown")continue;
+		for (auto& [type, map] : dynamic_ui_path) {
+			for (auto& [picType, path] : map) {
+				std::filesystem::path full = uip / path;
 				try {
-					auto tmp = IMG_LoadTexture(rdr, (uip / ui_path[key][i]).string().c_str());
-					if (tmp == nullptr) {
+					SDL_Texture* tmp = IMG_LoadTexture(rdr, full.string().c_str());
+					if (!tmp) {
 						throw std::runtime_error(
 							std::string("IMG_LoadTexture failed: ") + SDL_GetError()
 						);
 					}
-					Log(key + "+" + ui_path[key][i], __func__, Logcode::OK);
-					ui_tex[key][i] = tmp;
+					Log(type + "+" + picType, __func__, Logcode::OK);
+					dynamic_ui_tex[type][picType] = tmp;
 				}
-				catch (const std::exception&e) {
+				catch (const std::exception& e) {
 					Log(e.what(), __func__, Logcode::ERROR);
 				}
-				
 			}
 		}
-
 		//接下来导入行动条头像
 		std::filesystem::path actp=gp / "assets" / "Fight" / "ActorHead";
 		for (auto& var : actor_name) {
@@ -128,11 +129,15 @@ namespace Fight {
 			actor_tex[var] = tmp;
 		}
 	}
-	size_t Fight_Texture::QuickIndex(const std::string& type, const std::string& name) {
-		return ui_index_reflect[(type + ":" + name)];
-	}
+	
 	void Fight_Texture::Draw_Background(SDL_Renderer*& rdr) {
-		SDL_RenderTexture(rdr, ui_tex["Background"][QuickIndex("Background","Amphoreus")], NULL, & ui_place["Background"][0]);
+		auto itType = dynamic_ui_tex.find("Background");
+		if (itType == dynamic_ui_tex.end()) return;
+
+		auto it = itType->second.find("Amphoreus");
+		if (it == itType->second.end() || !it->second) return;
+
+		SDL_RenderTexture(rdr, it->second, nullptr, &ui_place["Background"][0]);
 	}
 	void Fight_Texture::Draw_ActionList(SDL_Renderer*& rdr) {
 		SDL_FRect nrect = {

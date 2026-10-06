@@ -25,7 +25,7 @@ namespace Fight {
 			return actors[static_cast<size_t>(t)];
 		}
 		std::vector<ActorList>ActionList;
-		std::vector<ActorList>ExtraAction;
+		std::vector<ExtraActorEntry>ExtraAction;
 
 		void LoadinJson(const std::filesystem::path&);
 		void Init();
@@ -43,6 +43,7 @@ namespace Fight {
 		enum class StateType {//行动状态
 			Idle,               // 空闲：在等玩家输入 / 在等行动条的下一项
 			PlayerStart,//角色回合开始，结算角色身上挂的dot伤害
+			PlayerUlt,//角色大招回合
 			PlayerSelecting,    // 玩家正在选技能/选目标
 			PlayerExecuting,    // 玩家动作的动画/结算播放中
 			EnemyStart,     // 敌人结算dot伤害
@@ -52,11 +53,25 @@ namespace Fight {
 			TurnEnd,            // 收尾：更新行动条、切换到下一个
 			FightEnd//战斗结束，此时
 		};
+		enum class CharacterState {
+			Normal,
+			SKill,
+			Ultimate,
+			Count
+		};
 		StateType CurrentState = StateType::Idle;
+		CharacterState CurrentCharacterState = CharacterState::Normal;
 		void Tick(Uint64);//处理逻辑帧
 		std::unordered_map<StateType,Uint64>Animation_LogicDelay;
 		Uint64 Timer = 0;
 		BasicActor* NowActing=nullptr;
+
+
+
+		int SkillPoint = 3;
+		int SkillPointMax = 5;
+
+		std::unordered_map<std::string, std::vector<SDL_FRect>>ui_place;
 	private:
 		int GlobalIdIndex = 0;
 		
@@ -64,6 +79,7 @@ namespace Fight {
 		std::array<std::vector<std::unique_ptr<BasicActor>>, ActorCount >actors;
 		void BuildActionList();
 		void AddtoActionList(ActorList);
+		void AddtoExtraAction(ExtraActorEntry);
 		void RemoveFromActionList_id(int);
 		void RemoveFromActionList_index(size_t);
 		void RemoveFromExtraList_id(int);
@@ -73,6 +89,10 @@ namespace Fight {
 
 		void EnemyStart_Resolution();
 		void EnemyPreparing();
+		void EnemyExecuting();
+		static bool PlaceInside(float x, float y, const SDL_FRect& rect) {
+			return (x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h);
+		}
 	};
 	extern Fight_Logic State;
 }

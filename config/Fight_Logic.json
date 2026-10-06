@@ -1,0 +1,14 @@
+{
+  "Animation_LogicDelay": {
+    "Idle": 1000,
+    "PlayerStart": 1000,
+    "PlayerPreparing": 1000,
+    "PlayerExecuting": 1000,
+    "EnemyStart": 1000,
+    "EnemyPreparing": 1000,
+    "EnemyExecuting": 1000
+  },
+  "SkillPoint": 3,
+  "SkillPointMax": 5
+  
+}

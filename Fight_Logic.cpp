@@ -4,6 +4,8 @@
 #include"Logger.h"
 #include"json.hpp"
 #include<algorithm>
+#include<fstream>
+#include<sstream>
 using Logger::Log;
 using json = nlohmann::json;
 namespace Fight {
@@ -24,6 +26,15 @@ namespace Fight {
 	}
 	void Fight_Logic::AddtoActionList(ActorList act) {
 
+	}
+	void Fight_Logic::AddtoExtraAction(ExtraActorEntry act) {
+		if (act.id == -1)return;
+		auto it = ExtraAction.begin();
+		while (it != ExtraAction.end()
+			&& static_cast<int>(it->Priority) <= static_cast<int>(act.Priority)) {
+			++it;
+		}
+		ExtraAction.insert(it, act);
 	}
 	void Fight_Logic::RemoveFromActionList_id(int id) {
 		if (id == -1) {
@@ -55,8 +66,73 @@ namespace Fight {
 	void Fight_Logic::RemoveFromExtraList_index(size_t index) {
 		ExtraAction.erase(ExtraAction.begin() + index);
 	}
-	void Fight_Logic::LoadinJson(const std::filesystem::path& gp) {//目前没有从json读入的内容，全是内部数据交接
+	void Fight_Logic::LoadinJson(const std::filesystem::path& gp) {
+		std::ifstream configin(gp / "config" / "Fight_Logic.json");//从配置读入
+		if (!configin.is_open()) {
+			Log("Failed to open Fight_Logic.json", __FUNCSIG__, Logcode::OPENFAILED);
+			return;
+		}
+		json js;
+		try {
+			configin >> js;
+		}
+		catch (const std::exception& e) {
+			Log("Failed to parse Fight_Logic.json", __FUNCSIG__, Logcode::PARSEERROR);
+		}
+		auto StateTypeFromString = [](const std::string& str) {
+			if (str == "Idle")return StateType::Idle;
+			else if (str == "EnemyStart")return StateType::EnemyStart;
+			else if (str == "EnemyPreparing")return StateType::EnemyPreparing;
+			else if (str == "EnemyExecuting")return StateType::EnemyExecuting;
+			else if (str == "PlayerStart")return StateType::PlayerStart;
+			
+			else if (str == "PlayerExecuting")return StateType::PlayerExecuting;
+			else return StateType::Idle;
+			};
+		if (js.contains("Animation_LogicDelay") && js["Animation_LogicDelay"].is_object()) {
+			for (auto& [key, value] : js["Animation_LogicDelay"].items()) {
+				if (value.is_number_unsigned()) {
+					Animation_LogicDelay[StateTypeFromString(key)] = value.get<Uint64>();
+				}
+			}
+		}
+		if (js.contains("SkillPoint") && js["SkillPoint"].is_number_integer()) {
+			SkillPoint = js["SkillPoint"].get<int>();
+		}
+		if (js.contains("SkillPointMax") && js["SkillPointMax"].is_number_integer()) {
+			SkillPointMax = js["SkillPointMax"].get<int>();
+		}
 
+		//从配置文件中读取UI位置
+		std::ifstream uiConfigIn(gp / "data" / "Fight_Texture.json");
+		json uiJs;
+		if (!uiConfigIn.is_open()) {
+			Log("Failed to open Fight_Texture.json", __FUNCSIG__, Logcode::OPENFAILED);
+			return;
+		}
+		ui_place.clear();
+		auto ParseFRect = [](const std::string& str) {
+			SDL_FRect rect{ 0,0,0,0 };
+			std::istringstream iss(str);
+			iss >> rect.x >> rect.y >> rect.w >> rect.h;
+			return rect;
+			};
+		try {
+			uiConfigIn >> uiJs;
+		}
+		catch (const std::exception& e) {
+			Log("Failed to parse Fight_Texture.json", __FUNCSIG__, Logcode::PARSEERROR);
+		}
+		if (uiJs.contains("ui") && uiJs["ui"].is_array()) {
+			for (auto& item : uiJs["ui"]) {
+				if (!item.contains("type"))continue;
+				std::string type = item["type"].get<std::string>();
+				if (!item.contains(type))continue;
+				for (const auto& var : item.at(type)) {
+					ui_place[type].push_back(ParseFRect(var.value("place", "0 0 0 0")));
+				}
+			}
+		}
 	}
 	void Fight_Logic::Log_Init() {
 		for (auto& vec : actors) {
@@ -109,17 +185,65 @@ namespace Fight {
 		//Log_Init();
 	}
 	void Fight_Logic::DispatchEvent() {
-		for (auto& event : EventQueue) {
+		auto HandleGlobalEvent = [&](const SDL_Event& event)->bool {
 			switch (event.type) {
 			case SDL_EVENT_KEY_DOWN:
-				switch (event.key.scancode) {
-				case SDL_SCANCODE_ESCAPE:
-					Log(SDL_GetKeyName(event.key.key), __func__);
-					AtFight = FightGlobalState::EndFight;
-					break;
-				default:
-					Log(SDL_GetKeyName(event.key.key), __func__);
-					break;
+				if (event.key.scancode == SDL_SCANCODE_ESCAPE) {
+					AtFight = FightGlobalState::Pause;
+					return 1;
+				}
+				
+				break;
+			case SDL_EVENT_QUIT:
+				AtFight = FightGlobalState::Pause;
+				return 1;
+				break;
+			case SDL_EVENT_MOUSE_BUTTON_DOWN:
+				if (event.button.button == SDL_BUTTON_LEFT) {
+					if (PlaceInside(event.button.x, event.button.y, ui_place["Quit"][0])) {
+						AtFight = FightGlobalState::Pause;
+						return 1;
+					}
+				}
+				break;
+			}
+			return 0;
+			};
+		auto CheckIfUlt = [&](float x, float y)->bool {//坐标版，是否点击了大招并处理
+			for (size_t i = 0;i < ui_place["Ult"].size();i++) {
+				if (PlaceInside(x, y, ui_place["Ult"][i])) {
+					auto* p = dynamic_cast<Character_Actor*>(Actor(PlaceType::FrontCharacter)[i].get());
+					if (p->Energy >= p->config.basic_attribute.EnergyLimit) {
+						AddtoExtraAction({ p->id(),ExtraPriority::CharacterUlt });
+						p->Energy = 0;
+						return 1;
+					}
+				}
+			}
+			return 0;
+			};
+		auto HandleMouseClickEvent = [&](float x, float y) {
+			switch (CurrentState) {
+			case StateType::Idle:
+				CheckIfUlt(x, y);
+				break;
+			case StateType::PlayerStart:
+				if (CheckIfUlt(x, y)) {
+					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
+					CurrentState = StateType::PlayerUlt;
+					NowActing = FindActorFromExtraAction(0);
+				}
+			}
+			};
+		for (auto& event : EventQueue) {
+			if (HandleGlobalEvent(event)) {
+				continue;
+			}
+			switch (event.type) {
+			case SDL_EVENT_MOUSE_BUTTON_DOWN:
+				if (event.button.button == SDL_BUTTON_LEFT) {
+					//处理点击事件
+					HandleMouseClickEvent(event.button.x,event.button.y);
 				}
 				break;
 			}
@@ -229,6 +353,9 @@ namespace Fight {
 		
 	}
 	void Fight_Logic::EnemyPreparing() {
+
+	}
+	void Fight_Logic::EnemyExecuting() {
 
 	}
 }

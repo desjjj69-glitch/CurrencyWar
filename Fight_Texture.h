@@ -18,10 +18,9 @@ namespace Fight {
 		bool jsloaded = false;
 		void LoadinJson(const std::filesystem::path&)override;
 		void LoadinPic(const std::filesystem::path&, SDL_Renderer*&)override;
-		std::unordered_map<std::string, std::vector<SDL_Texture*>> ui_tex;
+		std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture*>> dynamic_ui_tex;
 		std::unordered_map<std::string, std::vector<SDL_FRect>>ui_place;
-		std::unordered_map<std::string, size_t>ui_index_reflect;
-		std::unordered_map<std::string, std::vector<std::string>>ui_path;//各种ui图标
+		std::unordered_map<std::string, std::unordered_map<std::string, std::string>>dynamic_ui_path;//各种ui图标
 
 
 		struct ActionListTexture {
@@ -36,7 +35,6 @@ namespace Fight {
 		std::unordered_map<std::string, SDL_Texture*>actor_tex;
 		std::unordered_map<std::string, SDL_Texture*>extraactor_tex;
 		void ReadActionListPosition(const json& js, ActionListTexture&);
-		size_t QuickIndex(const std::string&, const std::string&);
 		void Draw_Background(SDL_Renderer*&);
 		void Draw_ActionList(SDL_Renderer*&);
 	};
