@@ -1,0 +1,153 @@
+{
+  "Picture Name": {
+    "background": [
+      "background.png"
+    ],
+    "Blood_TotalNum": [
+      "Blood_TotalNum.png"
+    ],
+    "Button_Exit": [
+      "Button_Exit.png"
+    ],
+    "BuyExp": [
+      "BuyExp.png"
+    ],
+    "Character_BackBattleField_Background_6": [
+      "Character_BackBattleField_Background_6.png"
+    ],
+    "Character_FrontBattleField_Background": [
+      "Character_FrontBattleField_Background.png"
+    ],
+    "CharacterOnBattleFieldLimit": [
+      "CharacterOnBattleFieldLimit.png"
+    ],
+    "CharacterOnBench_Background": [
+      "CharacterOnBench_Background.png"
+    ],
+    "ContinueWin": [
+      "ContinueWin.png"
+    ],
+    "MaxShopPoolLevel": [
+      "MaxShopPoolLevel.png"
+    ],
+    "OpenShop": [
+      "OpenShop.png"
+    ],
+    "SellCharacter_Left": [
+      "SellCharacter_Left.png"
+    ],
+    "SellCharacter_Right": [
+      "SellCharacter_Right.png"
+    ],
+    "Shop_Background": [
+      "Shop_Background.png"
+    ],
+    "Shop_CloseShopButton": [
+      "Shop_CloseShopButton.png"
+    ],
+    "Shop_DcardButton": [
+      "Shop_DcardButton.png"
+    ],
+    "Show_Stage": [
+      "Show_Stage.png"
+    ],
+    "Show_StageNodes_Background": [
+      "Show_StageNodes_Background.png"
+    ],
+    "StageResult_Background_Win": [
+      "StageResult_Background_Win.png"
+    ],
+    "StageResult_Continue": [
+      "StageResult_Continue.png"
+    ],
+    "StartFight": [
+      "StartFight.png"
+    ],
+    "GridFightComStarRank": [
+      "GridFightComStarRank1.png",
+      "GridFightComStarRank1.png",
+      "GridFightComStarRank2.png",
+      "GridFightComStarRank3.png",
+      "GridFightComStarRank4.png"
+    ]
+  },
+  "Place": {
+    "background": [
+      "0.0 0.0 2560.0 1600.0"
+    ],
+    "Blood_TotalNum": [
+      "1822.0 75.0 91.0 89.0"
+    ],
+    "Button_Exit": [
+      "0.0 100.0 141.0 84.0"
+    ],
+    "BuyExp": [
+      "235.0 1249.0 201.0 282.79"
+    ],
+    "Character_BackBattleField_Background_6": [
+      "707.0 873.0 1136.0 197.0"
+    ],
+    "Character_FrontBattleField_Background": [
+      "910.0 519.0 726.0 183.0"
+    ],
+    "CharacterOnBattleFieldLimit": [
+      "962.0 345.0 70.0 109.0"
+    ],
+    "CharacterOnBench_Background": [
+      "436.0 1249.0 1518.0 273.0"
+    ],
+    "ContinueWin": [
+      "1994 1249 75 126"
+    ],
+    "MaxShopPoolLevel": [
+      "235.0 1249.0 177.0 264.0"
+    ],
+    "OpenShop": [
+      "2072 1249 186 255"
+    ],
+    "SellCharacter_Left": [
+      "0.0 1249.0 238.0 304.0"
+    ],
+    "SellCharacter_Right": [
+      "2254.0 1251.0 235.0 307.0"
+    ],
+    "Shop_Background": [
+      "454.0 47.0 1827.0 452.0"
+    ],
+    "Shop_CloseShopButton": [
+      "2072 1249 186 255"
+    ],
+    "Shop_DcardButton": [
+      "2054.0 594.0 208.0 212.0"
+    ],
+    "Show_Stage": [
+      "476.0 75.0 91.0 89.0"
+    ],
+    "Show_StageNodes_Background": [
+      "568.0 75.0 1253.0 89.0"
+    ],
+    "StageResult_Background_Win": [
+      "0.0 0.0 0.0 0.0"
+    ],
+    "StageResult_Continue": [
+      "0.0 0.0 0.0 0.0"
+    ],
+    "StartFight": [
+      "2258.0 1137.0 354.0 117.0"
+    ]
+  },
+  "Word": {
+    "Blood": "255 255 255 255 1.5 1845 110 91 89",
+    "ShowStage": "255 255 255 255 1.5 490 110 0 0",
+    "ContinueWinTimes": "255 220 100 255 1 2017 1318 0 0",
+    "ShopLevel": "0 0 0 255 3 332 1336 0 0",
+    "Interest": "80 150 145 255 1.5 2175 1287 0 0",
+    "Money_Normal": "0 0 0 255 1.5 2160 1361",
+    "Money_Shop": "255 255 255 255 1.5 2160 1361",
+    "SellCharacter_Left": "255 255 255 255 1.5 146 1390 0 0",
+    "SellCharacter_Right": "255 255 255 255 1.5 2379 1390 10 10",
+    "DcardMoney": "0 0 0 255 1.5 2174 700 0 0",
+    "ExpNum": "0 0 0 255 1 331 1419 0 0",
+    "EnemyPreview": "0 0 0 255 1 206 63 227 86"
+  }
+}

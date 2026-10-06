@@ -1,0 +1,501 @@
+{
+  "Characters": [
+    {
+      "Name": "Acheron",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Acheron.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Aglaea",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Aglaea.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Anaxa",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Anaxa.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Archer",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Archer.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Argenti",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Argenti.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Ashveil",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Ashveil.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Asta",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Asta.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Aventurine",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Aventurine.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Black_Swan",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Black_Swan.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Blade",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Blade.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Boothill",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Boothill.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Bronya",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Bronya.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Castorice",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Castorice.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Cerydra",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Cerydra.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Cipher",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Cipher.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Cyrene",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Cyrene.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Dan_Heng_Imbibitor_Lunae",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Dan_Heng_Imbibitor_Lunae.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Dan_Heng_Permansor_Terrae",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Dan_Heng_Permansor_Terrae.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Dr.Ratio",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Dr.Ratio.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Evanescia",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Evanescia.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Evernight",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Evernight.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Feixiao",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Feixiao.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Firefly",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Firefly.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Fugue",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Fugue.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Fuxuan",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Fuxuan.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Gallagher",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Gallagher.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Gepard",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Gepard.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Gilgamesh",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Gilgamesh.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Herta",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Herta.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Himeko",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Himeko.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Himeko_Nova",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Himeko_Nova.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Huohuo",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Huohuo.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Hyacine",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Hyacine.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Hysilens",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Hysilens.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Jade",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Jade.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Jiaoqiu",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Jiaoqiu.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Jingliu",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Jingliu.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Jingyuan",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Jingyuan.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Kafka",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Kafka.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Lingsha",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Lingsha.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Luocha",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Luocha.png",
+      "Heart": 100
+    },
+    {
+      "Name": "March7",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "March7.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Mortenax_Blade",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Mortenax_Blade.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Moze",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Moze.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Mydei",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Mydei.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Natasha",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Natasha.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Pela",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Pela.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Phainon",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Phainon.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Qingque",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Qingque.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Rappa",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Rappa.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Rin_Tohsaka",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Rin_Tohsaka.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Robin",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Robin.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Ruanmei",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Ruanmei.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Saber",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Saber.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Sampo",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Sampo.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Seele",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Seele.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Silver_Wolf",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Silver_Wolf.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Silver_Wolf_Lv999",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Silver_Wolf_Lv999.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Sparkle",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Sparkle.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Sparxie",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Sparxie.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Sunday",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Sunday.png",
+      "Heart": 100
+    },
+    {
+      "Name": "The_Dahlia",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "The_Dahlia.png",
+      "Heart": 100
+    },
+    {
+      "Name": "The_Herta",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "The_Herta.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Tingyun",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Tingyun.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Topaz&Numpy",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Topaz&Numpy.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Trailblazer",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Trailblazer.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Tribble",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Tribble.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Welt_Yang",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Welt_Yang.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Yanqing",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Yanqing.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Yaoguang",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Yaoguang.png",
+      "Heart": 100
+    },
+    {
+      "Name": "Yunli",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Yunli.png",
+      "Heart": 100
+    }
+  ]
+}

@@ -1,0 +1,779 @@
+{
+  "Equipment": [
+    {
+      "Name": "Absolute Heat",
+      "Path": "Absolute Heat.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Absolute Heat_Privilege",
+      "Path": "Absolute Heat_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Adaptive Exoskeleton",
+      "Path": "Adaptive Exoskeleton.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Adaptive Exoskeleton_Privilege",
+      "Path": "Adaptive Exoskeleton_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Admin Gloves ProMax",
+      "Path": "Admin Gloves ProMax.png",
+      "Type": ""
+    },
+    {
+      "Name": "Anti-gravity Boots",
+      "Path": "Anti-gravity Boots.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Anti-gravity Boots_Privilege",
+      "Path": "Anti-gravity Boots_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Anti-Satellite Sniper Rifle",
+      "Path": "Anti-Satellite Sniper Rifle.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Anti-Satellite Sniper Rifle_Privilege",
+      "Path": "Anti-Satellite Sniper Rifle_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Avalon",
+      "Path": "Avalon.png",
+      "Type": ""
+    },
+    {
+      "Name": "Bad Joke Engine",
+      "Path": "Bad Joke Engine.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Bad Joke Engine_Privilege",
+      "Path": "Bad Joke Engine_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Batch_Produced_Armor",
+      "Path": "Batch_Produced_Armor.png",
+      "Type": "Basic"
+    },
+    {
+      "Name": "Battlefield Evolution Manual",
+      "Path": "Battlefield Evolution Manual.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Battlefield Evolution Manual_Privilege",
+      "Path": "Battlefield Evolution Manual_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Bloodshot Eyes",
+      "Path": "Bloodshot Eyes.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Bloodshot Eyes_Privilege",
+      "Path": "Bloodshot Eyes_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Blooming Everywhere",
+      "Path": "Blooming Everywhere.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Blooming Everywhere_Privilege",
+      "Path": "Blooming Everywhere_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Blue Diamond",
+      "Path": "Blue Diamond.png",
+      "Type": "Basic"
+    },
+    {
+      "Name": "Chasing Stars",
+      "Path": "Chasing Stars.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Chasing Stars_Privilege",
+      "Path": "Chasing Stars_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Confidence Injector",
+      "Path": "Confidence Injector.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Confidence Injector_Privilege",
+      "Path": "Confidence Injector_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Cover-Generation Gun",
+      "Path": "Cover-Generation Gun.png",
+      "Type": ""
+    },
+    {
+      "Name": "Cover-Generation Gun_Privilege",
+      "Path": "Cover-Generation Gun_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Crack Chip",
+      "Path": "Crack Chip.png",
+      "Type": ""
+    },
+    {
+      "Name": "Cursed_Avalon",
+      "Path": "Cursed_Avalon.png",
+      "Type": ""
+    },
+    {
+      "Name": "Cursed_Enuma Elish",
+      "Path": "Cursed_Enuma Elish.png",
+      "Type": ""
+    },
+    {
+      "Name": "Cursed_Guilty Crown",
+      "Path": "Cursed_Guilty Crown.png",
+      "Type": ""
+    },
+    {
+      "Name": "Cursed_Holy Grail",
+      "Path": "Cursed_Holy Grail.png",
+      "Type": ""
+    },
+    {
+      "Name": "Cursed_Jewel Sword Zelretch",
+      "Path": "Cursed_Jewel Sword Zelretch.png",
+      "Type": ""
+    },
+    {
+      "Name": "Data Copier Max",
+      "Path": "Data Copier Max.png",
+      "Type": ""
+    },
+    {
+      "Name": "Data Copier Pro",
+      "Path": "Data Copier Pro.png",
+      "Type": ""
+    },
+    {
+      "Name": "Data Copier",
+      "Path": "Data Copier.png",
+      "Type": ""
+    },
+    {
+      "Name": "Daybreak_Decapitation Strike",
+      "Path": "Daybreak_Decapitation Strike.png",
+      "Type": ""
+    },
+    {
+      "Name": "Daybreak_Lightspeed Propeller",
+      "Path": "Daybreak_Lightspeed Propeller.png",
+      "Type": ""
+    },
+    {
+      "Name": "Daybreak_Weapon Master",
+      "Path": "Daybreak_Weapon Master.png",
+      "Type": ""
+    },
+    {
+      "Name": "Decapitation Strike",
+      "Path": "Decapitation Strike.png",
+      "Type": ""
+    },
+    {
+      "Name": "Decapitation Strike_Privilege",
+      "Path": "Decapitation Strike_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Disassembly Wrench",
+      "Path": "Disassembly Wrench.png",
+      "Type": "Consumable"
+    },
+    {
+      "Name": "Doppelganger Sunglasses Max",
+      "Path": "Doppelganger Sunglasses Max.png",
+      "Type": ""
+    },
+    {
+      "Name": "Doppelganger Sunglasses",
+      "Path": "Doppelganger Sunglasses.png",
+      "Type": ""
+    },
+    {
+      "Name": "Elation Cartridge Max",
+      "Path": "Elation Cartridge Max.png",
+      "Type": ""
+    },
+    {
+      "Name": "Elation Cartridge",
+      "Path": "Elation Cartridge.png",
+      "Type": ""
+    },
+    {
+      "Name": "Electrified Treads",
+      "Path": "Electrified Treads.png",
+      "Type": ""
+    },
+    {
+      "Name": "Electrified Treads_Privilege",
+      "Path": "Electrified Treads_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Electromagnetic Catapult",
+      "Path": "Electromagnetic Catapult.png",
+      "Type": ""
+    },
+    {
+      "Name": "Electromagnetic Catapult_Privilege",
+      "Path": "Electromagnetic Catapult_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Employee Projector",
+      "Path": "Employee Projector.png",
+      "Type": "Consumable"
+    },
+    {
+      "Name": "Energy Accumulation Sail",
+      "Path": "Energy Accumulation Sail.png",
+      "Type": ""
+    },
+    {
+      "Name": "Energy Accumulation Sail_Privilege",
+      "Path": "Energy Accumulation Sail_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Enuma Elish",
+      "Path": "Enuma Elish.png",
+      "Type": ""
+    },
+    {
+      "Name": "Ether_Drill",
+      "Path": "Ether_Drill.png",
+      "Type": "Basic"
+    },
+    {
+      "Name": "Extreme · Avalon",
+      "Path": "Extreme · Avalon.png",
+      "Type": ""
+    },
+    {
+      "Name": "Extreme · Enuma Elish",
+      "Path": "Extreme · Enuma Elish.png",
+      "Type": ""
+    },
+    {
+      "Name": "Extreme · Jeweled Sword Zelretch",
+      "Path": "Extreme · Jeweled Sword Zelretch.png",
+      "Type": ""
+    },
+    {
+      "Name": "Extreme · Kanshou and Bakuya",
+      "Path": "Extreme · Kanshou and Bakuya.png",
+      "Type": ""
+    },
+    {
+      "Name": "Extreme_Daybreak_Decapitation Strike",
+      "Path": "Extreme_Daybreak_Decapitation Strike.png",
+      "Type": ""
+    },
+    {
+      "Name": "Extreme_Daybreak_Lightspeed Propeller",
+      "Path": "Extreme_Daybreak_Lightspeed Propeller.png",
+      "Type": ""
+    },
+    {
+      "Name": "Extreme_Daybreak_Weapon Master",
+      "Path": "Extreme_Daybreak_Weapon Master.png",
+      "Type": ""
+    },
+    {
+      "Name": "Eye-for-an-Eye Armor",
+      "Path": "Eye-for-an-Eye Armor.png",
+      "Type": ""
+    },
+    {
+      "Name": "Eye-for-an-Eye Armor_Privilege",
+      "Path": "Eye-for-an-Eye Armor_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Firestorm Surge",
+      "Path": "Firestorm Surge.png",
+      "Type": ""
+    },
+    {
+      "Name": "Firestorm Surge_Privilege",
+      "Path": "Firestorm Surge_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Flag of Victory",
+      "Path": "Flag of Victory.png",
+      "Type": ""
+    },
+    {
+      "Name": "Flag of Victory_Privilege",
+      "Path": "Flag of Victory_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Flash Grenade",
+      "Path": "Flash Grenade.png",
+      "Type": ""
+    },
+    {
+      "Name": "Flash Grenade_Privilege",
+      "Path": "Flash Grenade_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Flower_of_Life",
+      "Path": "Flower_of_Life.png",
+      "Type": ""
+    },
+    {
+      "Name": "Folding_Knife",
+      "Path": "Folding_Knife.png",
+      "Type": "Basic"
+    },
+    {
+      "Name": "Fortune",
+      "Path": "Fortune.png",
+      "Type": ""
+    },
+    {
+      "Name": "Fortune_Fate Modification",
+      "Path": "Fortune_Fate Modification.png",
+      "Type": ""
+    },
+    {
+      "Name": "Gae Bolg",
+      "Path": "Gae Bolg.png",
+      "Type": ""
+    },
+    {
+      "Name": "Golden Trash Bag",
+      "Path": "Golden Trash Bag.png",
+      "Type": ""
+    },
+    {
+      "Name": "Guilty Crown",
+      "Path": "Guilty Crown.png",
+      "Type": ""
+    },
+    {
+      "Name": "High-frequency Chainsaw",
+      "Path": "High-frequency Chainsaw.png",
+      "Type": ""
+    },
+    {
+      "Name": "High-frequency Chainsaw_Privilege",
+      "Path": "High-frequency Chainsaw_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Holy Grail",
+      "Path": "Holy Grail.png",
+      "Type": ""
+    },
+    {
+      "Name": "Hot-Blooded Fist",
+      "Path": "Hot-Blooded Fist.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Hot-Blooded Fist_Privilege",
+      "Path": "Hot-Blooded Fist_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Jewel Sword Zelretch",
+      "Path": "Jewel Sword Zelretch.png",
+      "Type": ""
+    },
+    {
+      "Name": "Kanshou and Bakuya",
+      "Path": "Kanshou and Bakuya.png",
+      "Type": ""
+    },
+    {
+      "Name": "Kinetic Stimulus Sword",
+      "Path": "Kinetic Stimulus Sword.png",
+      "Type": "Advanced"
+    },
+    {
+      "Name": "Kinetic Stimulus Sword_Privilege",
+      "Path": "Kinetic Stimulus Sword_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Light-Energy Shield",
+      "Path": "Light-Energy Shield.png",
+      "Type": ""
+    },
+    {
+      "Name": "Light-Energy Shield_Privilege",
+      "Path": "Light-Energy Shield_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Lightspeed Propeller",
+      "Path": "Lightspeed Propeller.png",
+      "Type": ""
+    },
+    {
+      "Name": "Lightspeed Propeller_Privilege",
+      "Path": "Lightspeed Propeller_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Lucky_Star",
+      "Path": "Lucky_Star.png",
+      "Type": "Basic"
+    },
+    {
+      "Name": "Material Decomposition Liquid",
+      "Path": "Material Decomposition Liquid.png",
+      "Type": ""
+    },
+    {
+      "Name": "Material Decomposition Liquid_Privilege",
+      "Path": "Material Decomposition Liquid_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Metallurgical Furnace",
+      "Path": "Metallurgical Furnace.png",
+      "Type": ""
+    },
+    {
+      "Name": "Meteor Wings",
+      "Path": "Meteor Wings.png",
+      "Type": ""
+    },
+    {
+      "Name": "Meteor Wings_Privilege",
+      "Path": "Meteor Wings_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Pain Blocking Chip",
+      "Path": "Pain Blocking Chip.png",
+      "Type": ""
+    },
+    {
+      "Name": "Pain Blocking Chip_Privilege",
+      "Path": "Pain Blocking Chip_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Peace_Pistol",
+      "Path": "Peace_Pistol.png",
+      "Type": "Basic"
+    },
+    {
+      "Name": "Perfect Projector",
+      "Path": "Perfect Projector.png",
+      "Type": ""
+    },
+    {
+      "Name": "Perpetual Motion Machine",
+      "Path": "Perpetual Motion Machine.png",
+      "Type": ""
+    },
+    {
+      "Name": "Perpetual Motion Machine_Privilege",
+      "Path": "Perpetual Motion Machine_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Photon_Battery",
+      "Path": "Photon_Battery.png",
+      "Type": "Basic"
+    },
+    {
+      "Name": "Piggy Bank Virus Max",
+      "Path": "Piggy Bank Virus Max.png",
+      "Type": ""
+    },
+    {
+      "Name": "Planetary Drilling Missile",
+      "Path": "Planetary Drilling Missile.png",
+      "Type": ""
+    },
+    {
+      "Name": "Planetary Drilling Missile_Privilege",
+      "Path": "Planetary Drilling Missile_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Precision Disassembly Wrench",
+      "Path": "Precision Disassembly Wrench.png",
+      "Type": ""
+    },
+    {
+      "Name": "Privilege Grant Card",
+      "Path": "Privilege Grant Card.png",
+      "Type": ""
+    },
+    {
+      "Name": "Randomizer Dice",
+      "Path": "Randomizer Dice.png",
+      "Type": ""
+    },
+    {
+      "Name": "Randomizer Dice_Privilege",
+      "Path": "Randomizer Dice_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Red Diamond",
+      "Path": "Red Diamond.png",
+      "Type": "Basic"
+    },
+    {
+      "Name": "Ring of Life",
+      "Path": "Ring of Life.png",
+      "Type": ""
+    },
+    {
+      "Name": "Ring of Life_Privilege",
+      "Path": "Ring of Life_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Roller_Skates",
+      "Path": "Roller_Skates.png",
+      "Type": "Basic"
+    },
+    {
+      "Name": "Space-Based Orbital Cannon",
+      "Path": "Space-Based Orbital Cannon.png",
+      "Type": ""
+    },
+    {
+      "Name": "Space-Based Orbital Cannon_Privilege",
+      "Path": "Space-Based Orbital Cannon_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Split · Holy Grail",
+      "Path": "Split · Holy Grail.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starbreaker Blade",
+      "Path": "Starbreaker Blade.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starbreaker Blade_Privilege",
+      "Path": "Starbreaker Blade_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Belobog",
+      "Path": "Starlight of Belobog.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Bloodburn",
+      "Path": "Starlight of Bloodburn.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Break",
+      "Path": "Starlight of Break.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Damage over Time",
+      "Path": "Starlight of Damage over Time.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Debuff",
+      "Path": "Starlight of Debuff.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Elation",
+      "Path": "Starlight of Elation.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Energy",
+      "Path": "Starlight of Energy.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Healing",
+      "Path": "Starlight of Healing.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Multi-Target",
+      "Path": "Starlight of Multi-Target.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Pursuit",
+      "Path": "Starlight of Pursuit.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Quantum Resonance",
+      "Path": "Starlight of Quantum Resonance.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Shield",
+      "Path": "Starlight of Shield.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of Skill Point",
+      "Path": "Starlight of Skill Point.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of the Day Demigod",
+      "Path": "Starlight of the Day Demigod.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of the Express Companion",
+      "Path": "Starlight of the Express Companion.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of the Galactic Scholar",
+      "Path": "Starlight of the Galactic Scholar.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of the Holy Grail of Fate",
+      "Path": "Starlight of the Holy Grail of Fate.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of the Interstellar Traveler",
+      "Path": "Starlight of the Interstellar Traveler.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of the Night Demigod",
+      "Path": "Starlight of the Night Demigod.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of the Star of the Gala",
+      "Path": "Starlight of the Star of the Gala.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of the Wolf Hunter",
+      "Path": "Starlight of the Wolf Hunter.png",
+      "Type": ""
+    },
+    {
+      "Name": "Starlight of the Xianzhou",
+      "Path": "Starlight of the Xianzhou.png",
+      "Type": ""
+    },
+    {
+      "Name": "Stellaron Hunter Cartridge Max",
+      "Path": "Stellaron Hunter Cartridge Max.png",
+      "Type": ""
+    },
+    {
+      "Name": "Stellaron Hunter Cartridge",
+      "Path": "Stellaron Hunter Cartridge.png",
+      "Type": ""
+    },
+    {
+      "Name": "Symbol of Fortune",
+      "Path": "Symbol of Fortune.png",
+      "Type": ""
+    },
+    {
+      "Name": "Trash Bag",
+      "Path": "Trash Bag.png",
+      "Type": "Basic"
+    },
+    {
+      "Name": "Trotter Virus Pro",
+      "Path": "Trotter Virus Pro.png",
+      "Type": ""
+    },
+    {
+      "Name": "Trotter Virus",
+      "Path": "Trotter Virus.png",
+      "Type": ""
+    },
+    {
+      "Name": "Very Hard Armor",
+      "Path": "Very Hard Armor.png",
+      "Type": ""
+    },
+    {
+      "Name": "Very Hard Armor_Privilege",
+      "Path": "Very Hard Armor_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Virus Firewall Max",
+      "Path": "Virus Firewall Max.png",
+      "Type": ""
+    },
+    {
+      "Name": "Virus Firewall",
+      "Path": "Virus Firewall.png",
+      "Type": ""
+    },
+    {
+      "Name": "Wealth Keeper's Dream",
+      "Path": "Wealth Keeper's Dream.png",
+      "Type": ""
+    },
+    {
+      "Name": "Weapon Master",
+      "Path": "Weapon Master.png",
+      "Type": ""
+    },
+    {
+      "Name": "Weapon Master_Privilege",
+      "Path": "Weapon Master_Privilege.png",
+      "Type": ""
+    },
+    {
+      "Name": "Wormhole Tunneling Drill",
+      "Path": "Wormhole Tunneling Drill.png",
+      "Type": ""
+    },
+    {
+      "Name": "Wormhole Tunneling Drill_Privilege",
+      "Path": "Wormhole Tunneling Drill_Privilege.png",
+      "Type": ""
+    }
+  ]
+}

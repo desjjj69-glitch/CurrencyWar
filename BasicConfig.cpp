@@ -70,7 +70,7 @@ namespace {
 } // namespace
 
 void BasicConfig::LoadConfig(const std::filesystem::path& gp) {
-    std::ifstream configin(gp / "BasicConfig.ini");
+    std::ifstream configin(gp /"config"/ "BasicConfig.ini");
     if (!configin.is_open()) {
         Log("ConfigInit", __func__, Logcode::OPENFAILED);
         return;

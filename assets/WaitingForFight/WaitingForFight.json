@@ -1,0 +1,132 @@
+{
+    "Picture Name": {
+        "background": [
+            "background.png"
+        ],
+        "Blood_TotalNum": [
+            "Blood_TotalNum.png"
+        ],
+        "Button_Exit": [
+            "Button_Exit.png"
+        ],
+        "BuyExp": [
+            "BuyExp.png"
+        ],
+        "Character_BackBattleField_Background_6": [
+            "Character_BackBattleField_Background_6.png"
+        ],
+        "Character_FrontBattleField_Background": [
+            "Character_FrontBattleField_Background.png"
+        ],
+        "CharacterOnBattleFieldLimit": [
+            "CharacterOnBattleFieldLimit.png"
+        ],
+        "CharacterOnBench_Background": [
+            "CharacterOnBench_Background.png"
+        ],
+        "ContinueWin": [
+            "ContinueWin.png"
+        ],
+        "MaxShopPoolLevel": [
+            "MaxShopPoolLevel.png"
+        ],
+        "OpenShop": [
+            "OpenShop.png"
+        ],
+        "SellCharacter_Left": [
+            "SellCharacter_Left.png"
+        ],
+        "SellCharacter_Right": [
+            "SellCharacter_Right.png"
+        ],
+        "Shop_Background": [
+            "Shop_Background.png"
+        ],
+        "Shop_CloseShopButton": [
+            "Shop_CloseShopButton.png"
+        ],
+        "Shop_DcardButton": [
+            "Shop_DcardButton.png"
+        ],
+        "Show_Stage": [
+            "Show_Stage.png"
+        ],
+        "Show_StageNodes_Background": [
+            "Show_StageNodes_Background.png"
+        ],
+        "StageResult_Background_Win": [
+            "StageResult_Background_Win.png"
+        ],
+        "StageResult_Continue": [
+            "StageResult_Continue.png"
+        ],
+        "StartFight": [
+            "StartFight.png"
+        ]
+    },
+    "Place": {
+        "background": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "Blood_TotalNum": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "Button_Exit": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "BuyExp": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "Character_BackBattleField_Background_6": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "Character_FrontBattleField_Background": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "CharacterOnBattleFieldLimit": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "CharacterOnBench_Background": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "ContinueWin": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "MaxShopPoolLevel": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "OpenShop": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "SellCharacter_Left": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "SellCharacter_Right": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "Shop_Background": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "Shop_CloseShopButton": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "Shop_DcardButton": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "Show_Stage": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "Show_StageNodes_Background": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "StageResult_Background_Win": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "StageResult_Continue": [
+            "0.0 0.0 0.0 0.0"
+        ],
+        "StartFight": [
+            "0.0 0.0 0.0 0.0"
+        ]
+    }
+}

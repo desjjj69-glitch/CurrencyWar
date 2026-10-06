@@ -1,0 +1,1850 @@
+{
+  "Characters": [
+    {
+      "Name": "Acheron",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Acheron.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Aglaea",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Aglaea.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Anaxa",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Anaxa.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Archer",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Archer.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Argenti",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Argenti.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Ashveil",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Ashveil.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Asta",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Asta.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Aventurine",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Aventurine.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Black_Swan",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Black_Swan.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Blade",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Blade.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Boothill",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Boothill.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Bronya",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Bronya.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Castorice",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Castorice.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Cerydra",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Cerydra.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Cipher",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Cipher.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Cyrene",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Cyrene.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Dan_Heng_Imbibitor_Lunae",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Dan_Heng_Imbibitor_Lunae.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Dan_Heng_Permansor_Terrae",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Dan_Heng_Permansor_Terrae.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Dr.Ratio",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Dr.Ratio.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Evanescia",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Evanescia.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Evernight",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Evernight.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Feixiao",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Feixiao.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Firefly",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Firefly.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Fugue",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Fugue.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Fuxuan",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Fuxuan.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Gallagher",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Gallagher.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Gepard",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Gepard.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Gilgamesh",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Gilgamesh.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Herta",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Herta.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Himeko",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Himeko.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Himeko_Nova",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Himeko_Nova.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Huohuo",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Huohuo.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Hyacine",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Hyacine.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Hysilens",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Hysilens.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Jade",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Jade.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Jiaoqiu",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Jiaoqiu.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Jingliu",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Jingliu.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Jingyuan",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Jingyuan.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Kafka",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Kafka.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Lingsha",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Lingsha.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Luocha",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Luocha.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "March7",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "March7.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Mortenax_Blade",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Mortenax_Blade.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Moze",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Moze.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Mydei",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Mydei.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Natasha",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Natasha.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Pela",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Pela.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Phainon",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Phainon.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Qingque",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Qingque.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Rappa",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Rappa.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Rin_Tohsaka",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Rin_Tohsaka.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Robin",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Robin.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Ruanmei",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Ruanmei.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Saber",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Saber.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Sampo",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Sampo.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Seele",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Seele.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Silver_Wolf",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Silver_Wolf.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Silver_Wolf_Lv999",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Silver_Wolf_Lv999.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Sparkle",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Sparkle.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Sparxie",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Sparxie.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Sunday",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Sunday.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "The_Dahlia",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "The_Dahlia.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "The_Herta",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "The_Herta.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Tingyun",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Tingyun.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Topaz&Numpy",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Topaz&Numpy.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Trailblazer",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Trailblazer.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Tribble",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Tribble.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Welt_Yang",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Welt_Yang.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Yanqing",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Yanqing.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Yaoguang",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Yaoguang.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 2000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    },
+    {
+      "Name": "Yunli",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Yunli.png",
+      "GameAttribute": {
+        "SuitPlace": "Front_Back"
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 80,
+        "CritRate": 50,
+        "CritDamage": 100,
+        "Element": "Physic",
+        "BreakEffect": 0,
+        "HealingBonus": 0,
+        "EnergyLimit": 100,
+        "EnergyRecoverEfficiency": 1,
+        "EffectHitRate": 0,
+        "EffectResistance": 0,
+        "ElationRate": 0
+      }
+    }
+  ]
+}

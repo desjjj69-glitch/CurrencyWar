@@ -1,0 +1,1353 @@
+{
+  "Characters": [
+    {
+      "Name": "Acheron",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Acheron.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Aglaea",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Aglaea.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Anaxa",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Anaxa.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Archer",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Archer.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Argenti",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Argenti.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Ashveil",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Ashveil.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Asta",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Asta.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Aventurine",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Aventurine.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Black_Swan",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Black_Swan.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Blade",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Blade.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Boothill",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Boothill.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Bronya",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Bronya.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Castorice",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Castorice.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Cerydra",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Cerydra.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Cipher",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Cipher.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Cyrene",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Cyrene.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Dan_Heng_Imbibitor_Lunae",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Dan_Heng_Imbibitor_Lunae.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Dan_Heng_Permansor_Terrae",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Dan_Heng_Permansor_Terrae.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Dr.Ratio",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Dr.Ratio.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Evanescia",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Evanescia.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Evernight",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Evernight.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Feixiao",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Feixiao.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Firefly",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Firefly.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Fugue",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Fugue.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Fuxuan",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Fuxuan.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Gallagher",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Gallagher.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Gepard",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Gepard.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Gilgamesh",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Gilgamesh.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Herta",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Herta.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Himeko",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Himeko.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Himeko_Nova",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Himeko_Nova.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Huohuo",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Huohuo.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Hyacine",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Hyacine.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Hysilens",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Hysilens.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Jade",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Jade.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Jiaoqiu",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Jiaoqiu.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Jingliu",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Jingliu.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Jingyuan",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Jingyuan.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Kafka",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Kafka.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Lingsha",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Lingsha.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Luocha",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Luocha.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "March7",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "March7.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Mortenax_Blade",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Mortenax_Blade.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Moze",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Moze.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Mydei",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Mydei.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Natasha",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Natasha.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Pela",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Pela.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Phainon",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Phainon.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Qingque",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Qingque.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Rappa",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Rappa.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Rin_Tohsaka",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Rin_Tohsaka.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Robin",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Robin.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Ruanmei",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Ruanmei.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Saber",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Saber.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Sampo",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Sampo.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Seele",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Seele.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Silver_Wolf",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Silver_Wolf.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Silver_Wolf_Lv999",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Silver_Wolf_Lv999.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Sparkle",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Sparkle.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Sparxie",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Sparxie.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Sunday",
+      "Star": 1,
+      "Cost": 3,
+      "Path": "Sunday.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "The_Dahlia",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "The_Dahlia.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "The_Herta",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "The_Herta.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Tingyun",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Tingyun.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Topaz&Numpy",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Topaz&Numpy.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Trailblazer",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Trailblazer.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Tribble",
+      "Star": 1,
+      "Cost": 2,
+      "Path": "Tribble.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Welt_Yang",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Welt_Yang.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Yanqing",
+      "Star": 1,
+      "Cost": 4,
+      "Path": "Yanqing.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Yaoguang",
+      "Star": 1,
+      "Cost": 1,
+      "Path": "Yaoguang.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 2000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    },
+    {
+      "Name": "Yunli",
+      "Star": 1,
+      "Cost": 5,
+      "Path": "Yunli.png",
+      "GameAttribute": {
+        "Exp": 0,
+        "Rank": 1
+      },
+      "BasicAttribute": {
+        "Heart": 3000,
+        "Attack": 2000,
+        "Defense": 1800,
+        "Speed": 100,
+        "Level": 90,
+        "CritRate": 50,
+        "CritDamage": 100
+      }
+    }
+  ]
+}
