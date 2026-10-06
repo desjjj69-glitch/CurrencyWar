@@ -209,11 +209,24 @@ namespace Fight {
 			}
 			return 0;
 			};
-		auto CheckIfUlt = [&](float x, float y)->bool {//坐标版，是否点击了大招并处理
+		auto CheckIfUltbyPos = [&](float x, float y)->bool {//坐标版，是否点击了大招并处理
 			for (size_t i = 0;i < ui_place["Ult"].size();i++) {
 				if (PlaceInside(x, y, ui_place["Ult"][i])) {
 					auto* p = dynamic_cast<Character_Actor*>(Actor(PlaceType::FrontCharacter)[i].get());
-					if (p->Energy >= p->config.basic_attribute.EnergyLimit) {
+					if (p->Energy >= p->config.basic_attribute.EnergyLimit&&p->heart>0) {
+						AddtoExtraAction({ p->id(),ExtraPriority::CharacterUlt });
+						p->Energy = 0;
+						return 1;
+					}
+				}
+			}
+			return 0;
+			};
+		auto CheckIfUltbyKey = [&](const SDL_KeyboardEvent& key) {//键盘版，是否按下了大招并处理
+			for (size_t i = 0;i < ui_place["Ult"].size();i++) {
+				if (key.scancode == SDL_SCANCODE_1 + i) {
+					auto* p = dynamic_cast<Character_Actor*>(Actor(PlaceType::FrontCharacter)[i].get());
+					if (p->Energy >= p->config.basic_attribute.EnergyLimit && p->heart > 0) {
 						AddtoExtraAction({ p->id(),ExtraPriority::CharacterUlt });
 						p->Energy = 0;
 						return 1;
@@ -225,14 +238,119 @@ namespace Fight {
 		auto HandleMouseClickEvent = [&](float x, float y) {
 			switch (CurrentState) {
 			case StateType::Idle:
-				CheckIfUlt(x, y);
+				CheckIfUltbyPos(x, y);
 				break;
 			case StateType::PlayerStart:
-				if (CheckIfUlt(x, y)) {
+				if (CheckIfUltbyPos(x, y)) {
 					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
 					CurrentState = StateType::PlayerUlt;
 					NowActing = FindActorFromExtraAction(0);
+					return;
 				}
+				break;
+			case StateType::PlayerSelecting:
+				if (CheckIfUltbyPos(x, y)) {//如果这次点击的是大招按钮，那么就把当前的选择行为强制结束
+					return;
+				}
+				switch (CurrentCharacterState) {
+				case CharacterState::Normal:
+					if (PlaceInside(x, y, ui_place["Skill"][0])) {
+						CurrentCharacterState = CharacterState::SKill;
+					}
+					break;
+				case CharacterState::SKill:
+					if (PlaceInside(x, y, ui_place["Normal"][0])) {
+						CurrentCharacterState = CharacterState::Normal;
+					}
+					break;
+				}
+				break;
+			case StateType::PlayerExecuting:
+				CheckIfUltbyPos(x, y);
+				break;
+			case StateType::EnemyStart:
+				if (CheckIfUltbyPos(x, y)) {
+					AddtoExtraAction({ NowActing->id(),ExtraPriority::EnemyEnforced });
+					CurrentState = StateType::PlayerUlt;
+					NowActing = FindActorFromExtraAction(0);
+					return;
+				}
+				break;
+			case StateType::EnemyPreparing:
+				CheckIfUltbyPos(x, y);
+				break;
+			case StateType::EnemyExecuting:
+				CheckIfUltbyPos(x, y);
+				break;
+			case StateType::PlayerUlt:
+				CheckIfUltbyPos(x, y);
+				break;
+			case StateType::PlayerUltSelecting:
+				CheckIfUltbyPos(x, y);
+				break;
+			case StateType::PlayerUltExecuting:
+				CheckIfUltbyPos(x, y);
+				break;
+			}
+			
+				
+			};
+		auto HandleKeyBoardEvent = [&](const SDL_KeyboardEvent &key) {
+			switch (CurrentState) {
+			case StateType::Idle:
+				CheckIfUltbyKey(key);
+				break;
+			case StateType::PlayerStart:
+				if (CheckIfUltbyKey(key)) {
+					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
+					CurrentState = StateType::PlayerUlt;
+					NowActing = FindActorFromExtraAction(0);
+					return;
+				}
+				break;
+			case StateType::PlayerSelecting:
+				if (CheckIfUltbyKey(key)) {//如果这次点击的是大招按钮，那么就把当前的选择行为强制结束
+					return;
+				}
+				switch (CurrentCharacterState) {
+				case CharacterState::Normal:
+					if (key.scancode == SDL_SCANCODE_E) {
+						CurrentCharacterState = CharacterState::SKill;
+					}
+					break;
+				case CharacterState::SKill:
+					if (key.scancode == SDL_SCANCODE_Q) {
+						CurrentCharacterState = CharacterState::Normal;
+					}
+					break;
+				}
+				break;
+			case StateType::PlayerExecuting:
+				CheckIfUltbyKey(key);
+				break;
+			case StateType::EnemyStart:
+				if (CheckIfUltbyKey(key)) {
+					AddtoExtraAction({ NowActing->id(),ExtraPriority::EnemyEnforced });
+					CurrentState = StateType::PlayerUlt;
+					NowActing = FindActorFromExtraAction(0);
+					return;
+				}
+				break;
+			case StateType::EnemyPreparing:
+				CheckIfUltbyKey(key);
+				break;
+			case StateType::EnemyExecuting:
+				CheckIfUltbyKey(key);
+				break;
+			case StateType::PlayerUlt:
+				CheckIfUltbyKey(key);
+				break;
+			case StateType::PlayerUltSelecting:
+				CheckIfUltbyKey(key);
+				break;
+			case StateType::PlayerUltExecuting:
+				CheckIfUltbyKey(key);
+				break;
 			}
 			};
 		for (auto& event : EventQueue) {
@@ -246,6 +364,8 @@ namespace Fight {
 					HandleMouseClickEvent(event.button.x,event.button.y);
 				}
 				break;
+			case SDL_EVENT_KEY_DOWN:
+				HandleKeyBoardEvent(event.key);
 			}
 		}
 		
@@ -321,8 +441,34 @@ namespace Fight {
 			}
 				
 			break;
+		case StateType::PlayerUlt:
+			Timer += dt;
+			CurrentCharacterState = CharacterState::Ultimate;
+			if (Timer >= Animation_LogicDelay[StateType::PlayerUlt]) {
+				CurrentState = StateType::PlayerUltSelecting;
+				Timer = 0;
+			}
+			break;
+		case StateType::PlayerUltSelecting:
+			Timer += dt;
+			break;
+		case StateType::PlayerUltExecuting:
+			Timer += dt;
+			if (Timer >= Animation_LogicDelay[StateType::PlayerUltExecuting]) {
+				CurrentState = StateType::Idle;
+				Timer = 0;
+			}
+			break;
+			
 		case StateType::PlayerSelecting:
 			Timer += dt;
+			break;
+		case StateType::PlayerExecuting:
+			Timer += dt;
+			if (Timer >= Animation_LogicDelay[StateType::PlayerExecuting]) {
+				CurrentState = StateType::Idle;
+				Timer = 0;
+			}
 			break;
 		case StateType::EnemyStart:
 			Timer += dt;
@@ -347,6 +493,7 @@ namespace Fight {
 				Timer = 0;
 			}
 			break;
+			
 		}
 	}
 	void Fight_Logic::EnemyStart_Resolution() {
@@ -357,5 +504,8 @@ namespace Fight {
 	}
 	void Fight_Logic::EnemyExecuting() {
 
+	}
+	void Fight_Logic::CharacterStart_Resolution(Character_Actor* act) {
+		
 	}
 }

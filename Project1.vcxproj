@@ -223,15 +223,15 @@ xcopy /y /i "$(SolutionDir)lib\bin\*.dll" "$(OutDir)"</Command>
     <None Include="data\Fight_Texture.json" />
     <None Include="data\WaitingForFight.json" />
     <None Include="data\WaitingForFight_ObjectPlace.json" />
-    <None Include="lib\bin\libavif-16.dll" />
-    <None Include="lib\bin\libpng16-16.dll" />
-    <None Include="lib\bin\libtiff-6.dll" />
-    <None Include="lib\bin\libwebp-7.dll" />
-    <None Include="lib\bin\libwebpdemux-2.dll" />
-    <None Include="lib\bin\libwebpmux-3.dll" />
-    <None Include="lib\bin\SDL3.dll" />
-    <None Include="lib\bin\SDL3_image.dll" />
-    <None Include="lib\bin\SDL3_ttf.dll" />
+    <None Include="lib\dll\libavif-16.dll" />
+    <None Include="lib\dll\libpng16-16.dll" />
+    <None Include="lib\dll\libtiff-6.dll" />
+    <None Include="lib\dll\libwebp-7.dll" />
+    <None Include="lib\dll\libwebpdemux-2.dll" />
+    <None Include="lib\dll\libwebpmux-3.dll" />
+    <None Include="lib\dll\SDL3.dll" />
+    <None Include="lib\dll\SDL3_image.dll" />
+    <None Include="lib\dll\SDL3_ttf.dll" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\管理图像资源.txt" />

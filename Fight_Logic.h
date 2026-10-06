@@ -44,6 +44,8 @@ namespace Fight {
 			Idle,               // 空闲：在等玩家输入 / 在等行动条的下一项
 			PlayerStart,//角色回合开始，结算角色身上挂的dot伤害
 			PlayerUlt,//角色大招回合
+			PlayerUltSelecting,//角色大招选择目标
+			PlayerUltExecuting,//角色大招执行,只是角色大招不允许插入别的大招，所以更加特殊
 			PlayerSelecting,    // 玩家正在选技能/选目标
 			PlayerExecuting,    // 玩家动作的动画/结算播放中
 			EnemyStart,     // 敌人结算dot伤害
@@ -90,6 +92,8 @@ namespace Fight {
 		void EnemyStart_Resolution();
 		void EnemyPreparing();
 		void EnemyExecuting();
+
+		void CharacterStart_Resolution(Character_Actor*);
 		static bool PlaceInside(float x, float y, const SDL_FRect& rect) {
 			return (x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h);
 		}

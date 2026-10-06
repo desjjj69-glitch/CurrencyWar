@@ -38,6 +38,24 @@
           "place": "380 70 152 67"
         }
       ]
+    },
+    {
+      "type": "Skill",
+      "Skill": [
+        {
+          "index": 0,
+          "place": "300 300 300 300"
+        }
+      ]
+    },
+    {
+      "type": "Normal",
+      "Normal": [
+        {
+          "index": 0,
+          "place": "300 300 300 300"
+        }
+      ]
     }
   ],
   "dynamic_ui": {
