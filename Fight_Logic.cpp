@@ -6,6 +6,7 @@
 #include<algorithm>
 #include<fstream>
 #include<sstream>
+#include"BasicGameResource.h"
 using Logger::Log;
 using json = nlohmann::json;
 namespace Fight {
@@ -422,6 +423,7 @@ namespace Fight {
 		EventQueue.clear();
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
+			SDL_ConvertEventToRenderCoordinates(BasicGameRes.GameRenderer, &event);
 			EventQueue.push_back(event);
 		}
 	}

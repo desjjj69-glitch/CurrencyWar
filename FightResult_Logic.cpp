@@ -1,6 +1,7 @@
 #include"FightResult_Logic.h"
 #include"StageData.h"
 #include"SDL_Functions.h"
+#include"BasicGameResource.h"
 namespace FightResult {
 	Logic State;
 	void Logic::Handle() {
@@ -9,6 +10,7 @@ namespace FightResult {
 	void Logic::EventLogic() {
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
+			SDL_ConvertEventToRenderCoordinates(BasicGameRes.GameRenderer, &event);
 			switch (event.type) {
 			case SDL_EVENT_KEY_DOWN:
 				switch (event.key.scancode) {

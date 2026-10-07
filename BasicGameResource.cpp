@@ -13,6 +13,12 @@ void BasicGameResource::init() {
 	);
 	Log("Window", __func__, GameWindow == nullptr?Logcode::CREATEFAILED:Logcode::OK);
 	GameRenderer = SDL_CreateRenderer(GameWindow, NULL);
+	SDL_SetRenderLogicalPresentation(
+		GameRenderer,
+		2560,
+		1600,
+		SDL_LOGICAL_PRESENTATION_LETTERBOX
+	);
 	Log("Renderer", __func__, GameRenderer == nullptr ? Logcode::CREATEFAILED : Logcode::OK);
 	TTF_Init();
 	GameFont = TTF_OpenFont((GamePath / "assets" / GameConfig.FontName).string().c_str(), GameConfig.FontSize);

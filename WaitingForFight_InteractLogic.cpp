@@ -1,4 +1,5 @@
 #include"WaitingForFight_InteractLogic.h"
+#include"BasicGameResource.h"
 #include"json.hpp"
 #include"Logger.h"
 #include"StageData.h"
@@ -180,6 +181,7 @@ namespace WaitingForFight {
 	void Logic::EventLogic(SDL_Event& event) {
 		Uint64 now = 0;
 		while (SDL_PollEvent(&event)) {
+			SDL_ConvertEventToRenderCoordinates(BasicGameRes.GameRenderer, &event);
 			HandleEvent(event);
 			if (event.type == SDL_EVENT_MOUSE_MOTION) {
 				MotionX = event.motion.x;
