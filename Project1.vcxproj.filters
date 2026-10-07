@@ -93,6 +93,9 @@
     <ClCompile Include="Skill\SkillFactory.cpp">
       <Filter>Skill</Filter>
     </ClCompile>
+    <ClCompile Include="ParseSkill.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="json.hpp">
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="Skill\SkillFactory.h">
       <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="ParseSkill.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

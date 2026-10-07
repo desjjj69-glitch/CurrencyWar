@@ -16,7 +16,7 @@ namespace Attribute {
 		int star = 1;
 		int Level = 90;
 		std::unordered_map<ElementType, double>Resistance_ElementDamageResistance;
-		std::vector<AttackForm>SKills;
+		std::vector<AttackForm>Skills;
 	};
 }
 class EnemyObject :public BasicObject {
@@ -27,8 +27,10 @@ public:
 	std::string name;
 	Attribute::Enemy_Attribute attribute;
 	std::vector<std::string> mobs;//如果是boss就启用这个数组
+	
 };
 namespace Object {
 	extern std::unordered_map<std::string, EnemyObject>Enemy_DefaultSetting;
 	void Enemy_LoadinJson(const std::filesystem::path&, std::vector<EnemyObject>&);//先读入3个boss再说
+	
 }

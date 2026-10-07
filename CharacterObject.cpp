@@ -1,4 +1,5 @@
 #include"CharacterObject.h"
+#include"ParseSkill.h"
 #include<fstream>
 #include"json.hpp"
 #include"Logger.h"
@@ -16,16 +17,7 @@ namespace Object{
 		return Attribute::SuitPlace::Front_Back; // 默认
 	}
 
-	static Attribute::ElementType ParseElement(const std::string& s) {
-		if (s == "Physic")     return Attribute::ElementType::Physic;
-		if (s == "Fire")       return Attribute::ElementType::Fire;
-		if (s == "Ice")        return Attribute::ElementType::Ice;
-		if (s == "Electro")    return Attribute::ElementType::Electro;
-		if (s == "Wind")       return Attribute::ElementType::Wind;
-		if (s == "Quantum")    return Attribute::ElementType::Quantum;
-		if (s == "Imaginary")  return Attribute::ElementType::Imaginary;
-		return Attribute::ElementType::Physic;
-	}
+	
     void Object::Character_LoadinJson(const std::filesystem::path& gp) {
         std::ifstream configin(gp/"data"/"BasicCharacterSettings.json");
         if (!configin.is_open()) return;

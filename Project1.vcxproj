@@ -176,6 +176,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="Fight_Update.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ParseSkill.cpp" />
     <ClCompile Include="SDL_Functions.cpp" />
     <ClCompile Include="Skill\DataDrivenSkill.cpp" />
     <ClCompile Include="Skill\SkillFactory.cpp" />
@@ -212,6 +213,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="FightResult_Logic.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="ParseSkill.h" />
     <ClInclude Include="SDL_Functions.h" />
     <ClInclude Include="SkillTargets.h" />
     <ClInclude Include="Skill\DataDrivenSkill.h" />

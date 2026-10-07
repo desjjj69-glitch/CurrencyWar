@@ -7,7 +7,7 @@ namespace Fight {
 		CurrentHeart = config.attribute.heart;
 		Speed = config.attribute.speed;
 		skills.clear();
-		for (const auto& skill : config.attribute.SKills) {
+		for (const auto& skill : config.attribute.Skills) {
 			skills.push_back(CreateSkill(skill));
 		}
 	}

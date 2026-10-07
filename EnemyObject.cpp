@@ -2,6 +2,7 @@
 #include"Logger.h"
 #include"json.hpp"
 #include"GetRandomNum.h"
+#include"ParseSkill.h"
 #include<fstream>
 #include<filesystem>
 using Logger::Log;
@@ -11,7 +12,38 @@ WaitingForFight::ResourceType EnemyObject::Type()const {
 }
 namespace Object {
 	std::unordered_map<std::string, EnemyObject>Enemy_DefaultSetting;
+    
 
+    static Attribute::AttackForm ParseAttackForm(const json& j) {
+        Attribute::AttackForm form;
+
+        form.id = j.value("id", std::string(""));
+        form.name = j.value("name", std::string(""));
+
+        form.slot = ParseSkillSlot(j.value("slot", std::string("Normal")));
+        form.target = ParseTargetAttackType(j.value("target", std::string("Single")));
+        form.element = ParseElement(j.value("element", std::string("Physic")));
+
+        if (j.contains("types") && j["types"].is_array()) {
+            for (const auto& t : j["types"]) {
+                if (t.is_string()) {
+                    form.types.push_back(ParseAttackType(t.get<std::string>()));
+                }
+            }
+        }
+        if (form.types.empty()) {
+            form.types.push_back(Attribute::AttackType::Normal);
+        }
+
+        form.atkScale = j.value("atkScale", 0.0);
+        form.hpScale = j.value("hpScale", 0.0);
+        form.defScale = j.value("defScale", 0.0);
+        form.hitCount = j.value("hitCount", 1);
+        form.breakValue = j.value("breakValue", 0.0);
+        form.energyGain = j.value("energyGain", 0.0);
+
+        return form;
+    }
 	static void LoadAttribute(Attribute::Enemy_Attribute& attr, const json& j) {
 		if (!j.is_object()) return;
 		if (j.contains("Heart"))   attr.heart = j.at("Heart").get<Attribute::HeartType>();
@@ -20,7 +52,14 @@ namespace Object {
 		if (j.contains("Speed"))   attr.speed = j.at("Speed").get<Attribute::SpeedType>();
 		if (j.contains("Star"))    attr.star = j.at("Star").get<int>();
 		if (j.contains("Level"))   attr.Level = j.at("Level").get<int>();
-	}
+        if (j.contains("Skills") && j["Skills"].is_array()) {
+            attr.Skills.clear();   
+            for (const auto& skillJson : j["Skills"]) {
+                if (!skillJson.is_object()) continue;
+                attr.Skills.push_back(ParseAttackForm(skillJson));
+            }
+        }
+    }
     void Enemy_LoadinJson(const std::filesystem::path& gp, std::vector<EnemyObject>& Boss) {
 
         Boss.clear();
@@ -95,4 +134,6 @@ namespace Object {
             }
         }
     }
+    
+    
 }
