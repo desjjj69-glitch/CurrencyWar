@@ -363,7 +363,7 @@
                         "id": "mob_normal_attack",
                         "name": "普通攻击",
                         "slot": "Normal",
-                        "target": "Single",
+                        "target": "Blast",
                         "types": [
                             "Normal"
                         ],
@@ -394,7 +394,7 @@
                         "id": "mob_normal_attack",
                         "name": "普通攻击",
                         "slot": "Normal",
-                        "target": "Single",
+                        "target": "Blast",
                         "types": [
                             "Normal"
                         ],
@@ -425,7 +425,7 @@
                         "id": "mob_normal_attack",
                         "name": "普通攻击",
                         "slot": "Normal",
-                        "target": "Single",
+                        "target": "Blast",
                         "types": [
                             "Normal"
                         ],
@@ -456,7 +456,7 @@
                         "id": "mob_normal_attack",
                         "name": "普通攻击",
                         "slot": "Normal",
-                        "target": "Single",
+                        "target": "Blast",
                         "types": [
                             "Normal"
                         ],
@@ -518,7 +518,7 @@
                         "id": "mob_normal_attack",
                         "name": "普通攻击",
                         "slot": "Normal",
-                        "target": "Single",
+                        "target": "Blast",
                         "types": [
                             "Normal"
                         ],
@@ -580,7 +580,7 @@
                         "id": "mob_normal_attack",
                         "name": "普通攻击",
                         "slot": "Normal",
-                        "target": "Single",
+                        "target": "Blast",
                         "types": [
                             "Normal"
                         ],
@@ -1138,7 +1138,7 @@
                         "id": "mob_normal_attack",
                         "name": "普通攻击",
                         "slot": "Normal",
-                        "target": "Single",
+                        "target": "Blast",
                         "types": [
                             "Normal"
                         ],
@@ -1169,7 +1169,7 @@
                         "id": "mob_normal_attack",
                         "name": "普通攻击",
                         "slot": "Normal",
-                        "target": "Single",
+                        "target": "Blast",
                         "types": [
                             "Normal"
                         ],

@@ -5,14 +5,25 @@ void BasicGameResource::init() {
 	GamePath = SDL_GetBasePath();
 	GameConfig.LoadConfig(GamePath);
 	Log("SDL_Init",__func__, SDL_Init(GameConfig.GameMode)?Logcode::OK:Logcode::ERROR);
+	
+	int w = static_cast<int>(GameConfig.WindowW);
+	int h = static_cast<int>(GameConfig.WindowH);
+	SDL_Rect usable{ 0, 0, 0, 0 };
+	if (SDL_GetDisplayUsableBounds(SDL_GetPrimaryDisplay(), &usable)) {
+		
+	}
+	GameConfig.WindowMode |= SDL_WINDOW_RESIZABLE;
 	GameWindow = SDL_CreateWindow(
 		GameConfig.GameName.c_str(),
-		static_cast<int>(GameConfig.WindowW),
-		static_cast<int>(GameConfig.WindowH),
+		static_cast<int>(w),
+		static_cast<int>(h),
 		GameConfig.WindowMode
 	);
 	Log("Window", __func__, GameWindow == nullptr?Logcode::CREATEFAILED:Logcode::OK);
 	GameRenderer = SDL_CreateRenderer(GameWindow, NULL);
+	if (usable.w > 0 && usable.h > 0) {
+		SDL_SetWindowPosition(GameWindow, usable.x+100, usable.y+100);
+	}
 	SDL_SetRenderLogicalPresentation(
 		GameRenderer,
 		2560,

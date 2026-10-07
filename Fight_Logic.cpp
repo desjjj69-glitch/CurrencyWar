@@ -3,6 +3,7 @@
 #include"SDL_Functions.h"
 #include"Logger.h"
 #include"json.hpp"
+#include"GetRandomNum.h"
 #include<algorithm>
 #include<fstream>
 #include<sstream>
@@ -61,7 +62,7 @@ namespace Fight {
 		if (!act || act->id() == -1 || act->Speed == 0) {
 			return;
 		}
-		act->ActionValue = ActionValueInaRound / act->Speed;
+		act->ActionValue += ActionValueInaRound / act->Speed;
 		AddtoActionList({ act->id(),act->ActionValue });
 	}
 	void Fight_Logic::AddtoExtraAction(ExtraActorEntry act) {
@@ -201,7 +202,17 @@ namespace Fight {
 		for (auto& var : actors) {
 			var.clear();//把上一次战斗所有内容都清除
 		}
-		
+		ActionList.clear();
+		ExtraAction.clear();
+		EnemyActorPool.clear();
+		CurrentState = StateType::Idle;
+		CurrentCharacterState = CharacterState::Normal;
+		NowActing = nullptr;
+		Now_skill = nullptr;
+		skill_targets.list.clear();
+
+
+		//接下来才是新写入
 		for (auto& var : *(g_WaitingForFight_to_Fight.FrontCharacter)) {
 			if (auto* charObjPtr = dynamic_cast<CharacterObject*>(var.get())) {
 				auto tmp = std::make_unique<Character_Actor>();
@@ -219,7 +230,14 @@ namespace Fight {
 		for (auto& var : *(g_WaitingForFight_to_Fight.Enemys)) {
 			auto tmp = std::make_unique<Enemy_Actor>();
 			tmp->NewActor(var.name,g_WaitingForFight_to_Fight.difficulty);
-			Actor(PlaceType::Enemy).push_back(std::move(tmp));
+			EnemyActorPool.push_back(std::move(tmp));//先把敌人写进池子
+		}
+		for (auto& var : EnemyActorPool) {
+			if (!var)continue;
+			auto& enemyact = Actor(PlaceType::Enemy);
+			if (enemyact.size() < EnemyOnStageNumLimit) {
+				enemyact.push_back(std::move(var));
+			}
 		}
 		//接下来给所有Actor附上唯一编号
 		for (auto& vec : actors) {
@@ -306,10 +324,16 @@ namespace Fight {
 					if (PlaceInside(x, y, ui_place["Skill"][0])) {
 						CurrentCharacterState = CharacterState::SKill;
 					}
+					if (PlaceInside(x, y, ui_place["Normal"][0])) {
+						CurrentState = StateType::PlayerExecuting;
+					}
 					break;
 				case CharacterState::SKill:
 					if (PlaceInside(x, y, ui_place["Normal"][0])) {
 						CurrentCharacterState = CharacterState::Normal;
+					}
+					if (PlaceInside(x, y, ui_place["Skill"][0])) {
+						CurrentState = StateType::PlayerExecuting;
 					}
 					break;
 				}
@@ -367,9 +391,15 @@ namespace Fight {
 						CurrentCharacterState = CharacterState::SKill;
 					}
 					break;
+					if (key.scancode == SDL_SCANCODE_Q || key.scancode == SDL_SCANCODE_SPACE) {
+						CurrentState = StateType::PlayerExecuting;
+					}
 				case CharacterState::SKill:
 					if (key.scancode == SDL_SCANCODE_Q) {
 						CurrentCharacterState = CharacterState::Normal;
+					}
+					if (key.scancode == SDL_SCANCODE_E || key.scancode == SDL_SCANCODE_SPACE) {
+						CurrentState = StateType::PlayerExecuting;
 					}
 					break;
 				}
@@ -550,27 +580,139 @@ namespace Fight {
 			break;
 			
 		}
+		//在一次行动之后，要把已经死亡的角色/敌人移除行动条，并可能加入新的敌人
+		for (auto& var : Actor(PlaceType::FrontCharacter)) {
+			auto* p = dynamic_cast<Character_Actor*>(var.get());
+			if (!p)continue;
+			if (p->heart <= 0) {
+				RemoveFromExtraList_id(p->id());
+				RemoveFromActionList_id(p->id());
+				var.reset();
+			}
+		}
+		auto GetEnemyFromPool = [&]() ->std::unique_ptr<BasicActor>{
+			for (auto& var : EnemyActorPool) {
+				if (var) {
+					return std::move(var);
+				}
+			}
+			return nullptr;
+			};
+		for (auto& var : Actor(PlaceType::Enemy)) {
+			auto* p = dynamic_cast<Enemy_Actor*>(var.get());
+			if (!p)continue;
+			if (p->CurrentHeart <= 0) {
+				RemoveFromActionList_id(p->id());
+				RemoveFromExtraList_id(p->id());
+				var.reset();
+				var = GetEnemyFromPool();
+			}
+		}
+		//先检测敌人是不是打完，如果打完，哪怕角色都没了也能赢
+		int flag = -1;
+		for (auto& var : Actor(PlaceType::Enemy)) {
+			if (var) {
+				flag = 0;
+				break;
+			}
+		}
+		if (flag == -1) {
+			DataHandOff(1);
+		}
+		for (auto& var : Actor(PlaceType::FrontCharacter)) {
+			if (var) {
+				flag = 1;
+			}
+		}
+		if (flag == 0) {
+			DataHandOff(0);
+		}
 	}
 	void Fight_Logic::EnemyStart_Resolution() {
 		
 	}
-	void Fight_Logic::EnemyPreparing() {
+	void Fight_Logic::BuildEnemyTargets(const std::vector<std::unique_ptr<Fight::BasicActor>>& front,
+		Attribute::TargetAttackType type,
+		Fight::SkillTargets& out)
+	{
+		out.list.clear();
 
+		// 收集所有非空位置
+		std::vector<size_t> valid;
+		valid.reserve(front.size());
+		for (size_t i = 0; i < front.size(); ++i) {
+			if (front[i]) valid.push_back(i);
+		}
+		if (valid.empty()) return;
+
+		auto randValidIndex = [&]() -> size_t {
+			int r = GetRandomNum(0, static_cast<int>(valid.size()) - 1);
+			return valid[static_cast<size_t>(r)];
+			};
+
+		auto pushTarget = [&](size_t index,
+			Fight::TargetRole role,
+			double multiplier = 1.0) {
+				if (index < front.size() && front[index]) {
+					out.list.push_back({ front[index].get(), role, multiplier });
+				}
+			};
+
+		switch (type) {
+		case Attribute::TargetAttackType::Single: {
+			pushTarget(randValidIndex(), Fight::TargetRole::Main);
+			break;
+		}
+		case Attribute::TargetAttackType::AoE: {
+			for (size_t i : valid) pushTarget(i, Fight::TargetRole::Main);
+			break;
+		}
+		case Attribute::TargetAttackType::Bounce: {
+			size_t mainIndex = randValidIndex();
+			pushTarget(mainIndex, Fight::TargetRole::Main);
+			for (size_t i : valid) {
+				if (i == mainIndex) continue;
+				pushTarget(i, Fight::TargetRole::Sub);
+			}
+			break;
+		}
+		case Attribute::TargetAttackType::Blast: {
+			size_t mainIndex = randValidIndex();
+			pushTarget(mainIndex, Fight::TargetRole::Main);
+			if (mainIndex > 0)                    pushTarget(mainIndex - 1, Fight::TargetRole::Adjacent);
+			if (mainIndex + 1 < front.size())     pushTarget(mainIndex + 1, Fight::TargetRole::Adjacent);
+			break;
+		}
+		default: break;
+		}
+	}
+	void Fight_Logic::EnemyPreparing() {//选择技能和目标
+		auto& front = Actor(PlaceType::FrontCharacter);
+		if (!NowActing)return;
+		if (NowActing->Type() != ActorType::Enemy)return;
+		auto* p = static_cast<Enemy_Actor*>(NowActing);
+		auto& skill_list = p->Skills();
+		Now_skill = nullptr;
+		skill_targets.list.clear();//清理掉之前的残留
+		if (skill_list.empty())return;
+		Now_skill = skill_list[static_cast<size_t>(GetRandomNum(0, static_cast<int>(skill_list.size())-1))].get();//选择一个技能
+		if (front.empty())return;
+		BuildEnemyTargets(front, Now_skill->form.target, skill_targets);
 	}
 	void Fight_Logic::EnemyExecuting() {
 		if (!NowActing)
 			return;
 		Log(NowActing->Name(), __func__);
-		auto* skill = NowActing->GetSkillByIndex(0);//技能暂时写死
-		if (!skill)
+		
+		if (!Now_skill)
 			return;
-		SkillTargets targets;//技能目标暂时写死
-		auto& front = Actor(PlaceType::FrontCharacter);
-		if (!front.empty()) {
-			targets.list.push_back({ front[0].get(), TargetRole::Main, 1.0 });
-		}
+		
+		//auto& front = Actor(PlaceType::FrontCharacter);
+		//if (!front.empty()) {
+		//	skill_targets.list.push_back({ front[0].get(), TargetRole::Main, 1.0 });
+		//}
 
-		skill->Execute(NowActing, targets, *this);
+		Now_skill->Execute(NowActing, skill_targets, *this);
 	}
 	void Fight_Logic::CharacterStart_Resolution(Character_Actor* act) {
 		
@@ -590,6 +732,9 @@ namespace Fight {
 
 	}
 	void Fight_Logic::ApplyBuff(BasicActor* target, const std::string& buffId) {
+
+	}
+	void Fight_Logic::DataHandOff(int wintype) {//标志位为胜利还是失败,0是失败，1是胜利
 
 	}
 }

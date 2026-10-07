@@ -71,7 +71,8 @@ namespace Fight {
 		BasicActor* NowActing=nullptr;
 
 
-
+		SkillTargets skill_targets;
+		BasicSkill* Now_skill=nullptr;
 		int SkillPoint = 3;
 		int SkillPointMax = 5;
 
@@ -90,6 +91,8 @@ namespace Fight {
 		
 		static constexpr size_t ActorCount = static_cast<size_t>(PlaceType::Count);
 		std::array<std::vector<std::unique_ptr<BasicActor>>, ActorCount >actors;
+		std::vector<std::unique_ptr<BasicActor>> EnemyActorPool;
+		static constexpr size_t EnemyOnStageNumLimit = 5;
 		void BuildActionList();
 		void AddtoActionList(ActorList);
 		void AddtoActionList(BasicActor*);
@@ -102,6 +105,9 @@ namespace Fight {
 		void Log_Init();
 
 		void EnemyStart_Resolution();
+		void BuildEnemyTargets(const std::vector<std::unique_ptr<Fight::BasicActor>>&,
+			Attribute::TargetAttackType,
+			Fight::SkillTargets&);
 		void EnemyPreparing();
 		void EnemyExecuting();
 
@@ -109,6 +115,7 @@ namespace Fight {
 		static bool PlaceInside(float x, float y, const SDL_FRect& rect) {
 			return (x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h);
 		}
+		void DataHandOff(int);
 	};
 	extern Fight_Logic State;
 }

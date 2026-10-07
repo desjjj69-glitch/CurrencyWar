@@ -152,7 +152,25 @@ namespace Fight {
 			actionlist_place.startw,
 			actionlist_place.starth
 		};
+		if (State.NowActing) {
+			SDL_FRect nowrect = {
+				nrect.x,
+				nrect.y - 0.2f * nrect.h,
+				nrect.w * 1.2f,
+				nrect.h * 1.2f
+			};
+			
+
+			auto key = State.NowActing->Name();
+			if (State.NowActing->Type() == ActorType::Enemy) {
+				key += "_Head";
+			}
+
+			SDL_RenderTexture(rdr, actor_tex[key], NULL, &nowrect);
+		}
 		for (size_t i = 0;i < State.ActionList.size();i++) {
+			nrect.y += nrect.h;
+			if (nrect.y > actionlist_place.endy)break;//超出了就停止绘制
 			auto* p = State.FindActorFromActionList(i);
 			if (!p)break;
 
@@ -160,10 +178,10 @@ namespace Fight {
 			if (p->Type() == ActorType::Enemy) {
 				key += "_Head";
 			}
+			
 			SDL_RenderTexture(rdr, actor_tex[key], NULL, &nrect);
 			
-			nrect.y += nrect.h;
-			if (nrect.y > actionlist_place.endy)break;//超出了就停止绘制
+			
 		}
 		SDL_FRect exrect = {
 			actionlist_place.extrax,
@@ -181,11 +199,11 @@ namespace Fight {
 	}
 	void Fight_Texture::Draw_Pause(SDL_Renderer*& rdr, TTF_Font*& ft) {
 		int w = 0, h = 0;
-		SDL_GetRenderOutputSize(rdr, &w, &h);   // SDL3，比 GetWindowSize 更准
+		
 
 		
 		SDL_SetRenderDrawColor(rdr, 128, 128, 128, 128);
-		SDL_FRect full{ 0.f, 0.f, (float)w, (float)h };
+		SDL_FRect full{ 0.f, 0.f, 2560, 1600 };
 		SDL_RenderFillRect(rdr, &full);
 
 		
