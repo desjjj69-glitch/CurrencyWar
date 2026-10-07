@@ -1,6 +1,7 @@
 #pragma once
 #include"BasicObject.h"
 #include"AttributeTypes.h"
+#include"AttackForm.h"
 #include<string>
 #include<unordered_map>
 #include<vector>
@@ -15,6 +16,7 @@ namespace Attribute {
 		int star = 1;
 		int Level = 90;
 		std::unordered_map<ElementType, double>Resistance_ElementDamageResistance;
+		std::vector<AttackForm>SKills;
 	};
 }
 class EnemyObject :public BasicObject {

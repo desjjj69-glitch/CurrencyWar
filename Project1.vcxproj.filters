@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Skill">
+      <UniqueIdentifier>{a1d169a0-64c9-42eb-bbe4-5c5a18b3e8b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +83,15 @@
     </ClCompile>
     <ClCompile Include="Fight_EnemyActor.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicActor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill\DataDrivenSkill.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill\SkillFactory.cpp">
+      <Filter>Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +184,24 @@
     </ClInclude>
     <ClInclude Include="AttributeTypes.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicSkill.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackForm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillTargets.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleContext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\DataDrivenSkill.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\SkillFactory.h">
+      <Filter>Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

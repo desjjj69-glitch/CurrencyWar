@@ -3,6 +3,7 @@
 #include"Fight_CharacterActor.h"
 #include"Fight_EnemyActor.h"
 #include"BasicActor.h"
+#include"BattleContext.h"
 #include"SDL_Functions.h"
 #include<unordered_map>
 #include<memory>
@@ -10,7 +11,7 @@
 #include<vector>
 #include<array>
 namespace Fight {
-	class Fight_Logic {
+	class Fight_Logic : public BattleContext {
 	public:
 		enum class PlaceType {
 			FrontCharacter,
@@ -75,6 +76,15 @@ namespace Fight {
 		int SkillPointMax = 5;
 
 		std::unordered_map<std::string, std::vector<SDL_FRect>>ui_place;
+
+
+
+		~Fight_Logic() = default;
+		void DealDamage(BasicActor* caster, BasicActor* target,
+			const Attribute::AttackForm& form,
+			double multiplier) override;
+		void GainEnergy(BasicActor* who, double amount) override;
+		void ApplyBuff(BasicActor* target, const std::string& buffId) override;
 	private:
 		int GlobalIdIndex = 0;
 		

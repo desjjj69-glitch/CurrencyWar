@@ -1,7 +1,9 @@
 #pragma once
 #include"Fight_ActorType.h"
+#include"BasicSkill.h"
 #include<cmath>
 #include<string>
+#include<memory>
 namespace Fight {
 	static constexpr double ActionValueInaRound = 10000;
 	class BasicActor {
@@ -13,9 +15,15 @@ namespace Fight {
 		BasicActor() = default;
 		int id()const { return id_; }
 		void SetId(int id) { id_ = id; }
+		BasicSkill* GetSkillById(const std::string&);
+
+		BasicSkill* GetSkillByIndex(size_t);
+		const std::vector<std::unique_ptr<BasicSkill>>& Skills() const;
 	private:
 		
 		int id_=-1;
+	protected:
+		std::vector<std::unique_ptr<BasicSkill>> skills;
 	};
 	enum class ExtraPriority {
 		FieldAssist,

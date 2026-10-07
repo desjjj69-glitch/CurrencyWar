@@ -41,7 +41,7 @@ namespace Object {
         if (js.contains("bosses") && js["bosses"].is_array()) {
             auto& jsboss = js["bosses"];
             size_t size = jsboss.size();
-            auto getvec = GetRandomDistinct(size, 3);
+            auto getvec = GetRandomDistinct(static_cast<int>(size), 3);
 
             for (size_t i = 0; i < getvec.size(); i++) {
                 auto& bossattr = jsboss[getvec[i]];

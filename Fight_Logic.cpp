@@ -163,7 +163,9 @@ namespace Fight {
 			uiConfigIn >> uiJs;
 		}
 		catch (const std::exception& e) {
-			Log("Failed to parse Fight_Texture.json", __FUNCSIG__, Logcode::PARSEERROR);
+			std::string err = "Failed to parse Fight_Texture.json";
+			err += e.what();
+			Log(err, __FUNCSIG__, Logcode::PARSEERROR);
 		}
 		if (uiJs.contains("ui") && uiJs["ui"].is_array()) {
 			for (auto& item : uiJs["ui"]) {
@@ -554,9 +556,38 @@ namespace Fight {
 
 	}
 	void Fight_Logic::EnemyExecuting() {
+		if (!NowActing)
+			return;
 		Log(NowActing->Name(), __func__);
+		auto* skill = NowActing->GetSkillByIndex(0);//技能暂时写死
+		if (!skill)
+			return;
+		SkillTargets targets;//技能目标暂时写死
+		auto& front = Actor(PlaceType::FrontCharacter);
+		if (!front.empty()) {
+			targets.list.push_back({ front[0].get(), TargetRole::Main, 1.0 });
+		}
+
+		skill->Execute(NowActing, targets, *this);
 	}
 	void Fight_Logic::CharacterStart_Resolution(Character_Actor* act) {
 		
+	}
+	void Fight_Logic::DealDamage(BasicActor* caster, BasicActor* target,
+		const Attribute::AttackForm& form,
+		double multiplier) {
+		if (!caster || !target)
+			return;
+		Log("DealDamage: " + caster->Name()
+			+ " -> " + target->Name()
+			+ " skill=" + form.id
+			+ " mult=" + std::to_string(multiplier),
+			__func__);//测试用
+	}
+	void Fight_Logic::GainEnergy(BasicActor* who, double amount) {
+
+	}
+	void Fight_Logic::ApplyBuff(BasicActor* target, const std::string& buffId) {
+
 	}
 }

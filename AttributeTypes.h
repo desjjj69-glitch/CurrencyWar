@@ -47,7 +47,8 @@ namespace Attribute {
 		Skill,
 		Ult,
 		Talent,
-		Technique,
+		Technique,//秘技
+		Assist,//助战技能
 		Count
 	};
 	enum class TargetAttackType {//伤害目标
