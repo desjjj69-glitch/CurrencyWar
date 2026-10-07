@@ -8,6 +8,7 @@
 #include<fstream>
 #include<sstream>
 #include"BasicGameResource.h"
+
 using Logger::Log;
 using json = nlohmann::json;
 namespace Fight {
@@ -146,7 +147,12 @@ namespace Fight {
 		if (js.contains("SkillPointMax") && js["SkillPointMax"].is_number_integer()) {
 			SkillPointMax = js["SkillPointMax"].get<int>();
 		}
-
+		if (js.contains("DefaultSkillPoint") && js["DefaultSkillPoint"].is_number_integer()) {
+			DefaultSkillPoint = js["DefaultSkillPoint"].get<int>();
+		}
+		if (js.contains("DefaultSkillPointMax") && js["DefaultSkillPointMax"].is_number_integer()) {
+			DefaultSkillPointMax = js["DefaultSkillPointMax"].get<int>();
+		}
 		//从配置文件中读取UI位置
 		std::ifstream uiConfigIn(gp / "data" / "Fight_Texture.json");
 		json uiJs;
@@ -198,6 +204,8 @@ namespace Fight {
 		Timer = 0;
 		AtFight = FightGlobalState::AtFight;
 		GlobalIdIndex = 0;
+		SkillPoint = DefaultSkillPoint;
+		SkillPointMax = DefaultSkillPointMax;
 		using StageData::g_WaitingForFight_to_Fight;
 		for (auto& var : actors) {
 			var.clear();//把上一次战斗所有内容都清除
@@ -246,6 +254,39 @@ namespace Fight {
 			}
 		}
 		//Log_Init();
+	}
+	void Fight_Logic::ShiftCharacterMainTarget(int delta) {
+		if (!Now_skill) return;
+
+		auto& enemies = Actor(PlaceType::Enemy);
+
+		// 收集非空位置（这就自然跳过了 nullptr）
+		std::vector<size_t> valid;
+		valid.reserve(enemies.size());
+		for (size_t i = 0; i < enemies.size(); ++i)
+			if (enemies[i]) valid.push_back(i);
+		if (valid.empty()) return;
+
+		// 找到当前主目标在 valid 中的下标
+		int cur = -1;
+		if (auto* mainActor = skill_targets.Main()) {
+			for (int i = 0; i < static_cast<int>(valid.size()); ++i) {
+				if (enemies[valid[i]].get() == mainActor) {
+					cur = i;
+					break;
+				}
+			}
+		}
+		// 没有主目标（比如之前没设置过），退回中间
+		if (cur < 0) cur = static_cast<int>(valid.size() / 2);
+
+		int next = cur + delta;
+		if (next < 0) next = 0;
+		if (next >= static_cast<int>(valid.size()))
+			next = static_cast<int>(valid.size()) - 1;
+
+		// 用新的 mainIndex 重建 targets（AoE 情况下其实主目标意义不大，但重建无害）
+		BuildTargetsByMainIndex(enemies, valid[next], Now_skill->form.target, skill_targets);
 	}
 	void Fight_Logic::DispatchEvent() {
 		auto HandleGlobalEvent = [&](const SDL_Event& event)->bool {
@@ -302,6 +343,7 @@ namespace Fight {
 			}
 			return 0;
 			};
+		
 		auto HandleMouseClickEvent = [&](float x, float y) {
 			switch (CurrentState) {
 			case StateType::Idle:
@@ -322,18 +364,25 @@ namespace Fight {
 				switch (CurrentCharacterState) {
 				case CharacterState::Normal:
 					if (PlaceInside(x, y, ui_place["Skill"][0])) {
+						SetCharacterSkillBySlot(Attribute::SkillSlot::Skill);
 						CurrentCharacterState = CharacterState::SKill;
 					}
-					if (PlaceInside(x, y, ui_place["Normal"][0])) {
+					else if (PlaceInside(x, y, ui_place["Normal"][0])) {
 						CurrentState = StateType::PlayerExecuting;
+						SkillPoint = std::max(++SkillPoint, SkillPointMax);
 					}
 					break;
 				case CharacterState::SKill:
 					if (PlaceInside(x, y, ui_place["Normal"][0])) {
+						SetCharacterSkillBySlot(Attribute::SkillSlot::Normal);
 						CurrentCharacterState = CharacterState::Normal;
 					}
 					if (PlaceInside(x, y, ui_place["Skill"][0])) {
+						if (SkillPoint <= 0) {
+							break;
+						}
 						CurrentState = StateType::PlayerExecuting;
+						SkillPoint--;
 					}
 					break;
 				}
@@ -385,21 +434,38 @@ namespace Fight {
 				if (CheckIfUltbyKey(key)) {//如果这次点击的是大招按钮，那么就把当前的选择行为强制结束
 					return;
 				}
+				if (key.scancode == SDL_SCANCODE_LEFT) {
+					ShiftCharacterMainTarget(-1);
+					return;
+				}
+				if (key.scancode == SDL_SCANCODE_RIGHT) {
+					ShiftCharacterMainTarget(+1);
+					return;
+				}
 				switch (CurrentCharacterState) {
 				case CharacterState::Normal:
 					if (key.scancode == SDL_SCANCODE_E) {
+						SetCharacterSkillBySlot(Attribute::SkillSlot::Skill);
 						CurrentCharacterState = CharacterState::SKill;
 					}
-					break;
-					if (key.scancode == SDL_SCANCODE_Q || key.scancode == SDL_SCANCODE_SPACE) {
+					else if (key.scancode == SDL_SCANCODE_Q || key.scancode == SDL_SCANCODE_SPACE) {
 						CurrentState = StateType::PlayerExecuting;
+						
+						SkillPoint = std::max(++SkillPoint, SkillPointMax);
 					}
+					break;
 				case CharacterState::SKill:
 					if (key.scancode == SDL_SCANCODE_Q) {
+						SetCharacterSkillBySlot(Attribute::SkillSlot::Normal);
 						CurrentCharacterState = CharacterState::Normal;
+
 					}
 					if (key.scancode == SDL_SCANCODE_E || key.scancode == SDL_SCANCODE_SPACE) {
+						if (SkillPoint <= 0) {
+							break;
+						}
 						CurrentState = StateType::PlayerExecuting;
+						SkillPoint--;
 					}
 					break;
 				}
@@ -518,6 +584,7 @@ namespace Fight {
 		case StateType::PlayerStart:
 			Timer += dt;
 			if (Timer >= Animation_LogicDelay[StateType::PlayerStart]) {
+				CharacterStart_Resolution(dynamic_cast<Character_Actor*>(NowActing));
 				CurrentState = StateType::PlayerSelecting;
 				Timer = 0;
 			}
@@ -548,6 +615,7 @@ namespace Fight {
 		case StateType::PlayerExecuting:
 			Timer += dt;
 			if (Timer >= Animation_LogicDelay[StateType::PlayerExecuting]) {
+				CharacterExecuting();
 				AddtoActionList(NowActing);
 				CurrentState = StateType::Idle;
 				Timer = 0;
@@ -618,6 +686,7 @@ namespace Fight {
 		}
 		if (flag == -1) {
 			DataHandOff(1);
+			AtFight = FightGlobalState::EndFight;
 		}
 		for (auto& var : Actor(PlaceType::FrontCharacter)) {
 			if (var) {
@@ -626,64 +695,53 @@ namespace Fight {
 		}
 		if (flag == 0) {
 			DataHandOff(0);
+			AtFight = FightGlobalState::EndFight;
 		}
 	}
 	void Fight_Logic::EnemyStart_Resolution() {
 		
 	}
-	void Fight_Logic::BuildEnemyTargets(const std::vector<std::unique_ptr<Fight::BasicActor>>& front,
+	void Fight_Logic::BuildTargetsByMainIndex(
+		const std::vector<std::unique_ptr<BasicActor>>& enemies,
+		size_t mainIndex,
 		Attribute::TargetAttackType type,
-		Fight::SkillTargets& out)
+		SkillTargets& out)
 	{
 		out.list.clear();
+		if (enemies.empty()) return;
 
-		// 收集所有非空位置
-		std::vector<size_t> valid;
-		valid.reserve(front.size());
-		for (size_t i = 0; i < front.size(); ++i) {
-			if (front[i]) valid.push_back(i);
-		}
-		if (valid.empty()) return;
-
-		auto randValidIndex = [&]() -> size_t {
-			int r = GetRandomNum(0, static_cast<int>(valid.size()) - 1);
-			return valid[static_cast<size_t>(r)];
-			};
-
-		auto pushTarget = [&](size_t index,
-			Fight::TargetRole role,
-			double multiplier = 1.0) {
-				if (index < front.size() && front[index]) {
-					out.list.push_back({ front[index].get(), role, multiplier });
-				}
+		auto pushTarget = [&](size_t index, TargetRole role, double multiplier = 1.0) {
+			if (index < enemies.size() && enemies[index]) {
+				out.list.push_back({ enemies[index].get(), role, multiplier });
+			}
 			};
 
 		switch (type) {
-		case Attribute::TargetAttackType::Single: {
-			pushTarget(randValidIndex(), Fight::TargetRole::Main);
+		case Attribute::TargetAttackType::Single:
+			pushTarget(mainIndex, TargetRole::Main);
 			break;
-		}
-		case Attribute::TargetAttackType::AoE: {
-			for (size_t i : valid) pushTarget(i, Fight::TargetRole::Main);
+
+		case Attribute::TargetAttackType::AoE:
+			for (size_t i = 0; i < enemies.size(); ++i)
+				pushTarget(i, TargetRole::Main);
 			break;
-		}
-		case Attribute::TargetAttackType::Bounce: {
-			size_t mainIndex = randValidIndex();
-			pushTarget(mainIndex, Fight::TargetRole::Main);
-			for (size_t i : valid) {
+
+		case Attribute::TargetAttackType::Bounce:
+			pushTarget(mainIndex, TargetRole::Main);
+			for (size_t i = 0; i < enemies.size(); ++i) {
 				if (i == mainIndex) continue;
-				pushTarget(i, Fight::TargetRole::Sub);
+				pushTarget(i, TargetRole::Sub);
 			}
 			break;
-		}
-		case Attribute::TargetAttackType::Blast: {
-			size_t mainIndex = randValidIndex();
-			pushTarget(mainIndex, Fight::TargetRole::Main);
-			if (mainIndex > 0)                    pushTarget(mainIndex - 1, Fight::TargetRole::Adjacent);
-			if (mainIndex + 1 < front.size())     pushTarget(mainIndex + 1, Fight::TargetRole::Adjacent);
+
+		case Attribute::TargetAttackType::Blast:
+			pushTarget(mainIndex, TargetRole::Main);
+			if (mainIndex > 0)                  pushTarget(mainIndex - 1, TargetRole::Adjacent);
+			if (mainIndex + 1 < enemies.size()) pushTarget(mainIndex + 1, TargetRole::Adjacent);
 			break;
-		}
-		default: break;
+
+		default:
+			break;
 		}
 	}
 	void Fight_Logic::EnemyPreparing() {//选择技能和目标
@@ -697,7 +755,16 @@ namespace Fight {
 		if (skill_list.empty())return;
 		Now_skill = skill_list[static_cast<size_t>(GetRandomNum(0, static_cast<int>(skill_list.size())-1))].get();//选择一个技能
 		if (front.empty())return;
-		BuildEnemyTargets(front, Now_skill->form.target, skill_targets);
+		std::vector<size_t> valid;
+		for (size_t i = 0; i < front.size(); ++i)
+			if (front[i]) valid.push_back(i);
+
+		if (valid.empty()) return;
+		size_t mainIndex = valid[
+			static_cast<size_t>(GetRandomNum(0, static_cast<int>(valid.size()) - 1))
+		];
+
+		BuildTargetsByMainIndex(front, mainIndex, Now_skill->form.target, skill_targets);
 	}
 	void Fight_Logic::EnemyExecuting() {
 		if (!NowActing)
@@ -714,8 +781,43 @@ namespace Fight {
 
 		Now_skill->Execute(NowActing, skill_targets, *this);
 	}
+	void Fight_Logic::SetCharacterSkillBySlot(Attribute::SkillSlot slot) {
+		auto* c = dynamic_cast<Character_Actor*>(NowActing);
+		if (!c) return;
+
+		Now_skill = nullptr;
+		for (const auto& skill : c->Skills()) {
+			if (skill && skill->form.slot == slot) {
+				Now_skill = skill.get();
+				break;
+			}
+		}
+		if (!Now_skill) {
+			skill_targets.list.clear();
+			return;
+		}
+
+		auto& enemies = Actor(PlaceType::Enemy);
+		std::vector<size_t> valid;
+		valid.reserve(enemies.size());
+		for (size_t i = 0; i < enemies.size(); ++i)
+			if (enemies[i]) valid.push_back(i);
+
+		if (valid.empty()) {
+			skill_targets.list.clear();
+			return;
+		}
+
+		size_t mainIndex = valid[valid.size() / 2];
+		BuildTargetsByMainIndex(enemies, mainIndex, Now_skill->form.target, skill_targets);
+	}
 	void Fight_Logic::CharacterStart_Resolution(Character_Actor* act) {
-		
+		if (!act) return;
+		CurrentCharacterState = CharacterState::Normal;
+		SetCharacterSkillBySlot(Attribute::SkillSlot::Normal);
+	}
+	void Fight_Logic::CharacterExecuting() {
+
 	}
 	void Fight_Logic::DealDamage(BasicActor* caster, BasicActor* target,
 		const Attribute::AttackForm& form,
@@ -735,6 +837,8 @@ namespace Fight {
 
 	}
 	void Fight_Logic::DataHandOff(int wintype) {//标志位为胜利还是失败,0是失败，1是胜利
-
+		using StageData::g_Fight_to_FightResult;
+		g_Fight_to_FightResult.ifwin = wintype;
+		
 	}
 }

@@ -16,6 +16,17 @@ namespace StageData {//负责数据交接
 		const std::vector<EnemyObject>* Enemys = nullptr;
 		int difficulty = 0;
 	};
+	struct WaitingForFight_to_FightResult {
+		int* money;
+		int* ContinueWinTimes;
+		int* Blood;
+	};
+	struct Fight_to_FightResult {
+		bool ifwin;//是否胜利
+		double percentage;
+	};
 	extern WaitingForFight_publicData g_WaitingForFight_publicData;
 	extern WaitingForFight_to_Fight g_WaitingForFight_to_Fight;
+	extern WaitingForFight_to_FightResult g_WaitingForFight_to_FightResult;
+	extern Fight_to_FightResult g_Fight_to_FightResult;
 }

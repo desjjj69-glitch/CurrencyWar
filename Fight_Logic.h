@@ -73,6 +73,8 @@ namespace Fight {
 
 		SkillTargets skill_targets;
 		BasicSkill* Now_skill=nullptr;
+		int DefaultSkillPoint=3;
+		int DefaultSkillPointMax=5;
 		int SkillPoint = 3;
 		int SkillPointMax = 5;
 
@@ -105,13 +107,17 @@ namespace Fight {
 		void Log_Init();
 
 		void EnemyStart_Resolution();
-		void BuildEnemyTargets(const std::vector<std::unique_ptr<Fight::BasicActor>>&,
+		void BuildTargetsByMainIndex(const std::vector<std::unique_ptr<BasicActor>>&,
+			size_t,
 			Attribute::TargetAttackType,
-			Fight::SkillTargets&);
+			SkillTargets&);
 		void EnemyPreparing();
 		void EnemyExecuting();
 
+		void SetCharacterSkillBySlot(Attribute::SkillSlot);
+		void ShiftCharacterMainTarget(int delta);
 		void CharacterStart_Resolution(Character_Actor*);
+		void CharacterExecuting();
 		static bool PlaceInside(float x, float y, const SDL_FRect& rect) {
 			return (x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h);
 		}

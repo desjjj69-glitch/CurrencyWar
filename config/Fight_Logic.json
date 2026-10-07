@@ -12,6 +12,7 @@
     "PlayerUltExecuting": 1000
   },
   "SkillPoint": 3,
-  "SkillPointMax": 5
-  
+  "SkillPointMax": 5,
+  "DefaultSkillPoint": 3,
+  "DefaultSkillPointMax": 5
 }

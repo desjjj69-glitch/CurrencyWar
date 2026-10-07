@@ -6,6 +6,11 @@ namespace FightResult {
 	Logic State;
 	void Logic::Handle() {
 		++(*StageData::g_WaitingForFight_publicData.stage_index);//阶段+1，如果没有blood归零的话
+		using StageData::g_Fight_to_FightResult;
+		using StageData::g_WaitingForFight_to_FightResult;
+		if (g_Fight_to_FightResult.ifwin&&g_WaitingForFight_to_FightResult.ContinueWinTimes) {//处理连胜
+			++(*g_WaitingForFight_to_FightResult.ContinueWinTimes);
+		}
 	}
 	void Logic::EventLogic() {
 		SDL_Event event;

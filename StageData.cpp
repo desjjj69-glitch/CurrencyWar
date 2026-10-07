@@ -2,4 +2,6 @@
 namespace StageData {
 	WaitingForFight_to_Fight g_WaitingForFight_to_Fight;
 	WaitingForFight_publicData g_WaitingForFight_publicData;
+	WaitingForFight_to_FightResult g_WaitingForFight_to_FightResult;
+	Fight_to_FightResult g_Fight_to_FightResult;
 }
