@@ -174,8 +174,20 @@ namespace Fight {
 			if (enemy_tex[var->Name()])SDL_DestroyTexture(enemy_tex[var->Name()]);
 			enemy_tex[var->Name()] = IMG_LoadTexture(rdr, (enep / (var->Name() + ".png")).string().c_str());
 		}
+		//Log("new", __func__);
 	}
-	
+	SDL_Texture* Fight_Texture::GetUITex(const std::string& uitype, const std::string& uiname) {//是哪个种类的ui,和具体是谁的，比如是背景：翁法罗斯,如果不成功，会默认返回第二个字段为Default的tex
+		auto itType = dynamic_ui_tex.find(uitype);
+		if (itType == dynamic_ui_tex.end()) return nullptr;
+
+		auto it = itType->second.find(uiname);
+		if (it == itType->second.end() || !it->second) {
+			it = itType->second.find("Default");
+			if (it == itType->second.end() || !it->second)return nullptr;
+			return it->second;
+		}
+		return it->second;
+	}
 	void Fight_Texture::Draw_Background(SDL_Renderer*& rdr) {
 		auto itType = dynamic_ui_tex.find("Background");
 		if (itType == dynamic_ui_tex.end()) return;
@@ -265,8 +277,22 @@ namespace Fight {
 			}
 		}
 	}
-	void Fight_Texture::Draw_EnemyTargetChoose(SDL_Renderer*&) {
-
+	void Fight_Texture::Draw_EnemyTargetChoose(SDL_Renderer*& rdr) {
+		if (State.CurrentState != Fight_Logic::StateType::PlayerSelecting)return;
+		if (State.NowActing->Type() != ActorType::Character)return;
+		for (size_t i = 0;i < ui_place["EnemyTargetChoose"].size();i++) {
+			auto& vec = State.skill_targets;
+			if (i >= vec.list.size())break;
+			for (auto& var : vec.list) {
+				if (var.index >= ui_place["EnemyTargetChoose"].size())continue;
+				if (var.role == TargetRole::Main) {
+					SDL_RenderTexture(rdr, GetUITex("EnemyTargetChoose", "Main"), NULL, &ui_place["EnemyTargetChoose"][var.index]);
+				}
+				else {
+					SDL_RenderTexture(rdr, GetUITex("EnemyTargetChoose"), NULL, &ui_place["EnemyTargetChoose"][var.index]);
+				}
+			}
+		}
 	}
 	void Fight_Texture::Draw_Character(SDL_Renderer*& rdr, TTF_Font*& ft) {
 		for (size_t i = 0;i < ui_place["FrontCharacter"].size();i++) {
@@ -286,7 +312,18 @@ namespace Fight {
 			}
 		}
 	}
-	void Fight_Texture::Draw_CharacterSelecting(SDL_Renderer*&, TTF_Font*&) {
-
+	void Fight_Texture::Draw_CharacterSelecting(SDL_Renderer*& rdr, TTF_Font*& ft) {//TODO 现在暂时不接受大招
+		if (State.CurrentState != Fight_Logic::StateType::PlayerSelecting)return;
+		if (State.NowActing->Type() != ActorType::Character)return;
+		switch (State.CurrentCharacterState) {
+		case Fight_Logic::CharacterState::Normal:
+			SDL_RenderTexture(rdr, GetUITex("Normal", State.NowActing->Name()), NULL, &ui_place["Normal"][0]);
+			SDL_RenderTexture(rdr, GetUITex("Skill", State.NowActing->Name()), NULL, &ui_place["Skill"][1]);
+			break;
+		case Fight_Logic::CharacterState::Skill:
+			SDL_RenderTexture(rdr, GetUITex("Normal", State.NowActing->Name()), NULL, &ui_place["Normal"][0]);
+			SDL_RenderTexture(rdr, GetUITex("Skill", State.NowActing->Name()), NULL, &ui_place["Skill"][1]);
+			break;
+		}
 	}
 }

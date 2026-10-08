@@ -17,6 +17,7 @@ namespace Fight {
 
     struct TargetInfo {
         BasicActor* actor = nullptr;
+        size_t index = 0;
         TargetRole role = TargetRole::Main;
         double damageMultiplier = 1.0;   // 相对 form 基础倍率的系数
     };

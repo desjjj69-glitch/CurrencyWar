@@ -62,7 +62,7 @@ namespace Fight {
 		};
 		enum class CharacterState {
 			Normal,
-			SKill,
+			Skill,
 			Ultimate,
 			Count
 		};

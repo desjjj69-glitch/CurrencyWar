@@ -79,4 +79,5 @@ void CharacterObject::NewCharacter(const std::string& n) {
 	name = n;
 	game_attribute = Object::Character_DefaultSetting[n].game_attribute;
     basic_attribute = Object::Character_DefaultSetting[n].basic_attribute;
+
 }
