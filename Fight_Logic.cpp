@@ -816,7 +816,7 @@ namespace Fight {
 		CurrentCharacterState = CharacterState::Normal;
 		SetCharacterSkillBySlot(Attribute::SkillSlot::Normal);
 	}
-	void Fight_Logic::CharacterExecuting() {
+	void Fight_Logic::CharacterExecuting() {//TODO 还剩下角色的技能执行没有写
 
 	}
 	void Fight_Logic::DealDamage(BasicActor* caster, BasicActor* target,

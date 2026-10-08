@@ -1,0 +1,1591 @@
+{
+    "bosses": [
+        {
+            "type": "boss",
+            "name": "Abundant Ebon Deer",
+            "image": "Abundant Ebon Deer.png",
+            "mobIds": [
+                "Dewbearer Celestial",
+                "Disciples of Sanctus Medicus_Shape Shifter",
+                "Abundance Spirit_Changyou",
+                "Mara-Struck Soldier",
+                "Mara-Struck Lieutenant",
+                "Disciples of Sanctus Medicus_Internal Alchemist",
+                "Disciples of Sanctus Medicus_Vitalus",
+                "Abundance Spirit_Loujin",
+                "Abundance Spirit_Kuimu",
+                "Assistant Graffiti_Deadline Rush"
+            ],
+            "Attribute": {
+                "Heart": 3000000,
+                "Attack": 1000,
+                "Defense": 1000,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "boss_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 10,
+                        "energyGain": 0
+                    },
+                    {
+                        "id": "boss_default_skill",
+                        "name": "默认技能",
+                        "slot": "Skill",
+                        "target": "AoE",
+                        "types": [
+                            "Skill"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.5,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 20,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        {
+            "type": "boss",
+            "name": "Yanqing",
+            "image": "Yanqing.png",
+            "mobIds": [
+                "Aurumaton Gatekeeper",
+                "Abundance Spirit_Changyou",
+                "Aurumaton Spectral Envoy",
+                "Cloud Knights Patroller",
+                "Wraith Warden",
+                "Entranced Ingenium_Obedient Dracolion",
+                "Entranced Ingenium_Golden Cloud Toad",
+                "Entranced Ingenium_Illumination Dragonfish"
+            ],
+            "Attribute": {
+                "Heart": 3000000,
+                "Attack": 1000,
+                "Defense": 1000,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "boss_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 10,
+                        "energyGain": 0
+                    },
+                    {
+                        "id": "boss_default_skill",
+                        "name": "默认技能",
+                        "slot": "Skill",
+                        "target": "AoE",
+                        "types": [
+                            "Skill"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.5,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 20,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        {
+            "type": "boss",
+            "name": "Argenti",
+            "image": "Argenti.png",
+            "mobIds": [
+                "Ice Out of Space",
+                "Blaze Out of Space",
+                "Guardian Shadow",
+                "Stormbringer",
+                "Imaginary Weaver",
+                "Voidranger_Reaver",
+                "Voidranger_Manipulator",
+                "Voidranger_Eliminator"
+            ],
+            "Attribute": {
+                "Heart": 3000000,
+                "Attack": 1000,
+                "Defense": 1000,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "boss_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 10,
+                        "energyGain": 0
+                    },
+                    {
+                        "id": "boss_default_skill",
+                        "name": "默认技能",
+                        "slot": "Skill",
+                        "target": "AoE",
+                        "types": [
+                            "Skill"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.5,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 20,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        {
+            "type": "boss",
+            "name": "The Giver, Master of Legions, Lance of Fury",
+            "image": "The Giver, Master of Legions, Lance of Fury.png",
+            "mobIds": [
+                "Furiae Praetor",
+                "Noontide Gryphon",
+                "Moonlit Pegasus",
+                "Furiae Warrior",
+                "Furiae Philosopher",
+                "Furiae Archer",
+                "Furiae Troupe",
+                "Meteoric Eagle"
+            ],
+            "Attribute": {
+                "Heart": 3000000,
+                "Attack": 1000,
+                "Defense": 1000,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "boss_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 10,
+                        "energyGain": 0
+                    },
+                    {
+                        "id": "boss_default_skill",
+                        "name": "默认技能",
+                        "slot": "Skill",
+                        "target": "AoE",
+                        "types": [
+                            "Skill"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.5,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 20,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        {
+            "type": "boss",
+            "name": "Pollux, Netherwing Husk, Ferry of Souls",
+            "image": "Pollux, Netherwing Husk, Ferry of Souls.png",
+            "mobIds": [
+                "Furiae Praetor",
+                "Noontide Gryphon",
+                "Moonlit Pegasus",
+                "Furiae Warrior",
+                "Furiae Philosopher",
+                "Furiae Archer",
+                "Furiae Troupe",
+                "Meteoric Eagle"
+            ],
+            "Attribute": {
+                "Heart": 3000000,
+                "Attack": 1000,
+                "Defense": 1000,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "boss_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 10,
+                        "energyGain": 0
+                    },
+                    {
+                        "id": "boss_default_skill",
+                        "name": "默认技能",
+                        "slot": "Skill",
+                        "target": "AoE",
+                        "types": [
+                            "Skill"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.5,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 20,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        {
+            "type": "boss",
+            "name": "Flame Reaver of the Deepest Dark",
+            "image": "Flame Reaver of the Deepest Dark.png",
+            "mobIds": [
+                "Noontide Gryphon",
+                "Moonlit Pegasus",
+                "Black Tide's Corroded Daemon",
+                "Black Tide's Champion",
+                "Dark Sun Gryphon",
+                "Tide-Eroded Blade",
+                "Black Tide's Corroded Axe",
+                "Black Tide Council",
+                "Black Tide's Decrepit Bow"
+            ],
+            "Attribute": {
+                "Heart": 3000000,
+                "Attack": 1000,
+                "Defense": 1000,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "boss_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 10,
+                        "energyGain": 0
+                    },
+                    {
+                        "id": "boss_default_skill",
+                        "name": "默认技能",
+                        "slot": "Skill",
+                        "target": "AoE",
+                        "types": [
+                            "Skill"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.5,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 20,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        }
+    ],
+    "mobs": {
+        "Aurumaton Gatekeeper": {
+            "type": "elite",
+            "name": "Aurumaton Gatekeeper",
+            "image": "Aurumaton Gatekeeper.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Blast",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Disciples of Sanctus Medicus_Shape Shifter": {
+            "type": "elite",
+            "name": "Disciples of Sanctus Medicus_Shape Shifter",
+            "image": "Disciples of Sanctus Medicus_Shape Shifter.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Blast",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Abundance Spirit_Changyou": {
+            "type": "elite",
+            "name": "Abundance Spirit_Changyou",
+            "image": "Abundance Spirit_Changyou.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Blast",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Dewbearer Celestial": {
+            "type": "elite",
+            "name": "Dewbearer Celestial",
+            "image": "Dewbearer Celestial.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Blast",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Mara-Struck Soldier": {
+            "type": "normal",
+            "name": "Mara-Struck Soldier",
+            "image": "Mara-Struck Soldier.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Mara-Struck Lieutenant": {
+            "type": "normal",
+            "name": "Mara-Struck Lieutenant",
+            "image": "Mara-Struck Lieutenant.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Blast",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Disciples of Sanctus Medicus_Internal Alchemist": {
+            "type": "normal",
+            "name": "Disciples of Sanctus Medicus_Internal Alchemist",
+            "image": "Disciples of Sanctus Medicus_Internal Alchemist.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Disciples of Sanctus Medicus_Vitalus": {
+            "type": "normal",
+            "name": "Disciples of Sanctus Medicus_Vitalus",
+            "image": "Disciples of Sanctus Medicus_Vitalus.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Blast",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Abundance Spirit_Loujin": {
+            "type": "normal",
+            "name": "Abundance Spirit_Loujin",
+            "image": "Abundance Spirit_Loujin.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Abundance Spirit_Kuimu": {
+            "type": "normal",
+            "name": "Abundance Spirit_Kuimu",
+            "image": "Abundance Spirit_Kuimu.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Assistant Graffiti_Deadline Rush": {
+            "type": "normal",
+            "name": "Assistant Graffiti_Deadline Rush",
+            "image": "Assistant Graffiti_Deadline Rush.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Aurumaton Spectral Envoy": {
+            "type": "elite",
+            "name": "Aurumaton Spectral Envoy",
+            "image": "Aurumaton Spectral Envoy.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Cloud Knights Patroller": {
+            "type": "normal",
+            "name": "Cloud Knights Patroller",
+            "image": "Cloud Knights Patroller.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Wraith Warden": {
+            "type": "normal",
+            "name": "Wraith Warden",
+            "image": "Wraith Warden.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Entranced Ingenium_Obedient Dracolion": {
+            "type": "normal",
+            "name": "Entranced Ingenium_Obedient Dracolion",
+            "image": "Entranced Ingenium_Obedient Dracolion.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Entranced Ingenium_Golden Cloud Toad": {
+            "type": "normal",
+            "name": "Entranced Ingenium_Golden Cloud Toad",
+            "image": "Entranced Ingenium_Golden Cloud Toad.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Entranced Ingenium_Illumination Dragonfish": {
+            "type": "normal",
+            "name": "Entranced Ingenium_Illumination Dragonfish",
+            "image": "Entranced Ingenium_Illumination Dragonfish.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Ice Out of Space": {
+            "type": "elite",
+            "name": "Ice Out of Space",
+            "image": "Ice Out of Space.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Blaze Out of Space": {
+            "type": "elite",
+            "name": "Blaze Out of Space",
+            "image": "Blaze Out of Space.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Guardian Shadow": {
+            "type": "elite",
+            "name": "Guardian Shadow",
+            "image": "Guardian Shadow.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Stormbringer": {
+            "type": "elite",
+            "name": "Stormbringer",
+            "image": "Stormbringer.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Imaginary Weaver": {
+            "type": "normal",
+            "name": "Imaginary Weaver",
+            "image": "Imaginary Weaver.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Voidranger_Reaver": {
+            "type": "normal",
+            "name": "Voidranger_Reaver",
+            "image": "Voidranger_Reaver.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Voidranger_Manipulator": {
+            "type": "normal",
+            "name": "Voidranger_Manipulator",
+            "image": "Voidranger_Manipulator.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Voidranger_Eliminator": {
+            "type": "normal",
+            "name": "Voidranger_Eliminator",
+            "image": "Voidranger_Eliminator.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Furiae Praetor": {
+            "type": "elite",
+            "name": "Furiae Praetor",
+            "image": "Furiae Praetor.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Blast",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Noontide Gryphon": {
+            "type": "elite",
+            "name": "Noontide Gryphon",
+            "image": "Noontide Gryphon.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Blast",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Moonlit Pegasus": {
+            "type": "elite",
+            "name": "Moonlit Pegasus",
+            "image": "Moonlit Pegasus.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Furiae Warrior": {
+            "type": "normal",
+            "name": "Furiae Warrior",
+            "image": "Furiae Warrior.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Furiae Philosopher": {
+            "type": "normal",
+            "name": "Furiae Philosopher",
+            "image": "Furiae Philosopher.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Furiae Archer": {
+            "type": "normal",
+            "name": "Furiae Archer",
+            "image": "Furiae Archer.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Furiae Troupe": {
+            "type": "normal",
+            "name": "Furiae Troupe",
+            "image": "Furiae Troupe.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Meteoric Eagle": {
+            "type": "normal",
+            "name": "Meteoric Eagle",
+            "image": "Meteoric Eagle.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Black Tide's Corroded Daemon": {
+            "type": "elite",
+            "name": "Black Tide's Corroded Daemon",
+            "image": "Black Tide's Corroded Daemon.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Black Tide's Champion": {
+            "type": "elite",
+            "name": "Black Tide's Champion",
+            "image": "Black Tide's Champion.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Dark Sun Gryphon": {
+            "type": "elite",
+            "name": "Dark Sun Gryphon",
+            "image": "Dark Sun Gryphon.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Tide-Eroded Blade": {
+            "type": "normal",
+            "name": "Tide-Eroded Blade",
+            "image": "Tide-Eroded Blade.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Black Tide's Corroded Axe": {
+            "type": "normal",
+            "name": "Black Tide's Corroded Axe",
+            "image": "Black Tide's Corroded Axe.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Black Tide Council": {
+            "type": "normal",
+            "name": "Black Tide Council",
+            "image": "Black Tide Council.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        },
+        "Black Tide's Decrepit Bow": {
+            "type": "normal",
+            "name": "Black Tide's Decrepit Bow",
+            "image": "Black Tide's Decrepit Bow.png",
+            "Attribute": {
+                "Heart": 100000,
+                "Attack": 500,
+                "Defense": 500,
+                "Speed": 100,
+                "Star": 1,
+                "Level": 90,
+                "Skills": [
+                    {
+                        "id": "mob_normal_attack",
+                        "name": "普通攻击",
+                        "slot": "Normal",
+                        "target": "Single",
+                        "types": [
+                            "Normal"
+                        ],
+                        "element": "Physic",
+                        "atkScale": 1.0,
+                        "hpScale": 0.0,
+                        "defScale": 0.0,
+                        "hitCount": 1,
+                        "breakValue": 5,
+                        "energyGain": 0
+                    }
+                ]
+            }
+        }
+    }
+}

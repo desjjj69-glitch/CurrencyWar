@@ -229,6 +229,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\新建 文本文档.py" />
+    <None Include="config\Fight_Logic.json" />
     <None Include="data\BasicCharacterSettings.json" />
     <None Include="data\Enemy.json" />
     <None Include="data\Fight_Texture.json" />

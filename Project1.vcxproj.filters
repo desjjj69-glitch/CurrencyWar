@@ -256,6 +256,9 @@
     <None Include="lib\dll\SDL3_ttf.dll">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="config\Fight_Logic.json">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\管理图像资源.txt">

@@ -37,7 +37,11 @@ namespace Fight {
 		void ReadActionListPosition(const json& js, ActionListTexture&);
 		void Draw_Background(SDL_Renderer*&);
 		void Draw_ActionList(SDL_Renderer*&);
-
+		void Draw_Enemy(SDL_Renderer*&);
+		void Draw_EnemyTargetChoose(SDL_Renderer*&);
+		void Draw_Character(SDL_Renderer*&, TTF_Font*&);
+		void Draw_BackCharacter(SDL_Renderer*&, TTF_Font*&);
+		void Draw_CharacterSelecting(SDL_Renderer*&, TTF_Font*&);
 		void Draw_Pause(SDL_Renderer*&, TTF_Font*&);
 	};
 }

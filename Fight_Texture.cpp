@@ -7,7 +7,9 @@
 using json = nlohmann::json;
 using Logger::Log;
 namespace Fight {
-	void Fight_Texture::Draw(SDL_Renderer*& rdr, TTF_Font*& ft) {
+	void Fight_Texture::Draw(SDL_Renderer*& rdr, TTF_Font*& ft) {//TODO 待绘制内容：
+		//TODO 角色大招图标，角色头像，角色技能，敌人图标，目标选择
+		//TODO 
 		SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 		SDL_RenderClear(rdr);
 
@@ -207,6 +209,21 @@ namespace Fight {
 		SDL_RenderFillRect(rdr, &full);
 
 		
+
+	}
+	void Fight_Texture::Draw_Enemy(SDL_Renderer*&) {
+
+	}
+	void Fight_Texture::Draw_EnemyTargetChoose(SDL_Renderer*&) {
+
+	}
+	void Fight_Texture::Draw_Character(SDL_Renderer*&, TTF_Font*&) {
+
+	}
+	void Fight_Texture::Draw_BackCharacter(SDL_Renderer*&, TTF_Font*&) {
+
+	}
+	void Fight_Texture::Draw_CharacterSelecting(SDL_Renderer*&, TTF_Font*&) {
 
 	}
 }
