@@ -110,6 +110,8 @@ namespace Fight {
 		}
 	}
 	void Fight_Logic::LoadinJson(const std::filesystem::path& gp) {
+		static bool loaded = false;
+		if (loaded)return;
 		std::ifstream configin(gp / "config" / "Fight_Logic.json");//从配置读入
 		if (!configin.is_open()) {
 			Log("Failed to open Fight_Logic.json", __FUNCSIG__, Logcode::OPENFAILED);
@@ -816,12 +818,15 @@ namespace Fight {
 		CurrentCharacterState = CharacterState::Normal;
 		SetCharacterSkillBySlot(Attribute::SkillSlot::Normal);
 	}
-	void Fight_Logic::CharacterExecuting() {//TODO 还剩下角色的技能执行没有写
-
+	void Fight_Logic::CharacterExecuting() {
+		if (!NowActing)return;
+		Log(NowActing->Name(), __func__);
+		if (!Now_skill)return;
+		Now_skill->Execute(NowActing, skill_targets, *this);
 	}
 	void Fight_Logic::DealDamage(BasicActor* caster, BasicActor* target,
 		const Attribute::AttackForm& form,
-		double multiplier) {
+		double multiplier) {//TODO 真正的伤害执行，结算没有写
 		if (!caster || !target)
 			return;
 		Log("DealDamage: " + caster->Name()
@@ -830,10 +835,10 @@ namespace Fight {
 			+ " mult=" + std::to_string(multiplier),
 			__func__);//测试用
 	}
-	void Fight_Logic::GainEnergy(BasicActor* who, double amount) {
+	void Fight_Logic::GainEnergy(BasicActor* who, double amount) {//能量获取也没写
 
 	}
-	void Fight_Logic::ApplyBuff(BasicActor* target, const std::string& buffId) {
+	void Fight_Logic::ApplyBuff(BasicActor* target, const std::string& buffId) {//上buff也没写
 
 	}
 	void Fight_Logic::DataHandOff(int wintype) {//标志位为胜利还是失败,0是失败，1是胜利

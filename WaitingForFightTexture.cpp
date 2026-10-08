@@ -23,6 +23,13 @@ namespace WaitingForFight {
 	void WaitingForFightTexture::Draw(SDL_Renderer*& rdr,TTF_Font*& ft) {
 		SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 		SDL_RenderClear(rdr);
+
+		static bool GameStart = false;
+		if (!GameStart) {
+			GameStart = true;//游戏开始时要绘制初始信息
+			Draw_GameStartPreview(rdr, ft);
+			return;
+		}
 		Draw_Background(rdr);
 		Draw_QuitButton(rdr);
 		Draw_Blood(rdr, ft);
@@ -444,5 +451,16 @@ namespace WaitingForFight {
 			t = enemy_tex.GetEnemyTexture(State.Boss[State.dimension_index].name + "_Head");
 		}
 		SDL_RenderTexture(rdr, t, NULL, &word_place["EnemyPreview"]);
+	}
+	void WaitingForFightTexture::Draw_GameStartPreview(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		for (size_t i = 0;i < State.Boss.size();i++) {
+			if (i >= place["GameStartPreview"].size())break;
+			SDL_RenderTexture(
+				rdr,
+				enemy_tex.GetEnemyTexture(State.Boss[i].name),
+				NULL,
+				&place["GameStartPreview"][i]
+			);
+		}
 	}
 }

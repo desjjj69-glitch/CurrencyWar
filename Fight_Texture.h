@@ -14,8 +14,6 @@ namespace Fight {
 		Fight_Texture()=default;
 		~Fight_Texture();
 	private:
-		bool uiloaded = false;
-		bool jsloaded = false;
 		void LoadinJson(const std::filesystem::path&)override;
 		void LoadinPic(const std::filesystem::path&, SDL_Renderer*&)override;
 		std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture*>> dynamic_ui_tex;
@@ -37,8 +35,11 @@ namespace Fight {
 		void ReadActionListPosition(const json& js, ActionListTexture&);
 		void Draw_Background(SDL_Renderer*&);
 		void Draw_ActionList(SDL_Renderer*&);
+		std::unordered_map<std::string, SDL_Texture*>enemy_tex;
 		void Draw_Enemy(SDL_Renderer*&);
 		void Draw_EnemyTargetChoose(SDL_Renderer*&);
+		
+		std::unordered_map<std::string, SDL_Texture*>character_tex;
 		void Draw_Character(SDL_Renderer*&, TTF_Font*&);
 		void Draw_BackCharacter(SDL_Renderer*&, TTF_Font*&);
 		void Draw_CharacterSelecting(SDL_Renderer*&, TTF_Font*&);

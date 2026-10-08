@@ -13,7 +13,7 @@ namespace WaitingForFight{
 		}
 		WaitingForFight::State.Init();//加载文件之后，每个阶段开始时都有一个初始化过程
 		SDL_Event event;//event无所谓，反正都要被Poll的
-		
+		static bool GameStart = false;
 		while (1) {
 			//Log("StartDraw", __func__);
 			w.Draw(BasicGameRes.GameRenderer, BasicGameRes.GameFont);
@@ -24,6 +24,10 @@ namespace WaitingForFight{
 				return;
 			}
 			SDL_Delay(BasicGameRes.FrameTime);
+			if (!GameStart) {
+				GameStart = true;
+				SDL_Delay(BasicGameRes.FrameTime * 100);
+			}
 		}
 	}
 }

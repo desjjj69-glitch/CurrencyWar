@@ -2,14 +2,12 @@
 #include"Logger.h"
 namespace Fight {
 	void Update() {
-		static Fight_Texture f;
-		static bool loaded = false;
-		if (!loaded) {
-			loaded = true;
-			f.Loadin(BasicGameRes.GamePath, BasicGameRes.GameRenderer);
-			State.LoadinJson(BasicGameRes.GamePath);
-		}
+		Fight_Texture f;
+			
+			
+		State.LoadinJson(BasicGameRes.GamePath);
 		State.Init();//每次进入战斗阶段单独调用一次
+		f.Loadin(BasicGameRes.GamePath, BasicGameRes.GameRenderer);//现在f是局部变量，每次都要重新加载
 		Uint64 prev = SDL_GetTicks();
 		while (State.AtFight != Fight_Logic::FightGlobalState::EndFight) {
 			Uint64 now = SDL_GetTicks();

@@ -48,5 +48,6 @@ namespace WaitingForFight {
 		void Draw_Sell(SDL_Renderer*&,TTF_Font*&);
 		void Draw_Character(SDL_Renderer*&, std::unique_ptr<BasicObject>&,SDL_FRect&,int signal=0);
 		void Draw_EnemyPreview(SDL_Renderer*&, TTF_Font*&);
+		void Draw_GameStartPreview(SDL_Renderer*&, TTF_Font*&);
 	};
 }

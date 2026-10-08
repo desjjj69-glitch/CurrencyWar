@@ -45,6 +45,10 @@
         {
           "index": 0,
           "place": "300 300 300 300"
+        },
+        {
+          "index": 1,
+          "place": "1 1 1 1"
         }
       ]
     },
@@ -54,6 +58,81 @@
         {
           "index": 0,
           "place": "300 300 300 300"
+        },
+        {
+          "index": 1,
+          "place": "1 1 1 1"
+        }
+      ]
+    },
+    {
+      "type": "EnemyTargetChoose",
+      "EnemyTargetChoose": [
+        {
+          "index": 0,
+          "place": "1 1 1 1"
+        },
+        {
+          "index": 0,
+          "place": "1 1 1 1"
+        },
+        {
+          "index": 0,
+          "place": "1 1 1 1"
+        },
+        {
+          "index": 0,
+          "place": "1 1 1 1"
+        },
+        {
+          "index": 0,
+          "place": "1 1 1 1"
+        }
+      ]
+    },
+    {
+      "type": "Enemy",
+      "Enemy": [
+        {
+          "index": 0,
+          "place": "394 450 357 432"
+        },
+        {
+          "index": 1,
+          "place": "790 450 357 432"
+        },
+        {
+          "index": 2,
+          "place": "1186 450 357 432"
+        },
+        {
+          "index": 3,
+          "place": "1582 450 357 432"
+        },
+        {
+          "index": 4,
+          "place": "1978 450 357 432"
+        }
+      ]
+    },
+    {
+      "type": "FrontCharacter",
+      "FrontCharacter": [
+        {
+          "index": 0,
+          "place": "221 1204 153 149"
+        },
+        {
+          "index": 1,
+          "place": "522 1204 153 149"
+        },
+        {
+          "index": 2,
+          "place": "822 1204 153 149"
+        },
+        {
+          "index": 3,
+          "place": "1122 1204 153 149"
         }
       ]
     }

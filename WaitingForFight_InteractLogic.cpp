@@ -420,6 +420,19 @@ namespace WaitingForFight {
 			Rmode = RealTimeMode::Shop;
 		}
 		if (uiinside("StartFight")) {//退出战斗的逻辑，现在该写入数据交换体了
+			if (Zone(OriginPlaceType::FrontBattleField).empty()) {
+				return;
+			}
+			int flag = 0;
+			for (auto& var : Zone(OriginPlaceType::FrontBattleField)) {
+				if (var) {
+					flag = 1;
+					break;
+				}
+			}
+			if (flag == 0) {
+				return;//如果前台一个角色也没有则不允许开战
+			}
 			DataHandOff();
 			AtWaitingForFight = false;
 		}

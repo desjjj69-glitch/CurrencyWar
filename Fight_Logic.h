@@ -25,6 +25,9 @@ namespace Fight {
 		std::vector<std::unique_ptr<BasicActor>>& Actor(PlaceType t) {
 			return actors[static_cast<size_t>(t)];
 		}
+		std::vector<std::unique_ptr<BasicActor>>& GetEnemyPool() {
+			return EnemyActorPool;
+		}
 		std::vector<ActorList>ActionList;
 		std::vector<ExtraActorEntry>ExtraAction;
 

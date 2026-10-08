@@ -15,6 +15,12 @@ namespace Fight {
 
 		Draw_Background(rdr);
 		Draw_ActionList(rdr);
+		Draw_Character(rdr, ft);
+		Draw_BackCharacter(rdr, ft);
+		Draw_CharacterSelecting(rdr, ft);
+		Draw_Enemy(rdr);//TODO 要建立从ui_place到真实位置的双射，因为可能有的地方是nullptr
+		//算了不建立也行，nullptr的位置不绘制就行
+		Draw_EnemyTargetChoose(rdr);
 		if (State.AtFight == Fight_Logic::FightGlobalState::Pause) {
 			Draw_Pause(rdr, ft);
 
@@ -22,30 +28,35 @@ namespace Fight {
 		
 	}
 	Fight_Texture::~Fight_Texture() {
-		if (!uiloaded) return;
 
-		for (auto& [type, map] : dynamic_ui_tex) {
-			for (auto& [picType, tex] : map) {
+		auto KillMap = [](auto& map) {
+			for (auto& [k, tex] : map) {
 				if (tex) SDL_DestroyTexture(tex);
 			}
 			map.clear();
+			};
+
+		KillMap(actor_tex);
+		KillMap(extraactor_tex);
+		KillMap(character_tex);
+		KillMap(enemy_tex);
+
+		for (auto& [type, inner] : dynamic_ui_tex) {
+			KillMap(inner);
 		}
 		dynamic_ui_tex.clear();
+
+		// 值类型，clear 只是提前还内存，不 clear 也会随对象析构自动释放
 		dynamic_ui_path.clear();
 		ui_place.clear();
 
-		uiloaded = false;
-		jsloaded = false;
 	}
 	void Fight_Texture::Loadin(const std::filesystem::path& gp, SDL_Renderer*& rdr) {
-		if (!jsloaded) {
+		
 			LoadinJson(gp);
-			jsloaded = true;
-		}
-		if (!uiloaded) {
+			
 			LoadinPic(gp, rdr);
-			uiloaded = true;
-		}
+			
 	}
 	void Fight_Texture::ReadActionListPosition(const json& js, ActionListTexture &a) {
 		a.startx = js.value("startx", 0.0f);
@@ -130,11 +141,38 @@ namespace Fight {
 				}
 			}
 		}
+
+		//TODO 这里可能有严重的内存泄露问题：如果两个敌人是相同的，会重复加载，但由于这个函数只执行一次看不出来
 		//接下来导入行动条头像
 		std::filesystem::path actp=gp / "assets" / "Fight" / "ActorHead";
 		for (auto& var : actor_name) {
 			auto tmp = IMG_LoadTexture(rdr, (actp / (var + ".png")).string().c_str());
+			if (actor_tex[var])SDL_DestroyTexture(actor_tex[var]);
 			actor_tex[var] = tmp;
+		}
+		//接下来导入角色头像
+		std::filesystem::path chp = gp / "assets" / "Fight" / "Character_Head";
+		for (auto& var : State.Actor(Fight_Logic::PlaceType::FrontCharacter)) {
+			if (!var)continue;
+			if (character_tex[var->Name()])SDL_DestroyTexture(character_tex[var->Name()]);
+			character_tex[var->Name()] = IMG_LoadTexture(rdr, (chp / (var->Name() + ".png")).string().c_str());
+		}
+		for (auto& var : State.Actor(Fight_Logic::PlaceType::BackCharacter)) {
+			if (!var)continue;
+			if (character_tex[var->Name()])SDL_DestroyTexture(character_tex[var->Name()]);
+			character_tex[var->Name()] = IMG_LoadTexture(rdr, (chp / (var->Name() + ".png")).string().c_str());
+		}
+		//导入敌人大图
+		std::filesystem::path enep = gp / "assets" / "Enemy";
+		for (auto& var : State.Actor(Fight_Logic::PlaceType::Enemy)) {
+			if (!var)continue;
+			if (enemy_tex[var->Name()])SDL_DestroyTexture(enemy_tex[var->Name()]);
+			enemy_tex[var->Name()] = IMG_LoadTexture(rdr, (enep / (var->Name() + ".png")).string().c_str());
+		}
+		for (auto& var : State.GetEnemyPool()) {
+			if (!var)continue;
+			if (enemy_tex[var->Name()])SDL_DestroyTexture(enemy_tex[var->Name()]);
+			enemy_tex[var->Name()] = IMG_LoadTexture(rdr, (enep / (var->Name() + ".png")).string().c_str());
 		}
 	}
 	
@@ -211,17 +249,42 @@ namespace Fight {
 		
 
 	}
-	void Fight_Texture::Draw_Enemy(SDL_Renderer*&) {
-
+	void Fight_Texture::Draw_Enemy(SDL_Renderer*& rdr) {
+		for (size_t i = 0;i < ui_place["Enemy"].size();i++) {
+			auto& vec = State.Actor(Fight_Logic::PlaceType::Enemy);
+			if (i >= vec.size())continue;
+			//Log("Draw_Enemyhere", __FUNCSIG__);
+			if (vec[i]) {
+				//Log("Drawed"+
+				//	std::to_string(enemy_tex[vec[i]->Name()]==nullptr)+
+				//	std::to_string(ui_place["Enemy"][i].x)
+				//	,
+				//	__func__
+				//);
+				SDL_RenderTexture(rdr, enemy_tex[vec[i]->Name()], NULL, &ui_place["Enemy"][i]);
+			}
+		}
 	}
 	void Fight_Texture::Draw_EnemyTargetChoose(SDL_Renderer*&) {
 
 	}
-	void Fight_Texture::Draw_Character(SDL_Renderer*&, TTF_Font*&) {
-
+	void Fight_Texture::Draw_Character(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		for (size_t i = 0;i < ui_place["FrontCharacter"].size();i++) {
+			auto& vec = State.Actor(Fight_Logic::PlaceType::FrontCharacter);
+			if (i >= vec.size())continue;
+			if (vec[i]) {
+				SDL_RenderTexture(rdr, character_tex[vec[i]->Name()], NULL, &ui_place["FrontCharacter"][i]);
+			}
+		}
 	}
-	void Fight_Texture::Draw_BackCharacter(SDL_Renderer*&, TTF_Font*&) {
-
+	void Fight_Texture::Draw_BackCharacter(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		for (size_t i = 0;i < ui_place["BackCharacter"].size();i++) {
+			auto& vec = State.Actor(Fight_Logic::PlaceType::BackCharacter);
+			if (i >= vec.size())continue;
+			if (vec[i]) {
+				SDL_RenderTexture(rdr, character_tex[vec[i]->Name()], NULL, &ui_place["BackCharacter"][i]);
+			}
+		}
 	}
 	void Fight_Texture::Draw_CharacterSelecting(SDL_Renderer*&, TTF_Font*&) {
 
