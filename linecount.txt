@@ -1,0 +1,5 @@
+Get-ChildItem -Recurse -Include *.cpp,*.h,*.hpp |
+  Where-Object { $_.Name -ne "json.hpp" } |
+  Get-Content |
+  Measure-Object -Line
+4522
