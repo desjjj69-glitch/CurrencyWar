@@ -17,6 +17,10 @@ namespace Attribute {
 		std::unordered_map<ElementType, double>Resistance_ElementDamageResistance;
 
 		std::unordered_map<AttackType, double>Boost_AttackTypeDamageBoost;//被动给定增伤
+
+		double BasicAttackBoost;
+		double BasicHeartBoost;
+		double BasicDefenseBoost;//攻击，生命，防御
 	};
 	struct BuffConfig {
 		std::string id;                 // 唯一标识

@@ -22,6 +22,8 @@ namespace Fight {
 			fallback.types.push_back(Attribute::AttackType::Normal);
 			fallback.atkScale = 1.0;
 			fallback.hitCount = 1;
+			fallback.multiply.push_back(1.0);
+			fallback.energyGain = 20;
 			skills.push_back(CreateSkill(fallback));//填充一个默认普攻
 
 			fallback.id = name + "_Skill_fallback";
@@ -29,9 +31,11 @@ namespace Fight {
 			fallback.slot = Attribute::SkillSlot::Skill;
 			fallback.target = Attribute::TargetAttackType::Blast;
 			fallback.element = Attribute::ElementType::Physic;
+			fallback.types.clear();
 			fallback.types.push_back(Attribute::AttackType::Skill);
 			fallback.atkScale = 1.0;
 			fallback.hitCount = 1;
+			fallback.energyGain = 30;
 			skills.push_back(CreateSkill(fallback));
 		}
 	}

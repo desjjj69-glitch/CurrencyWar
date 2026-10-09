@@ -244,17 +244,31 @@ namespace Fight {
 			
 		}
 		SDL_FRect exrect = {
-			actionlist_place.extrax,
-			actionlist_place.extray,
-			actionlist_place.extraw,
-			actionlist_place.extrah
+	actionlist_place.extrax,
+	actionlist_place.extray,
+	actionlist_place.extraw,
+	actionlist_place.extrah
 		};
-		for (size_t i = 0;i < State.ExtraAction.size();i++) {
+		for (size_t i = 0; i < State.ExtraAction.size(); ++i) {
 			auto* p = State.FindActorFromExtraAction(i);
-			if (!p)break;
-			SDL_RenderTexture(rdr, extraactor_tex[p->Name()], NULL, &exrect);
+			if (!p) break;
+
+			auto key = p->Name();
+			if (p->Type() == ActorType::Enemy) {
+				key += "_Head";              // ← 这里补上
+			}
+
+			SDL_Texture* tex = extraactor_tex[key];
+			if (!tex) {
+				// 也可以再退一步：用 actor_tex[key] 兜底
+				tex = actor_tex[key];
+			}
+			if (tex) {
+				SDL_RenderTexture(rdr, tex, NULL, &exrect);
+			}
+
 			exrect.x += exrect.w;
-			if (exrect.x > actionlist_place.extraendx)break;
+			if (exrect.x > actionlist_place.extraendx) break;
 		}
 	}
 	void Fight_Texture::Draw_Pause(SDL_Renderer*& rdr, TTF_Font*& ft) {

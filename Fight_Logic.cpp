@@ -204,6 +204,7 @@ namespace Fight {
 	}
 	void Fight_Logic::Init() {
 		Timer = 0;
+		TotalCharacterDamageCount = 0;
 		AtFight = FightGlobalState::AtFight;
 		GlobalIdIndex = 0;
 		SkillPoint = DefaultSkillPoint;
@@ -242,12 +243,15 @@ namespace Fight {
 			tmp->NewActor(var.name,g_WaitingForFight_to_Fight.difficulty);
 			EnemyActorPool.push_back(std::move(tmp));//先把敌人写进池子
 		}
+		//接下来给所有Actor附上唯一编号
 		for (auto& vec : actors) {
 			for (auto& var : vec) {
+				if (!var)continue;
 				var->SetId(GlobalIdIndex++);
 			}
 		}
 		for (auto& var : EnemyActorPool) {
+			if (!var)continue;
 			var->SetId(GlobalIdIndex++);
 		}
 		for (auto& var : EnemyActorPool) {
@@ -259,7 +263,7 @@ namespace Fight {
 			}
 		}
 		
-		//接下来给所有Actor附上唯一编号
+	
 		
 		//Log_Init();
 	}
@@ -354,6 +358,7 @@ namespace Fight {
 					if(i>=Actor(PlaceType::FrontCharacter).size())
 						continue;
 					auto* p = dynamic_cast<Character_Actor*>(Actor(PlaceType::FrontCharacter)[i].get());
+					if (!p)return 0;
 					if (p->Energy >= p->config.basic_attribute.EnergyLimit&&p->heart>0) {
 						AddtoExtraAction({ p->id(),ExtraPriority::CharacterUlt });
 						p->Energy = 0;
@@ -369,6 +374,7 @@ namespace Fight {
 					if (i >= Actor(PlaceType::FrontCharacter).size())
 						continue;
 					auto* p = dynamic_cast<Character_Actor*>(Actor(PlaceType::FrontCharacter)[i].get());
+					if (!p)return 0;
 					if (p->Energy >= p->config.basic_attribute.EnergyLimit && p->heart > 0) {
 						AddtoExtraAction({ p->id(),ExtraPriority::CharacterUlt });
 						p->Energy = 0;
@@ -386,6 +392,10 @@ namespace Fight {
 				break;
 			case StateType::PlayerStart:
 				if (CheckIfUltbyPos(x, y)) {
+					for (size_t i = 0;i < ExtraAction.size();i++) {
+						auto* p = FindActorFromExtraAction(i);
+						Log("ExtraList:" + p->Name(), "Debug");
+					}
 					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
 					CurrentState = StateType::PlayerUlt;
 					NowActing = FindActorFromExtraAction(0);
@@ -396,6 +406,12 @@ namespace Fight {
 				break;
 			case StateType::PlayerSelecting:
 				if (CheckIfUltbyPos(x, y)) {//如果这次点击的是大招按钮，那么就把当前的选择行为强制结束
+					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
+					CurrentState = StateType::PlayerUlt;
+					NowActing = FindActorFromExtraAction(0);
+					RemoveFromExtraList_index(0);
+					Timer = 0;
+					
 					return;
 				}
 				{
@@ -440,6 +456,10 @@ namespace Fight {
 				break;
 			case StateType::EnemyStart:
 				if (CheckIfUltbyPos(x, y)) {
+					for (size_t i = 0;i < ExtraAction.size();i++) {
+						auto* p = FindActorFromExtraAction(i);
+						Log("ExtraList:" + p->Name(), "Debug");
+					}
 					AddtoExtraAction({ NowActing->id(),ExtraPriority::EnemyEnforced });
 					CurrentState = StateType::PlayerUlt;
 					NowActing = FindActorFromExtraAction(0);
@@ -475,6 +495,10 @@ namespace Fight {
 			case StateType::PlayerStart:
 				if (CheckIfUltbyKey(key)) {
 					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
+					for (size_t i = 0;i < ExtraAction.size();i++) {
+						auto* p = FindActorFromExtraAction(i);
+						Log("ExtraList:" + p->Name(), "Debug");
+					}
 					CurrentState = StateType::PlayerUlt;
 					NowActing = FindActorFromExtraAction(0);
 					RemoveFromExtraList_index(0);
@@ -485,6 +509,11 @@ namespace Fight {
 			case StateType::PlayerSelecting:
 				Log("[Key] PlayerSelecting scancode=" + std::to_string(key.scancode), __func__);
 				if (CheckIfUltbyKey(key)) {//如果这次点击的是大招按钮，那么就把当前的选择行为强制结束
+					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
+					CurrentState = StateType::PlayerUlt;
+					NowActing = FindActorFromExtraAction(0);
+					RemoveFromExtraList_index(0);
+					Timer = 0;
 					return;
 				}
 				if (key.scancode == SDL_SCANCODE_LEFT||key.scancode==SDL_SCANCODE_A) {
@@ -529,6 +558,10 @@ namespace Fight {
 			case StateType::EnemyStart:
 				if (CheckIfUltbyKey(key)) {
 					AddtoExtraAction({ NowActing->id(),ExtraPriority::EnemyEnforced });
+					for (size_t i = 0;i < ExtraAction.size();i++) {
+						auto* p = FindActorFromExtraAction(i);
+						Log("ExtraList:" + p->Name(), "Debug");
+					}
 					CurrentState = StateType::PlayerUlt;
 					NowActing = FindActorFromExtraAction(0);
 					RemoveFromExtraList_index(0);
@@ -547,6 +580,9 @@ namespace Fight {
 				break;
 			case StateType::PlayerUltSelecting:
 				CheckIfUltbyKey(key);
+				if (key.scancode == SDL_SCANCODE_SPACE) {//TODO 这里只是占位用的，之后补上详细逻辑
+					CurrentState = StateType::PlayerUltExecuting;
+				}
 				break;
 			case StateType::PlayerUltExecuting:
 				CheckIfUltbyKey(key);
@@ -584,6 +620,7 @@ namespace Fight {
 		auto& wact = ActionList[index];
 		for (auto& var : actors) {
 			for (auto& act : var) {
+				if (!act)continue;
 				if (act->id() == wact.id) {
 					return act.get();
 				}
@@ -597,6 +634,7 @@ namespace Fight {
 		auto& wact = ExtraAction[index];
 		for (auto& var : actors) {
 			for (auto& act : var) {
+				if (!act)continue;
 				if (act->id() == wact.id) {
 					return act.get();
 				}
@@ -606,6 +644,7 @@ namespace Fight {
 	}
 	void Fight_Logic::StartActor() {
 		auto StateShifter = [&](BasicActor* act) {
+			if (!act)return;
 			switch (act->Type()) {
 			case ActorType::Character:
 				CurrentState = StateType::PlayerStart;
@@ -634,6 +673,10 @@ namespace Fight {
 				break;
 			default:
 				// 兜底：按 actor 类型走
+				if (!NowActing) {
+					CurrentState = StateType::Idle;
+					break;
+				}
 				switch (NowActing->Type()) {
 				case ActorType::Character: CurrentState = StateType::PlayerStart; break;
 				case ActorType::Enemy:     CurrentState = StateType::EnemyStart; break;
@@ -814,10 +857,20 @@ namespace Fight {
 
 		case Attribute::TargetAttackType::Blast:
 			pushTarget(mainIndex, TargetRole::Main);
-			if (mainIndex > 0)                  pushTarget(mainIndex - 1, TargetRole::Adjacent);
-			if (mainIndex + 1 < enemies.size()) pushTarget(mainIndex + 1, TargetRole::Adjacent);
+			for (int i = static_cast<int>(mainIndex) - 1; i >= 0; --i) {
+				if (i < static_cast<int>(enemies.size()) && enemies[i]) {
+					pushTarget(static_cast<size_t>(i), TargetRole::Adjacent);
+					break;
+				}
+			}
+			// 向右找第一个非空的
+			for (size_t i = mainIndex + 1; i < enemies.size(); ++i) {
+				if (enemies[i]) {
+					pushTarget(i, TargetRole::Adjacent);
+					break;
+				}
+			}
 			break;
-
 		default:
 			break;
 		}
@@ -858,6 +911,13 @@ namespace Fight {
 		//}
 
 		Now_skill->Execute(NowActing, skill_targets, *this);
+		for (auto& var : Actor(PlaceType::FrontCharacter)) {
+			if (!var)continue;
+			auto* p = dynamic_cast<Character_Actor*>(var.get());
+			if (!p)continue;
+			Log("HeartCharacter:" + std::to_string(p->heart), __func__);
+		}
+
 	}
 	void Fight_Logic::SetCharacterSkillBySlot(Attribute::SkillSlot slot) {
 		auto* c = dynamic_cast<Character_Actor*>(NowActing);
@@ -916,20 +976,47 @@ namespace Fight {
 		Log(NowActing->Name(), __func__);
 		if (!Now_skill)return;
 		Now_skill->Execute(NowActing, skill_targets, *this);
+		for (auto& var : Actor(PlaceType::Enemy)) {
+			if (!var)continue;
+			auto* p = dynamic_cast<Enemy_Actor*>(var.get());
+			if (!p)continue;
+			Log("HeartEnemy:" + std::to_string(p->CurrentHeart), __func__);
+		}
 	}
 	void Fight_Logic::DealDamage(BasicActor* caster, BasicActor* target,
 		const Attribute::AttackForm& form,
 		double multiplier) {//TODO 真正的伤害执行，结算没有写
+		//这个唐b deepseek，怎么把target.list里面也搞了个倍率
+		//这个multiplier是没用的
+		//有用的是技能填充进的form里面的倍率
 		if (!caster || !target)
 			return;
-		Log("DealDamage: " + caster->Name()
-			+ " -> " + target->Name()
-			+ " skill=" + form.id
-			+ " mult=" + std::to_string(multiplier),
-			__func__);//测试用
+		for (int i = 0;i < form.hitCount;i++) {
+			Attribute::AttackValueType damage = CalculateDamage(caster, target, form, form.multiply[i]);
+			switch (target->Type()) {
+			case ActorType::Character:
+			{
+				auto* c = dynamic_cast<Character_Actor*>(target);
+				c->heart -= damage;
+			}
+			break;
+			case ActorType::Enemy:
+			{
+				auto* e = static_cast<Enemy_Actor*>(target);
+				e->CurrentHeart -= damage;
+				TotalCharacterDamageCount += damage;
+			}
+			break;
+			}//多段伤害计算
+		}
+		
 	}
-	void Fight_Logic::GainEnergy(BasicActor* who, double amount) {//能量获取也没写
-
+	void Fight_Logic::GainEnergy(BasicActor* who, double amount) {
+		if (who->Type() == ActorType::Character) {
+			auto* p = dynamic_cast<Character_Actor*>(who);
+			p->Energy += static_cast<int>(amount*p->config.basic_attribute.EnergyRecoverEfficiency);
+			
+		}
 	}
 	void Fight_Logic::ApplyBuff(BasicActor* target, const std::string& buffId) {//上buff也没写
 

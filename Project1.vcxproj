@@ -169,6 +169,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="FightResult_Logic.cpp" />
     <ClCompile Include="FightResult_Texture.cpp" />
     <ClCompile Include="FightResult_Update.cpp" />
+    <ClCompile Include="Fight_CalculateDamge.cpp" />
     <ClCompile Include="Fight_CharacterActor.cpp" />
     <ClCompile Include="Fight_EnemyActor.cpp" />
     <ClCompile Include="Fight_Logic.cpp" />

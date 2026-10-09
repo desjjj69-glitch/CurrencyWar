@@ -39,6 +39,9 @@ namespace Object {
         form.hpScale = j.value("hpScale", 0.0);
         form.defScale = j.value("defScale", 0.0);
         form.hitCount = j.value("hitCount", 1);
+        for (int i = 0;i < form.hitCount;i++) {
+            form.multiply.push_back(1.0);
+        }
         form.breakValue = j.value("breakValue", 0.0);
         form.energyGain = j.value("energyGain", 0.0);
 

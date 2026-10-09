@@ -80,7 +80,7 @@ namespace Fight {
 		int DefaultSkillPointMax=5;
 		int SkillPoint = 3;
 		int SkillPointMax = 5;
-
+		Attribute::AttackValueType TotalCharacterDamageCount = 0;
 		std::unordered_map<std::string, std::vector<SDL_FRect>>ui_place;
 
 
@@ -126,6 +126,10 @@ namespace Fight {
 			return (x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h);
 		}
 		void DataHandOff(int);
+
+
+		Attribute::AttackValueType CalculateDamage(BasicActor* caster, BasicActor* target,
+			const Attribute::AttackForm& form,double multiply);
 	};
 	extern Fight_Logic State;
 }

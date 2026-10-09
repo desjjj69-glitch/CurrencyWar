@@ -10,6 +10,8 @@ namespace Fight {
 		Enemy_Actor() = default;
 		std::string name;
 		EnemyObject config;
+		//std::vector<Attribute::BuffInstance> RealTimeBuffs;
+		//目前没有设置敌人的buff
 		Attribute::HeartType CurrentHeart = 0;
 		void NewActor(const std::string&,int);
 	};

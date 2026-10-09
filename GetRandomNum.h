@@ -39,3 +39,9 @@ inline std::vector<int> GetRandomDistinct(int n, int count) {
     }
     return res;
 }
+inline int GetRandomNum(double probability) {
+    if (probability <= 0.0) return 0;
+    if (probability >= 1.0) return 1;
+    std::bernoulli_distribution dist(probability);
+    return dist(get_random_engine()) ? 1 : 0;
+}

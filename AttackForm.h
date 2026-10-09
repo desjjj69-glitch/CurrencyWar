@@ -17,7 +17,7 @@ namespace Attribute {
 		double atkScale = 0.0;
 		double hpScale = 0.0;
 		double defScale = 0.0;
-
+		std::vector<double>multiply;//每段伤害的倍率
 		int hitCount = 1;//伤害段数
 		double breakValue = 0.0;//削韧值
 		double energyGain = 0.0;//能量获取
