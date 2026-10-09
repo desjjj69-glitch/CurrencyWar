@@ -144,11 +144,19 @@ namespace Fight {
 
 		//TODO 这里可能有严重的内存泄露问题：如果两个敌人是相同的，会重复加载，但由于这个函数只执行一次看不出来
 		//接下来导入行动条头像
+		//基础行动条
 		std::filesystem::path actp=gp / "assets" / "Fight" / "ActorHead";
 		for (auto& var : actor_name) {
 			auto tmp = IMG_LoadTexture(rdr, (actp / (var + ".png")).string().c_str());
 			if (actor_tex[var])SDL_DestroyTexture(actor_tex[var]);
 			actor_tex[var] = tmp;
+		}
+		//额外行动回合
+		std::filesystem::path extp = gp / "assets" / "Fight" / "ExtraHead";
+		for (auto& var : actor_name) {
+			auto tmp = IMG_LoadTexture(rdr, (extp / (var + ".png")).string().c_str());
+			if (extraactor_tex[var])SDL_DestroyTexture(extraactor_tex[var]);
+			extraactor_tex[var] = tmp;
 		}
 		//接下来导入角色头像
 		std::filesystem::path chp = gp / "assets" / "Fight" / "Character_Head";
@@ -278,18 +286,31 @@ namespace Fight {
 		}
 	}
 	void Fight_Texture::Draw_EnemyTargetChoose(SDL_Renderer*& rdr) {
-		if (State.CurrentState != Fight_Logic::StateType::PlayerSelecting)return;
-		if (State.NowActing->Type() != ActorType::Character)return;
-		for (size_t i = 0;i < ui_place["EnemyTargetChoose"].size();i++) {
-			auto& vec = State.skill_targets;
-			if (i >= vec.list.size())break;
-			for (auto& var : vec.list) {
-				if (var.index >= ui_place["EnemyTargetChoose"].size())continue;
-				if (var.role == TargetRole::Main) {
-					SDL_RenderTexture(rdr, GetUITex("EnemyTargetChoose", "Main"), NULL, &ui_place["EnemyTargetChoose"][var.index]);
+		if (State.CurrentState != Fight_Logic::StateType::PlayerSelecting) return;
+		if (!State.NowActing || State.NowActing->Type() != ActorType::Character) return;
+
+		auto& mainPlaces = ui_place["EnemyTargetChoose_Main"];
+		auto& subPlaces = ui_place["EnemyTargetChoose_Sub"];
+
+		for (auto& var : State.skill_targets.list) {
+			//Log("Here1", "Debug");
+			if (var.role == TargetRole::Main) {
+				//Log("Here1.5", "Debug");
+				if (var.index >= mainPlaces.size()) continue;
+				//Log("Here2", "Debug");
+				//Log("here3", "Debug");
+				SDL_Texture* tex = GetUITex("EnemyTargetChoose", "Main");
+				if (tex) {
+					//Log("Here3", "Debug");
+					SDL_RenderTexture(rdr, tex, nullptr, &mainPlaces[var.index]);
 				}
-				else {
-					SDL_RenderTexture(rdr, GetUITex("EnemyTargetChoose"), NULL, &ui_place["EnemyTargetChoose"][var.index]);
+			}
+			else {
+				if (var.index >= subPlaces.size()) continue;
+
+				SDL_Texture* tex = GetUITex("EnemyTargetChoose", "Default");
+				if (tex) {
+					SDL_RenderTexture(rdr, tex, nullptr, &subPlaces[var.index]);
 				}
 			}
 		}
@@ -300,8 +321,22 @@ namespace Fight {
 			if (i >= vec.size())continue;
 			if (vec[i]) {
 				SDL_RenderTexture(rdr, character_tex[vec[i]->Name()], NULL, &ui_place["FrontCharacter"][i]);
+				Character_Actor* p=nullptr;
+				if (vec[i]->Type() == ActorType::Character) {
+					p = static_cast<Character_Actor*>(vec[i].get());
+				}
+				else {
+					continue;
+				}
+				if (p->Energy >= p->config.basic_attribute.EnergyLimit) {
+					SDL_RenderTexture(rdr, GetUITex("Ult_Full",p->name), NULL, &ui_place["Ult_Full"][i]);
+				}
+				else {
+					SDL_RenderTexture(rdr, GetUITex("Ult_NotFull", p->name), NULL, &ui_place["Ult_NotFull"][i]);
+				}
 			}
 		}
+		
 	}
 	void Fight_Texture::Draw_BackCharacter(SDL_Renderer*& rdr, TTF_Font*& ft) {
 		for (size_t i = 0;i < ui_place["BackCharacter"].size();i++) {
@@ -321,8 +356,8 @@ namespace Fight {
 			SDL_RenderTexture(rdr, GetUITex("Skill", State.NowActing->Name()), NULL, &ui_place["Skill"][1]);
 			break;
 		case Fight_Logic::CharacterState::Skill:
-			SDL_RenderTexture(rdr, GetUITex("Normal", State.NowActing->Name()), NULL, &ui_place["Normal"][0]);
-			SDL_RenderTexture(rdr, GetUITex("Skill", State.NowActing->Name()), NULL, &ui_place["Skill"][1]);
+			SDL_RenderTexture(rdr, GetUITex("Normal", State.NowActing->Name()), NULL, &ui_place["Normal"][1]);
+			SDL_RenderTexture(rdr, GetUITex("Skill", State.NowActing->Name()), NULL, &ui_place["Skill"][0]);
 			break;
 		}
 	}

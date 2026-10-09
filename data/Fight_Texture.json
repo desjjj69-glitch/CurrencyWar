@@ -19,23 +19,44 @@
       ]
     },
     {
-      "type": "Ult",
-      "Ult": [
+      "type": "Ult_Full",
+      "Ult_Full": [
         {
           "index": 0,
-          "place": "80 70 152 67"
+          "place": "331 1206 120 120"
         },
         {
           "index": 1,
-          "place": "180 70 152 67"
+          "place": "630 1206 120 120"
         },
         {
           "index": 2,
-          "place": "280 70 152 67"
+          "place": "930 1206 120 120"
         },
         {
           "index": 3,
-          "place": "380 70 152 67"
+          "place": "1230 1206 120 120"
+        }
+      ]
+    },
+    {
+      "type": "Ult_NotFull",
+      "Ult_NotFull": [
+        {
+          "index": 0,
+          "place": "331 1206 120 120"
+        },
+        {
+          "index": 1,
+          "place": "630 1206 120 120"
+        },
+        {
+          "index": 2,
+          "place": "930 1206 120 120"
+        },
+        {
+          "index": 3,
+          "place": "1230 1206 120 120"
         }
       ]
     },
@@ -44,7 +65,7 @@
       "Skill": [
         {
           "index": 0,
-          "place": "2320 1208 151 150"
+          "place": "2288.5 1173 214 220"
         },
         {
           "index": 1,
@@ -61,13 +82,13 @@
         },
         {
           "index": 1,
-          "place": "2083 1282 214 220"
+          "place": "2114.5 1317 151 150"
         }
       ]
     },
     {
-      "type": "EnemyTargetChoose",
-      "EnemyTargetChoose": [
+      "type": "EnemyTargetChoose_Main",
+      "EnemyTargetChoose_Main": [
         {
           "index": 0,
           "place": "492.67 569.40 159.66 193.20"
@@ -87,6 +108,31 @@
         {
           "index": 4,
           "place": "2076.67 569.40 159.66 193.20"
+        }
+      ]
+    },
+    {
+      "type": "EnemyTargetChoose_Sub",
+      "EnemyTargetChoose_Sub": [
+        {
+          "index": 0,
+          "place": "516.62 598.38 111.76 135.24"
+        },
+        {
+          "index": 1,
+          "place": "912.62 598.38 111.76 135.24"
+        },
+        {
+          "index": 2,
+          "place": "1308.62 598.38 111.76 135.24"
+        },
+        {
+          "index": 3,
+          "place": "1704.62 598.38 111.76 135.24"
+        },
+        {
+          "index": 4,
+          "place": "2100.62 598.38 111.76 135.24"
         }
       ]
     },
@@ -144,8 +190,12 @@
     "Quit": {
       "Quit": "Quit.png"
     },
-    "Ult": {
-      "Default": "Ult_Default.png",
+    "Ult_Full": {
+      "Default": "Ult_Full_Default.png",
+      "Acheron": "Ult_Acheron.png"
+    },
+    "Ult_NotFull": {
+      "Default": "Ult_NotFull_Default.png",
       "Acheron": "Ult_Acheron.png"
     },
     "Skill": {

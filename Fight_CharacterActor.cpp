@@ -5,7 +5,7 @@ namespace Fight {
 		config = ch;
 		name = config.name;
 		RealTimeBuffs.clear();
-		Energy = 0;
+		Energy = config.basic_attribute.EnergyLimit;
 		heart = config.basic_attribute.BasicHeart;
 		Speed = config.basic_attribute.Speed;
 		skills.clear();
@@ -20,6 +20,16 @@ namespace Fight {
 			fallback.target = Attribute::TargetAttackType::Single;
 			fallback.element = Attribute::ElementType::Physic;
 			fallback.types.push_back(Attribute::AttackType::Normal);
+			fallback.atkScale = 1.0;
+			fallback.hitCount = 1;
+			skills.push_back(CreateSkill(fallback));//填充一个默认普攻
+
+			fallback.id = name + "_Skill_fallback";
+			fallback.name = "Skill";
+			fallback.slot = Attribute::SkillSlot::Skill;
+			fallback.target = Attribute::TargetAttackType::Blast;
+			fallback.element = Attribute::ElementType::Physic;
+			fallback.types.push_back(Attribute::AttackType::Skill);
 			fallback.atkScale = 1.0;
 			fallback.hitCount = 1;
 			skills.push_back(CreateSkill(fallback));

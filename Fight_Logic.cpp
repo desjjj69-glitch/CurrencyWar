@@ -308,6 +308,21 @@ namespace Fight {
 			Now_skill->form.target, skill_targets);
 		Log("[Shift] rebuilt mainIndex=" + std::to_string(next), __func__);
 	}
+	void Fight_Logic::SetCharacterMainTargetByIndex(size_t index) {
+		if (!NowActing || NowActing->Type() != ActorType::Character) return;
+		if (!Now_skill) return;
+
+		auto& enemies = Actor(PlaceType::Enemy);
+		if (index >= enemies.size() || !enemies[index]) return;
+
+		// 已经是主目标就不重建
+		if (auto* mainActor = skill_targets.Main()) {
+			if (mainActor == enemies[index].get()) return;
+		}
+
+		BuildTargetsByMainIndex(enemies, index, Now_skill->form.target, skill_targets);
+		Log("[ClickSelect] mainIndex=" + std::to_string(index), __func__);
+	}
 	void Fight_Logic::DispatchEvent() {
 		auto HandleGlobalEvent = [&](const SDL_Event& event)->bool {
 			switch (event.type) {
@@ -334,8 +349,8 @@ namespace Fight {
 			return 0;
 			};
 		auto CheckIfUltbyPos = [&](float x, float y)->bool {//坐标版，是否点击了大招并处理
-			for (size_t i = 0;i < ui_place["Ult"].size();i++) {
-				if (PlaceInside(x, y, ui_place["Ult"][i])) {
+			for (size_t i = 0;i < ui_place["Ult_Full"].size();i++) {
+				if (PlaceInside(x, y, ui_place["Ult_Full"][i])) {
 					if(i>=Actor(PlaceType::FrontCharacter).size())
 						continue;
 					auto* p = dynamic_cast<Character_Actor*>(Actor(PlaceType::FrontCharacter)[i].get());
@@ -349,7 +364,7 @@ namespace Fight {
 			return 0;
 			};
 		auto CheckIfUltbyKey = [&](const SDL_KeyboardEvent& key) {//键盘版，是否按下了大招并处理
-			for (size_t i = 0;i < ui_place["Ult"].size();i++) {
+			for (size_t i = 0;i < ui_place["Ult_Full"].size();i++) {
 				if (key.scancode == SDL_SCANCODE_1 + i) {
 					if (i >= Actor(PlaceType::FrontCharacter).size())
 						continue;
@@ -374,6 +389,8 @@ namespace Fight {
 					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
 					CurrentState = StateType::PlayerUlt;
 					NowActing = FindActorFromExtraAction(0);
+					RemoveFromExtraList_index(0);
+					Timer = 0;
 					return;
 				}
 				break;
@@ -381,9 +398,20 @@ namespace Fight {
 				if (CheckIfUltbyPos(x, y)) {//如果这次点击的是大招按钮，那么就把当前的选择行为强制结束
 					return;
 				}
+				{
+					auto& enemies = Actor(PlaceType::Enemy);
+					auto& slots = ui_place["Enemy"]; // 用选择框区域当点击判定
+					for (size_t i = 0; i < slots.size() && i < enemies.size(); ++i) {
+						if (!enemies[i]) continue;
+						if (PlaceInside(x, y, slots[i])) {
+							SetCharacterMainTargetByIndex(i);
+							return;
+						}
+					}
+				}
 				switch (CurrentCharacterState) {
 				case CharacterState::Normal:
-					if (PlaceInside(x, y, ui_place["Skill"][0])) {
+					if (PlaceInside(x, y, ui_place["Skill"][1])) {
 						SetCharacterSkillBySlot(Attribute::SkillSlot::Skill);
 						CurrentCharacterState = CharacterState::Skill;
 					}
@@ -393,7 +421,7 @@ namespace Fight {
 					}
 					break;
 				case CharacterState::Skill:
-					if (PlaceInside(x, y, ui_place["Normal"][0])) {
+					if (PlaceInside(x, y, ui_place["Normal"][1])) {
 						SetCharacterSkillBySlot(Attribute::SkillSlot::Normal);
 						CurrentCharacterState = CharacterState::Normal;
 					}
@@ -415,6 +443,8 @@ namespace Fight {
 					AddtoExtraAction({ NowActing->id(),ExtraPriority::EnemyEnforced });
 					CurrentState = StateType::PlayerUlt;
 					NowActing = FindActorFromExtraAction(0);
+					RemoveFromExtraList_index(0);
+					Timer = 0;
 					return;
 				}
 				break;
@@ -447,6 +477,8 @@ namespace Fight {
 					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
 					CurrentState = StateType::PlayerUlt;
 					NowActing = FindActorFromExtraAction(0);
+					RemoveFromExtraList_index(0);
+					Timer = 0;
 					return;
 				}
 				break;
@@ -455,11 +487,11 @@ namespace Fight {
 				if (CheckIfUltbyKey(key)) {//如果这次点击的是大招按钮，那么就把当前的选择行为强制结束
 					return;
 				}
-				if (key.scancode == SDL_SCANCODE_LEFT) {
+				if (key.scancode == SDL_SCANCODE_LEFT||key.scancode==SDL_SCANCODE_A) {
 					ShiftCharacterMainTarget(-1);
 					return;
 				}
-				if (key.scancode == SDL_SCANCODE_RIGHT) {
+				if (key.scancode == SDL_SCANCODE_RIGHT || key.scancode == SDL_SCANCODE_D) {
 					ShiftCharacterMainTarget(+1);
 					return;
 				}
@@ -499,6 +531,8 @@ namespace Fight {
 					AddtoExtraAction({ NowActing->id(),ExtraPriority::EnemyEnforced });
 					CurrentState = StateType::PlayerUlt;
 					NowActing = FindActorFromExtraAction(0);
+					RemoveFromExtraList_index(0);
+					Timer = 0;
 					return;
 				}
 				break;
@@ -583,9 +617,29 @@ namespace Fight {
 			
 			};
 		if (!ExtraAction.empty()) {
+			auto entry = ExtraAction[0];              // 先复制一份
 			NowActing = FindActorFromExtraAction(0);
 			RemoveFromExtraList_index(0);
-			StateShifter(NowActing);
+
+			Timer = 0;                                // 关键：切换状态时重置计时器
+			switch (entry.Priority) {
+			case ExtraPriority::CharacterUlt:
+				CurrentState = StateType::PlayerUlt;  // ← 大招走这条
+				break;
+			case ExtraPriority::CharacterEnforced:
+				CurrentState = StateType::PlayerStart;  
+				break;
+			case ExtraPriority::EnemyEnforced:
+				CurrentState = StateType::EnemyStart; // 敌人被推后的行动
+				break;
+			default:
+				// 兜底：按 actor 类型走
+				switch (NowActing->Type()) {
+				case ActorType::Character: CurrentState = StateType::PlayerStart; break;
+				case ActorType::Enemy:     CurrentState = StateType::EnemyStart; break;
+				}
+				break;
+			}
 		}
 		else if (!ActionList.empty()) {
 			NowActing = FindActorFromActionList(0);

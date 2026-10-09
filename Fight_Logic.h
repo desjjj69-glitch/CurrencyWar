@@ -119,6 +119,7 @@ namespace Fight {
 
 		void SetCharacterSkillBySlot(Attribute::SkillSlot);
 		void ShiftCharacterMainTarget(int delta);
+		void SetCharacterMainTargetByIndex(size_t index);
 		void CharacterStart_Resolution(Character_Actor*);
 		void CharacterExecuting();
 		static bool PlaceInside(float x, float y, const SDL_FRect& rect) {
