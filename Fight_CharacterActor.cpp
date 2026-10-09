@@ -7,6 +7,7 @@ namespace Fight {
 		RealTimeBuffs.clear();
 		Energy = config.basic_attribute.EnergyLimit;
 		heart = config.basic_attribute.BasicHeart;
+		MaxHeart = heart;
 		Speed = config.basic_attribute.Speed;
 		skills.clear();
 		for (const auto& skill : config.basic_attribute.SKills) {

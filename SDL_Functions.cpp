@@ -15,7 +15,9 @@ namespace MySDL {
 		}
 		SDL_Surface* surface;
 		surface = TTF_RenderText_Solid(ft, text.c_str(), 0, color);
+		if (!surface) { texture = nullptr; Rect = { x,y,0,0 }; return; }
 		texture = SDL_CreateTextureFromSurface(rdr, surface);
+		if (!texture) { Rect = { x,y,0,0 }; return; }
 		SDL_DestroySurface(surface);
 		Rect = { x,y,static_cast<float>(texture->w) * multiply,static_cast<float>(texture->h) * multiply };
 	}

@@ -5,6 +5,7 @@ namespace Fight {
 		name = n;
 		config = Object::Enemy_DefaultSetting[name];
 		CurrentHeart = config.attribute.heart;
+		MaxHeart = CurrentHeart;
 		Speed = config.attribute.speed;
 		skills.clear();
 		for (const auto& skill : config.attribute.Skills) {

@@ -75,7 +75,7 @@ namespace Fight {
 		auto CalculateEnemyDamage = [&](Enemy_Actor* enemy, Character_Actor* ch,
 			const Attribute::AttackForm& form, double multiply) ->Attribute::AttackValueType {
 				double base = static_cast<double>(enemy->config.attribute.attack);
-				return static_cast<Attribute::AttackValueType>(std::llround(base/10*multiply));
+				return static_cast<Attribute::AttackValueType>(std::llround(base*multiply));
 			};
 		switch (caster->Type()) {
 		case ActorType::Character:

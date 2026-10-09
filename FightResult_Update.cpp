@@ -12,7 +12,7 @@ namespace FightResult {
 		if (!loaded) {
 			loaded = true;
 			f.Loadin(BasicGameRes.GamePath, BasicGameRes.GameRenderer);
-			
+			State.LoadinJson(BasicGameRes.GamePath);
 		}
 		State.AtFightResult = true;
 		State.Handle();//这个阶段的游戏资源逻辑一开始就结算完了

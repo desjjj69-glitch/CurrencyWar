@@ -441,12 +441,21 @@ namespace WaitingForFight {
 	void Logic::DataHandOff() {
 		using StageData::g_WaitingForFight_to_Fight;
 		using StageData::g_WaitingForFight_publicData;
+		using StageData::g_WaitingForFight_to_FightResult;
 		g_WaitingForFight_to_Fight.BackCharacter = &Zone(OriginPlaceType::BackBattleField);
 		g_WaitingForFight_to_Fight.FrontCharacter = &Zone(OriginPlaceType::FrontBattleField);
 		g_WaitingForFight_to_Fight.Enemys = &Enemys;
 		g_WaitingForFight_publicData.dimension_index = &dimension_index;
 		g_WaitingForFight_publicData.stage_index = &stage_index;
-		g_WaitingForFight_to_Fight.difficulty = Difficulty;
+		g_WaitingForFight_to_Fight.difficulty = Difficulty;//写入战斗阶段的逻辑
+
+		//写入战斗结算阶段
+		g_WaitingForFight_to_FightResult.ContinueWinTimes = &ContinueWinTimes;
+		g_WaitingForFight_to_FightResult.Blood = &Blood;
+		g_WaitingForFight_to_FightResult.money = &MoneyNum;
+		g_WaitingForFight_to_FightResult.stage_type = &stage;
+		g_WaitingForFight_to_FightResult.ExpNum = &shop.TotalExp;
+		g_WaitingForFight_to_FightResult.interest_limit = &MaxInterest;
 	}
 	bool Logic::StarUp() {
 		// cost=1,2 最高 4 星；cost>=3 最高 3 星

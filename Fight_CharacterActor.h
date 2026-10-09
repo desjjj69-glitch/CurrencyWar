@@ -14,6 +14,7 @@ namespace Fight {
 		CharacterObject config;
 		std::vector<Attribute::BuffInstance> RealTimeBuffs;
 		Attribute::HeartType heart=0;
+		Attribute::HeartType MaxHeart = 0;
 		int Energy=0;
 		void NewActor(const CharacterObject&);//从备战阶段的角色构造新的战斗Actor
 	};

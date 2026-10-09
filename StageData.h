@@ -17,9 +17,12 @@ namespace StageData {//负责数据交接
 		int difficulty = 0;
 	};
 	struct WaitingForFight_to_FightResult {
-		int* money;
-		int* ContinueWinTimes;
-		int* Blood;
+		int* money = nullptr;
+		int* interest_limit = nullptr;
+		int* ContinueWinTimes = nullptr;
+		int* Blood = nullptr;
+		int* ExpNum = nullptr;
+		const std::vector<std::vector<std::string>>* stage_type = nullptr;
 	};
 	struct Fight_to_FightResult {
 		bool ifwin;//是否胜利

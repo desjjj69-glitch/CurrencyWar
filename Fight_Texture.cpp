@@ -4,6 +4,7 @@
 #include"json.hpp"
 #include"Logger.h"
 #include<filesystem>
+#include<algorithm>
 using json = nlohmann::json;
 using Logger::Log;
 namespace Fight {
@@ -40,7 +41,7 @@ namespace Fight {
 		KillMap(extraactor_tex);
 		KillMap(character_tex);
 		KillMap(enemy_tex);
-
+		if (energy_text) { SDL_DestroyTexture(energy_text); energy_text = nullptr; }
 		for (auto& [type, inner] : dynamic_ui_tex) {
 			KillMap(inner);
 		}
@@ -289,13 +290,46 @@ namespace Fight {
 			if (i >= vec.size())continue;
 			//Log("Draw_Enemyhere", __FUNCSIG__);
 			if (vec[i]) {
-				//Log("Drawed"+
-				//	std::to_string(enemy_tex[vec[i]->Name()]==nullptr)+
-				//	std::to_string(ui_place["Enemy"][i].x)
-				//	,
-				//	__func__
-				//);
-				SDL_RenderTexture(rdr, enemy_tex[vec[i]->Name()], NULL, &ui_place["Enemy"][i]);
+				auto* p = dynamic_cast<Enemy_Actor*>(vec[i].get());
+				if (!p) continue;
+				if (p->CurrentHeart <= 0) continue;          // 已死亡不绘制（头像+血条）
+
+				SDL_FRect head = ui_place["Enemy"][i];
+
+				// 头像
+				SDL_RenderTexture(rdr, enemy_tex[vec[i]->Name()], NULL, &head);
+
+				// 血条：头像正上方
+				SDL_FRect barBg = {
+					head.x,
+					head.y - 12.f,        // 10 高 + 2 间隙
+					head.w,
+					10.f
+				};
+
+				// 底：深灰
+				SDL_SetRenderDrawColor(rdr, 60, 60, 60, 255);
+				SDL_RenderFillRect(rdr, &barBg);
+
+				// 前景：按比例
+				double ratio = 1.0;
+				if (p->MaxHeart > 0)
+					ratio = static_cast<double>(p->CurrentHeart)
+					/ static_cast<double>(p->MaxHeart);
+				ratio = std::clamp(ratio, 0.0, 1.0);
+
+				SDL_FRect barFg = barBg;
+				barFg.w = static_cast<float>(barBg.w * ratio);
+
+				if (ratio > 0.5)
+					SDL_SetRenderDrawColor(rdr, 80, 220, 80, 255);
+				else if (ratio > 0.2)
+					SDL_SetRenderDrawColor(rdr, 230, 200, 60, 255);
+				else
+					SDL_SetRenderDrawColor(rdr, 220, 60, 60, 255);
+
+				SDL_RenderFillRect(rdr, &barFg);
+				SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 			}
 		}
 	}
@@ -334,7 +368,7 @@ namespace Fight {
 			auto& vec = State.Actor(Fight_Logic::PlaceType::FrontCharacter);
 			if (i >= vec.size())continue;
 			if (vec[i]) {
-				SDL_RenderTexture(rdr, character_tex[vec[i]->Name()], NULL, &ui_place["FrontCharacter"][i]);
+				SDL_RenderTexture(rdr, character_tex[vec[i]->Name()], NULL, &ui_place["FrontCharacter"][i]);//角色头像
 				Character_Actor* p=nullptr;
 				if (vec[i]->Type() == ActorType::Character) {
 					p = static_cast<Character_Actor*>(vec[i].get());
@@ -342,12 +376,71 @@ namespace Fight {
 				else {
 					continue;
 				}
-				if (p->Energy >= p->config.basic_attribute.EnergyLimit) {
+				if (p->Energy >= p->config.basic_attribute.EnergyLimit) {//大招图标
 					SDL_RenderTexture(rdr, GetUITex("Ult_Full",p->name), NULL, &ui_place["Ult_Full"][i]);
 				}
 				else {
 					SDL_RenderTexture(rdr, GetUITex("Ult_NotFull", p->name), NULL, &ui_place["Ult_NotFull"][i]);
+					//绘制数值
+					std::string energyText =
+						std::to_string(p->Energy) + "/"
+						+ std::to_string(p->config.basic_attribute.EnergyLimit);
+
+					SDL_Color white = { 255, 255, 255, 255 };
+
+					// 先用 0,0 生成，然后按 Rect 尺寸算居中位置
+					MySDL::DisplayWord(ft, rdr, energyText,
+						0.f, 0.f,
+						energy_text, energy_rect,
+						white, 1.0f);
+
+					// 居中
+					energy_rect.x = ui_place["Ult_Full"][i].x + (ui_place["Ult_Full"][i].w - energy_rect.w) * 0.5f;
+					energy_rect.y = ui_place["Ult_Full"][i].y + (ui_place["Ult_Full"][i].h - energy_rect.h) * 0.5f;
+
+					// 真正画到屏幕上
+					SDL_RenderTexture(rdr, energy_text, nullptr, &energy_rect);
 				}
+				SDL_FRect head = ui_place["FrontCharacter"][i];
+				SDL_FRect ult = ui_place["Ult_Full"][i];   // Ult_NotFull 位置相同，取哪个都行
+
+				// 绘制血条
+				float barLeft = std::min(head.x, ult.x);
+				float barRight = std::max(head.x + head.w, ult.x + ult.w);
+				float barBottom = std::max(head.y + head.h, ult.y + ult.h);
+
+				SDL_FRect barBg = {
+					barLeft,
+					barBottom + 2.f,             // 底下留 2px 间隙
+					barRight - barLeft,          // 宽度 = 头像+大招的总跨度
+					10.f                         // 高度 10
+				};
+
+				// 底：深灰
+				SDL_SetRenderDrawColor(rdr, 60, 60, 60, 255);
+				SDL_RenderFillRect(rdr, &barBg);
+
+				// 前景：按 heart / MaxHeart 比例
+				double ratio = 1.0;
+				if (p->MaxHeart > 0)
+					ratio = static_cast<double>(p->heart) / static_cast<double>(p->MaxHeart);
+				ratio = std::clamp(ratio, 0.0, 1.0);
+
+				SDL_FRect barFg = barBg;
+				barFg.w = static_cast<float>(barBg.w * ratio);
+
+				if (ratio > 0.5)
+					SDL_SetRenderDrawColor(rdr, 80, 220, 80, 255);   // 绿
+				else if (ratio > 0.2)
+					SDL_SetRenderDrawColor(rdr, 230, 200, 60, 255);  // 黄
+				else
+					SDL_SetRenderDrawColor(rdr, 220, 60, 60, 255);   // 红
+
+				SDL_RenderFillRect(rdr, &barFg);
+				SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
+
+
+
 			}
 		}
 		

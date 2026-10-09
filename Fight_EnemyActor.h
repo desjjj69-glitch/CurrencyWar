@@ -13,6 +13,7 @@ namespace Fight {
 		//std::vector<Attribute::BuffInstance> RealTimeBuffs;
 		//目前没有设置敌人的buff
 		Attribute::HeartType CurrentHeart = 0;
+		Attribute::HeartType MaxHeart = 0;
 		void NewActor(const std::string&,int);
 	};
 }
