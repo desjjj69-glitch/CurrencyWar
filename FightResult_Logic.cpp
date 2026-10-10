@@ -16,6 +16,13 @@ namespace FightResult {
 		using StageData::g_Fight_to_FightResult;
 		using StageData::g_WaitingForFight_to_FightResult;
 		using StageData::g_WaitingForFight_publicData;
+		auto& r = g_WaitingForFight_to_FightResult;
+
+		if (!r.money || !r.interest_limit || !r.ContinueWinTimes
+			|| !r.Blood || !r.ExpNum) {
+			Log("FightResult pointer null", __FUNCSIG__, Logcode::ERROR);
+			return;
+		}
 		if (g_WaitingForFight_to_FightResult.ContinueWinTimes) {//处理连胜
 			if (g_Fight_to_FightResult.ifwin)
 				++(*g_WaitingForFight_to_FightResult.ContinueWinTimes);
