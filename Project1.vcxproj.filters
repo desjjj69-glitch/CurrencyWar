@@ -265,6 +265,9 @@
     <None Include="config\FightResult.json">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="README.md">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\管理图像资源.txt">

@@ -246,6 +246,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <None Include="lib\dll\SDL3.dll" />
     <None Include="lib\dll\SDL3_image.dll" />
     <None Include="lib\dll\SDL3_ttf.dll" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\管理图像资源.txt" />
