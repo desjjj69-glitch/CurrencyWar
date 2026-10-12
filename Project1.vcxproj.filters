@@ -99,6 +99,9 @@
     <ClCompile Include="Fight_CalculateDamge.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="BasicEquipment.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="json.hpp">
@@ -210,6 +213,12 @@
       <Filter>Skill</Filter>
     </ClInclude>
     <ClInclude Include="ParseSkill.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicEquipment.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentType.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

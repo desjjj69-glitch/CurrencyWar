@@ -163,6 +163,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <ClCompile Include="BasicActor.cpp" />
     <ClCompile Include="BasicConfig.cpp" />
+    <ClCompile Include="BasicEquipment.cpp" />
     <ClCompile Include="BasicGameResource.cpp" />
     <ClCompile Include="CharacterObject.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
@@ -192,10 +193,12 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <ClInclude Include="AttackForm.h" />
     <ClInclude Include="AttributeTypes.h" />
+    <ClInclude Include="BasicEquipment.h" />
     <ClInclude Include="BasicSkill.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="CharacterAttribute.h" />
     <ClInclude Include="EnemyObject.h" />
+    <ClInclude Include="EquipmentType.h" />
     <ClInclude Include="FightResult_Texture.h" />
     <ClInclude Include="FightResult_Update.h" />
     <ClInclude Include="Fight_ActorType.h" />
