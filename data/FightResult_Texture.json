@@ -1,0 +1,15 @@
+{
+  "background": [
+    {
+      "name": "Default",
+      "image": "background_Default.png",
+      "place": "0 0 2560 1600"
+    }
+  ],
+  "quit": [
+    {
+      "name": "Default",
+      "image": "quit_Default.png"
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 #pragma once
 #include"BasicTexture.h"
 #include"FightResult_Logic.h"
+#include<string>
+#include<unordered_map>
 namespace FightResult {
 	class FightResult_Texture :public BasicTexture {
 	public:
@@ -11,7 +13,12 @@ namespace FightResult {
 	private:
 		bool jsloaded = false;
 		bool uiloaded = false;
+		std::unordered_map<std::string, std::vector<SDL_Texture*>> ui_tex;
+		std::unordered_map<std::string, std::vector<SDL_FRect>> ui_place;
+		std::unordered_map<std::string, std::vector<std::string>> ui_path;
 		void LoadinJson(const std::filesystem::path&)override;
 		void LoadinPic(const std::filesystem::path&, SDL_Renderer*&)override;
+
+		void Draw_Background(SDL_Renderer*&, TTF_Font*&);
 	};
 }
