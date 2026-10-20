@@ -79,6 +79,7 @@ namespace FightResult {
 		SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 		SDL_RenderClear(rdr);
 		Draw_Background(rdr, ft);
+		Draw_QuitButton(rdr, ft);
 	}
 	FightResult_Texture::~FightResult_Texture() {
 		for (auto& pair : ui_tex) {
@@ -92,5 +93,8 @@ namespace FightResult {
 	}
 	void FightResult_Texture::Draw_Background(SDL_Renderer*& rdr, TTF_Font*& ft) {
 		SDL_RenderTexture(rdr, ui_tex["background"][0], NULL, &ui_place["background"][0]);
+	}
+	void FightResult_Texture::Draw_QuitButton(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		SDL_RenderTexture(rdr, ui_tex["quit"][0], NULL, &ui_place["quit"][0]);
 	}
 }

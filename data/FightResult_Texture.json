@@ -9,7 +9,8 @@
   "quit": [
     {
       "name": "Default",
-      "image": "quit_Default.png"
+      "image": "quit_Default.png",
+      "place": "1024 1230 505 80"
     }
   ]
 }

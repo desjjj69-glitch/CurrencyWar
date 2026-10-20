@@ -8,6 +8,11 @@
 #include"Logger.h"
 using json = nlohmann::json;
 using Logger::Log;
+namespace {
+	static bool PlaceInside(float x, float y, SDL_FRect rect) {
+		return x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h;
+	}
+}
 namespace FightResult {
 	Logic State;
 	
@@ -60,6 +65,9 @@ namespace FightResult {
 					AtFightResult = false;
 					break;
 				}
+				break;
+			case SDL_EVENT_MOUSE_BUTTON_DOWN:
+				
 				break;
 			}
 		}

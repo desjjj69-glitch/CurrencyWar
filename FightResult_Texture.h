@@ -20,5 +20,6 @@ namespace FightResult {
 		void LoadinPic(const std::filesystem::path&, SDL_Renderer*&)override;
 
 		void Draw_Background(SDL_Renderer*&, TTF_Font*&);
+		void Draw_QuitButton(SDL_Renderer*&, TTF_Font*&);
 	};
 }
