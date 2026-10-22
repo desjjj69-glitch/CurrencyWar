@@ -102,6 +102,15 @@
     <ClCompile Include="BasicEquipment.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="GameStart_Logic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStart_Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStart_Update.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="json.hpp">
@@ -219,6 +228,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="EquipmentType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStart_Logic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStart_Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStart_Update.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

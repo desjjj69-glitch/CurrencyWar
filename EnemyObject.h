@@ -31,6 +31,6 @@ public:
 };
 namespace Object {
 	extern std::unordered_map<std::string, EnemyObject>Enemy_DefaultSetting;
-	void Enemy_LoadinJson(const std::filesystem::path&, std::vector<EnemyObject>&);//先读入3个boss再说
+	void Enemy_LoadinJson(const std::filesystem::path&, std::vector<EnemyObject>&,std::vector<std::string>&);//先读入3个boss再说
 	
 }

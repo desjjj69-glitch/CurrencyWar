@@ -18,8 +18,9 @@ namespace WaitingForFight {
 		return x >= p.x && x <= p.x + p.w && y >= p.y && y <= p.y + p.h;
 	}
 	void Logic::LoadinJson(const std::filesystem::path& gp) {
+		boss_name = StageData::g_GameStart_WaitingForFight.Boss_name;
 		//Log("Here", __FUNCSIG__,  Logcode::OPENFAILED);
-		Object::Enemy_LoadinJson(gp, Boss);
+		Object::Enemy_LoadinJson(gp, Boss,boss_name);
 		Object::Character_LoadinJson(gp);
 		shop.LoadinJson(gp);//先把自成一块的资源读取了
 

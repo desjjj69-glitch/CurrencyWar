@@ -176,6 +176,9 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="Fight_Logic.cpp" />
     <ClCompile Include="Fight_Texture.cpp" />
     <ClCompile Include="Fight_Update.cpp" />
+    <ClCompile Include="GameStart_Logic.cpp" />
+    <ClCompile Include="GameStart_Texture.cpp" />
+    <ClCompile Include="GameStart_Update.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParseSkill.cpp" />
@@ -213,6 +216,9 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="Fight_Logic.h" />
     <ClInclude Include="Fight_Texture.h" />
     <ClInclude Include="Fight_Update.h" />
+    <ClInclude Include="GameStart_Logic.h" />
+    <ClInclude Include="GameStart_Texture.h" />
+    <ClInclude Include="GameStart_Update.h" />
     <ClInclude Include="GetRandomNum.h" />
     <ClInclude Include="FightResult_Logic.h" />
     <ClInclude Include="json.hpp" />

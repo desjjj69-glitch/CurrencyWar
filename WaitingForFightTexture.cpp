@@ -24,12 +24,7 @@ namespace WaitingForFight {
 		SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 		SDL_RenderClear(rdr);
 
-		static bool GameStart = false;
-		if (!GameStart) {
-			GameStart = true;//游戏开始时要绘制初始信息
-			Draw_GameStartPreview(rdr, ft);
-			return;
-		}
+		
 		Draw_Background(rdr);
 		Draw_QuitButton(rdr);
 		Draw_Blood(rdr, ft);

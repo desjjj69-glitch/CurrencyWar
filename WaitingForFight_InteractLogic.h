@@ -97,6 +97,8 @@ namespace WaitingForFight {
 		int CharacterOnBenchLimit = 9;//备战席人数限制
 
 		int Difficulty = 137;//关卡难度
+
+		std::vector<std::string>boss_name;//从开局读入
 		std::vector<EnemyObject> Boss;//开局先生成3个Boss
 		std::vector<EnemyObject> Enemys;//每个关卡单独生成怪，在进入关卡的这个阶段就生成好
 		void LoadinJson(const std::filesystem::path&);
