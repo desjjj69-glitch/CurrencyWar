@@ -14,6 +14,7 @@ namespace FightResult {
 			f.Loadin(BasicGameRes.GamePath, BasicGameRes.GameRenderer);
 			State.LoadinJson(BasicGameRes.GamePath);
 		}
+		f.Init();
 		State.AtFightResult = true;
 		State.Handle();//这个阶段的游戏资源逻辑一开始就结算完了
 		while (1) {

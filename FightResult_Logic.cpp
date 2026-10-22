@@ -8,9 +8,29 @@
 #include"Logger.h"
 using json = nlohmann::json;
 using Logger::Log;
-namespace {
+namespace FightResult{
 	static bool PlaceInside(float x, float y, SDL_FRect rect) {
 		return x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h;
+	}
+	SDL_FRect Logic::GetUIRect(
+		const std::string& stringname,
+		std::size_t index)
+	{
+		auto it = ui_place.find(stringname);
+		if (it == ui_place.end())          // key 不存在
+			return SDL_FRect{ -0.f, 0.f, 0.f, 0.f };
+
+		const auto& vec = it->second;
+		if (index >= vec.size())           // index 越界 / 为空
+			return SDL_FRect{ 0.f, 0.f, 0.f, 0.f };
+
+		return vec[index];
+	}
+	static bool empty(SDL_FRect rect) {
+		return rect.x == 0 &&
+			rect.y == 0 &&
+			rect.w == 0 &&
+			rect.h == 0;
 	}
 }
 namespace FightResult {
@@ -61,14 +81,21 @@ namespace FightResult {
 			switch (event.type) {
 			case SDL_EVENT_KEY_DOWN:
 				switch (event.key.scancode) {
-				case SDL_SCANCODE_ESCAPE:
-					AtFightResult = false;
-					break;
+				//case SDL_SCANCODE_ESCAPE:
+				//	AtFightResult = false;
+				//	break;
 				}
 				break;
 			case SDL_EVENT_MOUSE_BUTTON_DOWN:
-				
+			{
+				auto rect = GetUIRect("quit", 0);
+				if (empty(rect))break;
+				if(PlaceInside(event.button.x,event.button.y,rect))
+				AtFightResult = false;
 				break;
+			}
+				
+				
 			}
 		}
 	}
@@ -94,6 +121,36 @@ namespace FightResult {
 			if (js.contains("Exp") && js["Exp"].is_array())ExpGain = js.at("Exp").get<std::vector<std::vector<int>>>();
 			if (js.contains("Blood") && js["Blood"].is_array())BloodGain = js.at("Blood").get<std::vector<std::vector<int>>>();
 
+		}
+		catch (const json::parse_error& e) {
+			Log(e.what(), __FUNCSIG__, Logcode::PARSEERROR);
+		}
+		catch (const std::exception& e) {
+			Log(e.what(), __FUNCSIG__, Logcode::ERROR);
+		}
+		auto ParseRect = [](const std::string& s) ->SDL_FRect{
+			std::istringstream iss(s);
+			SDL_FRect rect{ 0,0,0,0 };
+			iss >> rect.x >> rect.y >> rect.w >> rect.h;
+			if (iss.fail())return { 0,0,0,0 };
+			return rect;
+			};
+		std::ifstream uiin(gp / "data" / "FightResult_Texture.json");
+		json uijs;
+		try {
+			uiin >> uijs;
+			for (auto& [key, vec] : uijs.items()) {
+				if (vec.is_array()) {
+					for (auto& var : vec) {
+						if (var.contains("place") && var["place"].is_string()) {
+							ui_place[key].push_back(ParseRect(var["place"].get<std::string>()));
+						}
+						else {
+							ui_place[key].push_back({ 0,0,0,0 });
+						}
+					}
+				}
+			}
 		}
 		catch (const json::parse_error& e) {
 			Log(e.what(), __FUNCSIG__, Logcode::PARSEERROR);

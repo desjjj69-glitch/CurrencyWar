@@ -10,7 +10,9 @@ namespace FightResult {
 		FightResult_Texture()=default;
 		~FightResult_Texture();
 		void Draw(SDL_Renderer*&, TTF_Font*&);
+		void Init();
 	private:
+		SDL_FPoint mouse_place{ -1.f,-1.f };
 		bool jsloaded = false;
 		bool uiloaded = false;
 		std::unordered_map<std::string, std::vector<SDL_Texture*>> ui_tex;

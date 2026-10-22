@@ -8,6 +8,9 @@
 using Logger::Log;
 using json = nlohmann::json;
 namespace FightResult {
+	static bool PlaceInside(float x, float y, SDL_FRect rect) {
+		return x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h;
+	}
 	void FightResult_Texture::Loadin(const std::filesystem::path& gp, SDL_Renderer*& rdr) {
 		if (!jsloaded) {
 			LoadinJson(gp);
@@ -76,10 +79,17 @@ namespace FightResult {
 		}
 	}
 	void FightResult_Texture::Draw(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		float wx = 0.f, wy = 0.f;
+		SDL_GetMouseState(&wx, &wy);
+		if (!SDL_RenderCoordinatesFromWindow(rdr, wx, wy, &mouse_place.x, &mouse_place.y))
+			mouse_place = { -1.f, -1.f };   // 转换失败视为不在任何控件上
 		SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 		SDL_RenderClear(rdr);
 		Draw_Background(rdr, ft);
 		Draw_QuitButton(rdr, ft);
+	}
+	void FightResult_Texture::Init() {
+		mouse_place = { -1.f,-1.f };
 	}
 	FightResult_Texture::~FightResult_Texture() {
 		for (auto& pair : ui_tex) {
@@ -95,6 +105,13 @@ namespace FightResult {
 		SDL_RenderTexture(rdr, ui_tex["background"][0], NULL, &ui_place["background"][0]);
 	}
 	void FightResult_Texture::Draw_QuitButton(SDL_Renderer*& rdr, TTF_Font*& ft) {
-		SDL_RenderTexture(rdr, ui_tex["quit"][0], NULL, &ui_place["quit"][0]);
+		SDL_FRect rect = ui_place["quit"][0];
+		if (PlaceInside(mouse_place.x, mouse_place.y, rect)) {
+			rect.x -= rect.w * 0.1f;   
+			rect.y -= rect.h * 0.1f;
+			rect.w *= 1.2f;
+			rect.h *= 1.2f;
+		}
+		SDL_RenderTexture(rdr, ui_tex["quit"][0], NULL, &rect);
 	}
 }
