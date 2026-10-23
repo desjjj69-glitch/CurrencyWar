@@ -1,6 +1,9 @@
 #pragma once
 #include"BasicTexture.h"
 #include"SDL_Functions.h"
+#include<unordered_map>
+#include<string>
+#include<vector>
 namespace GameStart {
 	class Texture : public BasicTexture {
 	public:
@@ -10,5 +13,11 @@ namespace GameStart {
 	private:
 		void LoadinJson(const std::filesystem::path&) override;
 		void LoadinPic(const std::filesystem::path&, SDL_Renderer*&)override;
+
+		std::unordered_map<std::string, std::unordered_map<std::string, SDL_Texture*>> ui_tex;
+		std::unordered_map<std::string, std::vector<SDL_FRect>> ui_place;
+
+		std::unordered_map<std::string, SDL_Texture*>boss_tex;
+		std::unordered_map<std::string, SDL_Texture*> strategy_tex;
 	};
 }
