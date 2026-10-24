@@ -1,5 +1,6 @@
 #include"WaitingForFightTexture.h"
 #include"WaitingForFight_InteractLogic.h"
+#include"Mineral.h"
 #include<fstream>
 #include<sstream>
 #include"Logger.h"
@@ -38,6 +39,7 @@ namespace WaitingForFight {
 		Draw_FrontBattleField(rdr);
 		Draw_BackBattleField(rdr);
 		Draw_Bench(rdr);
+		Draw_Mineral(rdr);
 		if (State.Rmode == Logic::RealTimeMode::Shop) {
 			Draw_Shop(rdr,ft);
 		}
@@ -157,6 +159,8 @@ namespace WaitingForFight {
 		enemy_tex.Loadin(gp, rdr);
 		
 		equipment_tex.Loadin(gp, rdr);
+
+		mineral_tex.Loadin(gp, rdr);
 		
 	}
 	WaitingForFightTexture::~WaitingForFightTexture() {
@@ -374,6 +378,19 @@ namespace WaitingForFight {
 			if (State.Zone(Logic::OriginPlaceType::Bench)[i]) {
 				Draw_Character(rdr, State.Zone(Logic::OriginPlaceType::Bench)[i], State.ObjectPlace(Logic::OriginPlaceType::Bench)[i]);
 			}
+		}
+	}
+	void WaitingForFightTexture::Draw_Mineral(SDL_Renderer*& rdr) {
+		auto& zone = State.Zone(Logic::OriginPlaceType::Mineral);
+		auto& places = State.ObjectPlace(Logic::OriginPlaceType::Mineral);
+		const size_t count = zone.size() < places.size() ? zone.size() : places.size();
+		for (size_t i = 0; i < count; ++i) {
+			if (!zone[i]) continue;
+			auto* m = dynamic_cast<Mineral*>(zone[i].get());
+			if (!m) continue;
+			SDL_Texture* t = mineral_tex.GetMineralTexture(m->Quality());
+			if (!t) continue;
+			SDL_RenderTexture(rdr, t, NULL, &places[i]);
 		}
 	}
 	void WaitingForFightTexture::Draw_FrontBattleField(SDL_Renderer*& rdr) {

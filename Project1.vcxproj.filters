@@ -72,6 +72,9 @@
     <ClCompile Include="WaitingForFight_EquipmentTexture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="WaitingForFight_MineralTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="FightResult_Logic.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -108,6 +111,9 @@
     <ClCompile Include="NormalEquipment.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Mineral.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="GameStart_Logic.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -120,6 +126,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="json.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Mineral.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MineralType.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Logger.h">
@@ -192,6 +204,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="WaitingForFight_EquipmentTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingForFight_MineralTexture.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="FightResult_Logic.h">
@@ -304,6 +319,9 @@
     <None Include="config\Fight_Logic.json">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="config\Mineral.json">
+      <Filter>资源文件</Filter>
+    </None>
     <None Include="config\FightResult.json">
       <Filter>资源文件</Filter>
     </None>
@@ -314,6 +332,9 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="data\GameStart_Texture.json">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="data\Mineral_Texture.json">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

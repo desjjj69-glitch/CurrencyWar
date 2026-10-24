@@ -1,4 +1,5 @@
 #include"WaitingForFight_InteractLogic.h"
+#include"Mineral.h"
 #include"BasicGameResource.h"
 #include"json.hpp"
 #include"Logger.h"
@@ -17,12 +18,79 @@ namespace WaitingForFight {
 	bool Logic::PlaceInside(float x, float y, const SDL_FRect& p) {
 		return x >= p.x && x <= p.x + p.w && y >= p.y && y <= p.y + p.h;
 	}
+	bool Logic::HandleMineralPress(float x, float y) {
+		for (size_t i = 0; i < kPlaceCount; ++i) {
+			if (zone_[i].size() != objectplace_[i].size()) continue;
+			for (size_t j = 0; j < objectplace_[i].size(); ++j) {
+				auto& obj = zone_[i][j];
+				if (!obj || obj->Type() != ResourceType::Mineral) continue;
+				if (!PlaceInside(x, y, objectplace_[i][j])) continue;
+
+				auto* m = static_cast<Mineral*>(obj.get());
+				const std::string summary = m->OpenMineral();//开局固定的内容或首次随机结果，重复点不会重抽
+				const int need = static_cast<int>(m->GetCharacter().size() + m->GetEquipment().size());
+
+				auto& bench = Zone(OriginPlaceType::Bench);
+				int empty = 0;
+				for (auto& slot : bench) {
+					if (!slot) ++empty;
+				}
+				if (empty < need) {
+					//备战席放不下：晶矿保持原样，这次点击不产生任何效果
+					Log("Mineral: bench full, cannot open", __func__, Logcode::OK);
+					return true;//吃掉点击，避免继续走点击的其它逻辑
+				}
+
+				//先把晶矿移出槽位，空出来的格子可以接住奖励
+				std::unique_ptr<BasicObject> holder = std::move(obj);
+				Log("OpenMineral: " + summary, __func__, Logcode::OK);
+
+				MoneyNum += m->GetMoney();
+				shop.TotalExp += m->GetExp();
+
+				auto ToBench = [&](std::unique_ptr<BasicObject> o)->bool {
+					for (auto& slot : bench) {
+						if (!slot) {
+							slot = std::move(o);
+							return true;
+						}
+					}
+					return false;
+					};
+
+				for (auto& c : m->GetCharacter()) {
+					if (!c) continue;
+					const std::string name = c->name;
+					const int cost = c->game_attribute.cost;
+					//角色视为从商店池里取出：池里还有就扣一份，见底则不扣
+					if (!shop.RemoveOneFromPool(name, cost)) {
+						Log("Mineral: pool empty for " + name, __func__, Logcode::OK);
+					}
+					if (!ToBench(std::move(c))) {
+						Log("Mineral: bench full, character dropped: " + name, __func__, Logcode::ERROR);
+					}
+				}
+				for (auto& e : m->GetEquipment()) {
+					if (!e) continue;
+					const std::string name = e->GetName();
+					if (!ToBench(std::move(e))) {
+						Log("Mineral: bench full, equipment dropped: " + name, __func__, Logcode::ERROR);
+					}
+				}
+				holder.reset();//从zone_里删除这个晶矿
+				return true;
+			}
+		}
+		return false;
+	}
 	void Logic::LoadinJson(const std::filesystem::path& gp) {
 		boss_name = StageData::g_GameStart_WaitingForFight.Boss_name;
 		Difficulty = StageData::g_GameStart_WaitingForFight.difficulty;
 		//Log("Here", __FUNCSIG__,  Logcode::OPENFAILED);
 		Object::Enemy_LoadinJson(gp, Boss,boss_name);
 		Object::Character_LoadinJson(gp);
+		Mineral::LoadinJson(gp);
+		Init_Minerals();//开局交接的晶矿放进 Mineral 槽位（Loadin 只跑一次）
 		shop.LoadinJson(gp);//先把自成一块的资源读取了
 
 		auto ParseFRect = [](const std::string& s) -> SDL_FRect {
@@ -131,6 +199,54 @@ namespace WaitingForFight {
 		Zone(OriginPlaceType::FrontBattleField).resize(4);
 		Zone(OriginPlaceType::Bench).resize(9);
 		Zone(OriginPlaceType::BackBattleField).resize(6);
+		//晶矿图片尺寸，暂时写死，以后从json读入
+		MineralSize[MineralType::Grey] = { 66.f, 57.f };
+		MineralSize[MineralType::Blue] = { 99.f, 93.f };
+		MineralSize[MineralType::Gold] = { 144.f, 131.f };
+		MineralSize[MineralType::Prismatic] = { 189.f, 168.f };
+	}
+	void Logic::Init_Minerals() {
+		auto& zone = Zone(OriginPlaceType::Mineral);
+		auto& places = ObjectPlace(OriginPlaceType::Mineral);
+		zone.clear();
+		places.clear();
+
+		//画面右上角的随机区域（暂时写死）
+		const SDL_FRect area{ 1691.f, 275.f, 555.f, 476.f };
+		auto Overlap = [](const SDL_FRect& a, const SDL_FRect& b) {
+			return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+			};
+
+		for (auto& data : StageData::g_GameStart_WaitingForFight.minerals) {
+			auto m = std::make_unique<Mineral>(data.quality);
+			for (auto& name : data.characters) {
+				auto c = std::make_unique<CharacterObject>();
+				c->NewCharacter(name);
+				m->GetCharacter().push_back(std::move(c));
+			}
+			m->SetMoney(data.money);
+			m->SetSpecified(true);//内容在开局阶段已经固定
+
+			SDL_FPoint size = MineralSize[data.quality];
+			if (size.x <= 0.f || size.y <= 0.f) size = { 66.f,57.f };//兜底
+			float maxX = area.x + area.w - size.x;
+			float maxY = area.y + area.h - size.y;
+			if (maxX < area.x) maxX = area.x;
+			if (maxY < area.y) maxY = area.y;
+
+			SDL_FRect rect{ area.x, area.y, size.x, size.y };
+			for (int attempt = 0; attempt < 32; ++attempt) {
+				rect.x = static_cast<float>(GetRandomNum(static_cast<int>(area.x), static_cast<int>(maxX)));
+				rect.y = static_cast<float>(GetRandomNum(static_cast<int>(area.y), static_cast<int>(maxY)));
+				bool overlap = false;
+				for (auto& p : places) {
+					if (Overlap(rect, p)) { overlap = true; break; }
+				}
+				if (!overlap) break;
+			}
+			places.push_back(rect);
+			zone.push_back(std::move(m));
+		}
 	}
 	
 	void Logic::HandleEvent(const SDL_Event& event) {
@@ -140,6 +256,11 @@ namespace WaitingForFight {
 			break;
 		case SDL_EVENT_MOUSE_BUTTON_DOWN:
 			if (event.button.button == SDL_BUTTON_LEFT) {
+				// 晶矿不能拖动：按下时只要点在晶矿上就直接打开，点击/长按/拖动都由这一处兜住
+				if (HandleMineralPress(event.button.x, event.button.y)) {
+					Mmode = MouseMode::Idle;
+					break;
+				}
 				Mmode = MouseMode::Pressed;
 				PressStartTime = SDL_GetTicks();
 				PressStartX = event.button.x;
@@ -214,6 +335,9 @@ namespace WaitingForFight {
 				if (PlaceInside(PressStartX, PressStartY, objectplace_[i][j])) {
 					if (zone_[i][j] == nullptr) {
 						return 0;
+					}
+					if (zone_[i][j]->Type() == ResourceType::Mineral) {
+						continue;//晶矿不允许拖动，交互在鼠标按下时已经处理
 					}
 					holdoriginplace = static_cast<OriginPlaceType>(i);
 					OriginIndex = j;
@@ -357,6 +481,8 @@ namespace WaitingForFight {
 			break;
 		case ResourceType::Equipment:
 			break;
+		case ResourceType::Mineral:
+			break;//晶矿不可放置
 		}
 		return 0;
 	}

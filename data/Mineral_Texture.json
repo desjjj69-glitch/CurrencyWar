@@ -1,0 +1,20 @@
+{
+  "Mineral": [
+    {
+      "Name": "Grey",
+      "Path": "Grey.png"
+    },
+    {
+      "Name": "Blue",
+      "Path": "Blue.png"
+    },
+    {
+      "Name": "Gold",
+      "Path": "Gold.png"
+    },
+    {
+      "Name": "Prismatic",
+      "Path": "Prismatic.png"
+    }
+  ]
+}

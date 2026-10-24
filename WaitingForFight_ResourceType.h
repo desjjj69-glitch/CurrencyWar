@@ -4,6 +4,7 @@ namespace WaitingForFight {
 		Character = 0,
 		Equipment,
 		Enemy,
+		Mineral,
 		Count
 	};
 }

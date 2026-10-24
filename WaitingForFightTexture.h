@@ -5,6 +5,7 @@
 #include"WaitingForFight_CharacterTexture.h"
 #include"WaitingForFight_EnemyTexture.h"
 #include"WaitingForFight_EquipmentTexture.h"
+#include"WaitingForFight_MineralTexture.h"
 #include"BasicObject.h"
 #include<unordered_map>
 #include<string>
@@ -19,6 +20,7 @@ namespace WaitingForFight {
 		WaitingForFight_CharacterTexture character_tex;
 		WaitingForFight_EnemyTexture enemy_tex;
 		WaitingForFight_EquipmentTexture equipment_tex;
+		WaitingForFight_MineralTexture mineral_tex;
 		bool Loaded = 0;
 		bool texLoaded = 0;
 		void LoadinJson(const std::filesystem::path&)override;
@@ -44,6 +46,7 @@ namespace WaitingForFight {
 		void Draw_StartFightButton(SDL_Renderer*&, TTF_Font*&);
 		void Draw_Shop(SDL_Renderer*&, TTF_Font*&);
 		void Draw_Bench(SDL_Renderer*&);
+		void Draw_Mineral(SDL_Renderer*&);
 		void Draw_FrontBattleField(SDL_Renderer*&);
 		void Draw_BackBattleField(SDL_Renderer*&);
 		void Draw_holding(SDL_Renderer*& rdr);

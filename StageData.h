@@ -1,13 +1,20 @@
 #pragma once
 #include"CharacterObject.h"
 #include"EnemyObject.h"
+#include"MineralType.h"
 #include<vector>
 #include<string>
 #include<memory>
 namespace StageData {//负责数据交接
+	struct MineralStartData {//开局固定好内容的晶矿
+		MineralType quality = MineralType::Grey;
+		int money = 0;
+		std::vector<std::string> characters;//具体角色名
+	};
 	struct GameStart_WaitingForFight {//开始阶段到备战阶段
 		std::vector<std::string>Boss_name;
 		int difficulty = 0;
+		std::vector<MineralStartData> minerals;
 	};
 	struct WaitingForFight_publicData {//公有数据
 		size_t* dimension_index;//直接把原始地址给出了

@@ -29,6 +29,18 @@ namespace WaitingForFight {
 		}
 		return sum;
 	}
+	bool Shop::RemoveOneFromPool(const std::string& name, int cost) {
+		if (cost < 1 || static_cast<size_t>(cost) > ShopPool.size()) {
+			return false;
+		}
+		auto& pool = ShopPool[static_cast<size_t>(cost - 1)];
+		auto it = pool.find(name);
+		if (it == pool.end() || it->second.empty()) {
+			return false;//见底就不扣
+		}
+		it->second.pop_back();
+		return true;
+	}
 	void Shop::PutBacktoPool(std::unique_ptr<BasicObject>& obj) {
 		auto* c = dynamic_cast<CharacterObject*>(obj.get());
 		if (!c) {

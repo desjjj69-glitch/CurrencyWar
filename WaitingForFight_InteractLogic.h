@@ -2,10 +2,12 @@
 #include"CharacterObject.h"
 #include"EnemyObject.h"
 #include"WaitingForFight_Shop.h"
+#include"MineralType.h"
 #include"SDL_Functions.h"
 #include<memory>
 #include<string>
 #include<unordered_map>
+#include<map>
 #include<filesystem>
 #include<vector>
 #include<array>
@@ -34,6 +36,7 @@ namespace WaitingForFight {
 			ShopCharacter,
 			ConsumableEquipment,
 			Equipment,
+			Mineral,
 			Count
 		};
 		
@@ -80,6 +83,9 @@ namespace WaitingForFight {
 		}
 		std::unordered_map<std::string, SDL_FRect> buttonplace;//ui的各个按钮的位置，和槽位不同
 
+		//各品质晶矿的图片尺寸（先写死，以后从json读入）
+		std::map<MineralType, SDL_FPoint> MineralSize;
+
 		std::vector<std::vector<std::string>> stage;//关卡类型
 		size_t dimension_index = 0;//所在位面（0开头)
 		size_t stage_index = 0;//所在关卡
@@ -120,6 +126,8 @@ namespace WaitingForFight {
 		void EventLogic(SDL_Event&);//处理所有逻辑事务
 	private:
 		bool PlaceInside(float, float, const SDL_FRect&);
+		bool HandleMineralPress(float, float);//点中晶矿返回 true：可开则开，备战席不够则吃掉点击
+		void Init_Minerals();//把开局交接的晶矿放进 Mineral 槽位（只在 Loadin 时调用一次）
 		bool DragDisTest(const SDL_MouseMotionEvent&);
 		int CountResouceNum(OriginPlaceType t) {
 			int num = 0;

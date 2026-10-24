@@ -181,6 +181,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="GameStart_Texture.cpp" />
     <ClCompile Include="GameStart_Update.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="Mineral.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParseSkill.cpp" />
     <ClCompile Include="SDL_Functions.cpp" />
@@ -191,6 +192,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="WaitingForFight_CharacterTexture.cpp" />
     <ClCompile Include="WaitingForFight_EnemyTexture.cpp" />
     <ClCompile Include="WaitingForFight_EquipmentTexture.cpp" />
+    <ClCompile Include="WaitingForFight_MineralTexture.cpp" />
     <ClCompile Include="WaitingForFight_InteractLogic.cpp" />
     <ClCompile Include="WaitingForFight_Shop.cpp" />
     <ClCompile Include="WaitingForFight_Update.cpp" />
@@ -225,6 +227,8 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="GetRandomNum.h" />
     <ClInclude Include="FightResult_Logic.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="Mineral.h" />
+    <ClInclude Include="MineralType.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="ParseSkill.h" />
     <ClInclude Include="SDL_Functions.h" />
@@ -236,6 +240,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="WaitingForFight_CharacterTexture.h" />
     <ClInclude Include="WaitingForFight_EnemyTexture.h" />
     <ClInclude Include="WaitingForFight_EquipmentTexture.h" />
+    <ClInclude Include="WaitingForFight_MineralTexture.h" />
     <ClInclude Include="WaitingForFight_InteractLogic.h" />
     <ClInclude Include="WaitingForFight_ResourceType.h" />
     <ClInclude Include="WaitingForFight_Shop.h" />
@@ -245,12 +250,14 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <None Include="assets\新建 文本文档.py" />
     <None Include="config\FightResult.json" />
     <None Include="config\Fight_Logic.json" />
+    <None Include="config\Mineral.json" />
     <None Include="config\GameResource.json" />
     <None Include="data\BasicCharacterSettings.json" />
     <None Include="data\BasicEquipmentSettings.json" />
     <None Include="data\Enemy.json" />
     <None Include="data\Fight_Texture.json" />
     <None Include="data\GameStart_Texture.json" />
+    <None Include="data\Mineral_Texture.json" />
     <None Include="data\WaitingForFight.json" />
     <None Include="data\WaitingForFight_ObjectPlace.json" />
     <None Include="lib\dll\libavif-16.dll" />
