@@ -8,6 +8,7 @@
 using json = nlohmann::json;
 using Logger::Log;
 namespace GameStart {
+    Logic State;
 	void Logic::Init() {
         state = State::Waiting;
 		LoadinFromJson(BasicGameRes.GamePath);

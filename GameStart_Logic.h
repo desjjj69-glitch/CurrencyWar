@@ -17,4 +17,5 @@ namespace GameStart {
 	private:
 		void LoadinFromJson(const std::filesystem::path&);
 	};
+	extern Logic State;
 }

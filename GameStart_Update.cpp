@@ -5,7 +5,6 @@
 namespace GameStart {
 	void Update() {
 		BasicGameRes.init();
-		Logic State;
 		Texture tex;
 		State.Init();
 		tex.Loadin(BasicGameRes.GamePath, BasicGameRes.GameRenderer);
@@ -13,6 +12,7 @@ namespace GameStart {
 			State.EventLogic();
 			
 			tex.Draw(BasicGameRes.GameRenderer, BasicGameRes.GameFont);
+			SDL_RenderPresent(BasicGameRes.GameRenderer);
 			SDL_Delay(BasicGameRes.FrameTime);
 		}
 	}
