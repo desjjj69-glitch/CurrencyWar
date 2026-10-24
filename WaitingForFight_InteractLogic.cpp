@@ -11,9 +11,104 @@
 #include<unordered_map>
 #include<cmath>
 #include<cstdlib>
+#include<algorithm>
 using json = nlohmann::json;
 using Logger::Log;
 namespace WaitingForFight {
+	namespace {
+		//晶矿品质对应的默认值（暂时写死，之后可考虑挪进配置）
+		int DefaultCharacterCost(MineralType q) {
+			switch (q) {
+			case MineralType::Grey:      return 1;
+			case MineralType::Blue:      return 2;
+			case MineralType::Gold:      return 3;
+			case MineralType::Prismatic: return 4;
+			}
+			return 1;
+		}
+		int DefaultCharacterStar(MineralType) {
+			return 1;//暂时所有品质都默认 1 星
+		}
+		EquipmentType DefaultEquipmentQuality(MineralType q) {
+			//灰色/蓝色默认普通装备；金色/彩色按高阶处理（对应装备类尚未实现）
+			switch (q) {
+			case MineralType::Grey:
+			case MineralType::Blue:      return EquipmentType::Normal;
+			case MineralType::Gold:      return EquipmentType::Advanced;
+			case MineralType::Prismatic: return EquipmentType::Privilege;
+			}
+			return EquipmentType::Normal;
+		}
+
+		void AppendMineralCharacters(Mineral& mineral, MineralType quality, const MineralContentSpec& spec) {
+			if (spec.count <= 0) return;
+			const int cost = spec.cost.value_or(DefaultCharacterCost(quality));
+			const int star = std::max(1, spec.star.value_or(DefaultCharacterStar(quality)));
+
+			std::vector<std::string> pool;
+			if (spec.name && !spec.name->empty()) {
+				auto it = Object::Character_DefaultSetting.find(*spec.name);
+				if (it == Object::Character_DefaultSetting.end()) {
+					Log("Mineral: character not found: " + *spec.name, __func__, Logcode::NOTFOUND);
+					return;
+				}
+				if (spec.cost && it->second.game_attribute.cost != *spec.cost) {
+					Log("Mineral: character cost mismatch, use actual cost", __func__, Logcode::ERROR);
+				}
+				pool.push_back(*spec.name);
+			}
+			else {
+				for (auto& [name, ch] : Object::Character_DefaultSetting) {
+					if (ch.game_attribute.cost == cost) pool.push_back(name);
+				}
+				if (pool.empty()) {
+					Log("Mineral: no character of cost " + std::to_string(cost), __func__, Logcode::NOTFOUND);
+					return;
+				}
+			}
+
+			for (int i = 0; i < spec.count; ++i) {
+				const std::string& name = pool[static_cast<size_t>(GetRandomNum(0, static_cast<int>(pool.size()) - 1))];
+				auto c = std::make_unique<CharacterObject>();
+				c->NewCharacter(name);
+				c->game_attribute.stars = star;
+				mineral.GetCharacter().push_back(std::move(c));
+			}
+		}
+
+		void AppendMineralEquipments(Mineral& mineral, MineralType quality, const MineralContentSpec& spec) {
+			if (spec.count <= 0) return;
+			EquipmentType type = spec.equipmentQuality.value_or(DefaultEquipmentQuality(quality));
+
+			std::vector<std::string> pool;
+			if (spec.name && !spec.name->empty()) {
+				EquipmentType actual;
+				if (!Mineral::FindEquipmentQuality(*spec.name, actual)) {
+					Log("Mineral: equipment not found: " + *spec.name, __func__, Logcode::NOTFOUND);
+					return;
+				}
+				if (spec.equipmentQuality && *spec.equipmentQuality != actual) {
+					Log("Mineral: equipment quality mismatch, use actual", __func__, Logcode::ERROR);
+				}
+				type = actual;
+				pool.push_back(*spec.name);
+			}
+			else {
+				pool = Mineral::EquipmentNamesOf(type);
+				if (pool.empty()) {
+					Log("Mineral: no equipment of requested quality", __func__, Logcode::NOTFOUND);
+					return;
+				}
+			}
+
+			for (int i = 0; i < spec.count; ++i) {
+				const std::string& name = pool[static_cast<size_t>(GetRandomNum(0, static_cast<int>(pool.size()) - 1))];
+				auto e = Mineral::MakeEquipment(name, type);
+				if (!e) break;//未实现的装备品阶
+				mineral.GetEquipment().push_back(std::move(e));
+			}
+		}
+	}
 	Logic State;
 	bool Logic::PlaceInside(float x, float y, const SDL_FRect& p) {
 		return x >= p.x && x <= p.x + p.w && y >= p.y && y <= p.y + p.h;
@@ -249,6 +344,35 @@ namespace WaitingForFight {
 		}
 	}
 	
+	std::unique_ptr<Mineral> Logic::GetMineral(MineralType quality, const std::vector<MineralContentSpec>& contents) {
+		auto mineral = std::make_unique<Mineral>(quality);
+		if (contents.empty()) {
+			return mineral;//内容未指定：打开时按品质随机
+		}
+
+		int money = 0;
+		int exp = 0;
+		for (const auto& spec : contents) {
+			switch (spec.type) {
+			case MineralContentType::Money:
+				money += spec.amount;
+				break;
+			case MineralContentType::Exp:
+				exp += spec.amount;
+				break;
+			case MineralContentType::Character:
+				AppendMineralCharacters(*mineral, quality, spec);
+				break;
+			case MineralContentType::Equipment:
+				AppendMineralEquipments(*mineral, quality, spec);
+				break;
+			}
+		}
+		mineral->SetMoney(money);
+		mineral->SetExp(exp);
+		mineral->SetSpecified(true);
+		return mineral;
+	}
 	void Logic::HandleEvent(const SDL_Event& event) {
 		switch (event.type) {
 		case SDL_EVENT_QUIT:

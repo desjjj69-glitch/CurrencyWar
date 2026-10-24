@@ -45,6 +45,11 @@ public:
 	// 从 config/Mineral.json 与 data/BasicEquipmentSettings.json 读入默认内容表（只读一次）
 	static void LoadinJson(const std::filesystem::path&);
 
+	// ---------- 供外部按需构造内容使用（需先 LoadinJson） ----------
+	static const std::vector<std::string>& EquipmentNamesOf(EquipmentType);
+	static bool FindEquipmentQuality(const std::string& name, EquipmentType& out);
+	static std::unique_ptr<BasicEquipment> MakeEquipment(const std::string& name, EquipmentType type);
+
 private:
 	MineralType quality = MineralType::Grey;
 	bool specified = false;
@@ -57,6 +62,8 @@ private:
 	static std::map<MineralType, std::map<std::string, std::vector<std::string>>> DefaultContent;
 	// 装备品阶 -> 该品阶所有装备名
 	static std::map<EquipmentType, std::vector<std::string>> EquipmentNames;
+	// 装备名 -> 品阶，用于"只指定具体装备"时反查
+	static std::map<std::string, EquipmentType> EquipmentTypeByName;
 	static bool loaded;
 
 	std::string Summary()const;

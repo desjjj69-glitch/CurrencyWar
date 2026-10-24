@@ -55,6 +55,7 @@ namespace {
 
 std::map<MineralType, std::map<std::string, std::vector<std::string>>> Mineral::DefaultContent;
 std::map<EquipmentType, std::vector<std::string>> Mineral::EquipmentNames;
+std::map<std::string, EquipmentType> Mineral::EquipmentTypeByName;
 bool Mineral::loaded = false;
 
 void Mineral::LoadinJson(const std::filesystem::path& gp) {
@@ -81,6 +82,7 @@ void Mineral::LoadinJson(const std::filesystem::path& gp) {
 					EquipmentType t;
 					if (!ParseStrictEquipmentType(type, t)) continue;// 未分类的装备不参与开矿
 					EquipmentNames[t].push_back(name);
+					EquipmentTypeByName[name] = t;
 				}
 			}
 		}
@@ -126,6 +128,32 @@ void Mineral::LoadinJson(const std::filesystem::path& gp) {
 	catch (const std::exception& e) {
 		Log(e.what(), __func__, Logcode::ERROR);
 	}
+}
+
+const std::vector<std::string>& Mineral::EquipmentNamesOf(EquipmentType type) {
+	static const std::vector<std::string> empty;
+	auto it = EquipmentNames.find(type);
+	return it == EquipmentNames.end() ? empty : it->second;
+}
+
+bool Mineral::FindEquipmentQuality(const std::string& name, EquipmentType& out) {
+	auto it = EquipmentTypeByName.find(name);
+	if (it == EquipmentTypeByName.end()) {
+		return false;
+	}
+	out = it->second;
+	return true;
+}
+
+std::unique_ptr<BasicEquipment> Mineral::MakeEquipment(const std::string& name, EquipmentType type) {
+	if (type != EquipmentType::Normal) {
+		//目前只实现了 NormalEquipment，其它品阶等对应类补上后再支持
+		Log("Equipment type not implemented", __func__, Logcode::ERROR);
+		return nullptr;
+	}
+	auto e = std::make_unique<NormalEquipment>();
+	e->SetName(name);
+	return e;
 }
 
 std::string Mineral::OpenMineral() {
@@ -199,22 +227,15 @@ std::string Mineral::OpenMineral() {
 			if (countMax < countMin) std::swap(countMin, countMax);
 
 			int count = GetRandomNum(countMin, countMax);
-			const auto& pool = EquipmentNames[tier];
+			const auto& pool = EquipmentNamesOf(tier);
 			if (count > 0 && pool.empty()) {
 				Log(std::string("No equipment of type ") + (*v)[0], __func__, Logcode::NOTFOUND);
 			}
-			if (count > 0 && tier != EquipmentType::Normal) {
-				// 目前只实现了 NormalEquipment，其它品阶等对应类补上后再支持
-				Log(std::string("Equipment type not implemented: ") + (*v)[0], __func__, Logcode::ERROR);
-			}
-			else {
-				for (int i = 0; i < count && !pool.empty(); ++i) {
-					int index = GetRandomNum(0, static_cast<int>(pool.size()) - 1);
-					const auto& name = pool[static_cast<size_t>(index)];
-					auto e = std::make_unique<NormalEquipment>();
-					e->SetName(name);
-					equipments.push_back(std::move(e));
-				}
+			for (int i = 0; i < count && !pool.empty(); ++i) {
+				int index = GetRandomNum(0, static_cast<int>(pool.size()) - 1);
+				auto e = MakeEquipment(pool[static_cast<size_t>(index)], tier);
+				if (!e) break;
+				equipments.push_back(std::move(e));
 			}
 		}
 	}

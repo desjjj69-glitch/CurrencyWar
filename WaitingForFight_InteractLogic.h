@@ -3,15 +3,35 @@
 #include"EnemyObject.h"
 #include"WaitingForFight_Shop.h"
 #include"MineralType.h"
+#include"EquipmentType.h"
 #include"SDL_Functions.h"
 #include<memory>
 #include<string>
 #include<unordered_map>
 #include<map>
+#include<optional>
 #include<filesystem>
 #include<vector>
 #include<array>
+class Mineral;//定义见 Mineral.h
 namespace WaitingForFight {
+	//晶矿内容类型
+	enum class MineralContentType {
+		Character = 0,
+		Equipment,
+		Money,
+		Exp
+	};
+	//生成晶矿时对“一类内容”的请求；未填的字段按品质默认规则/随机补全
+	struct MineralContentSpec {
+		MineralContentType type = MineralContentType::Character;
+		std::optional<int> cost;                        // Character 费用；不填按品质默认
+		std::optional<int> star;                        // Character 星级；不填按品质默认
+		std::optional<EquipmentType> equipmentQuality;  // Equipment 品质；不填按品质默认
+		std::optional<std::string> name;                // Character/Equipment 具体名字；不填随机
+		int amount = 0;                                 // Money/Exp 数量
+		int count = 1;                                  // Character/Equipment 数量
+	};
 	class Logic {//保存所有备战阶段的资源
 	public:
 		enum class RealTimeMode {
@@ -111,6 +131,14 @@ namespace WaitingForFight {
 		void Init();
 		Logic();
 		~Logic() = default;
+
+		//按“品质 + 内容请求”生成一个晶矿；contents 为空表示内容未指定，打开时按品质随机。
+		//例：State.GetMineral(MineralType::Grey);                                 // 全随机
+		//    State.GetMineral(MineralType::Grey, { {.type=MineralContentType::Character} });      // 随机1费角色
+		//    State.GetMineral(MineralType::Blue, { {.type=MineralContentType::Character, .cost=2, .star=3} });
+		//    State.GetMineral(MineralType::Grey, { {.type=MineralContentType::Money, .amount=1} });
+		std::unique_ptr<Mineral> GetMineral(MineralType quality,
+			const std::vector<MineralContentSpec>& contents = {});
 
 		
 		void Click();
