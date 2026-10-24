@@ -5,6 +5,8 @@
 #include"json.hpp"
 #include"GetRandomNum.h"
 #include"StageData.h"
+#include<fstream>
+#include<sstream>
 using json = nlohmann::json;
 using Logger::Log;
 namespace GameStart {
@@ -63,6 +65,51 @@ namespace GameStart {
         if (gr_js.contains("Difficulty") && gr_js["Difficulty"].is_number_integer()) {
             difficulty = gr_js["Difficulty"].get<int>();
         }
+
+        // ==================== 2. 读入 UI 位置，供点击判定使用 ====================
+        // 与 GameStart_Texture.json 的 place 字段保持一致
+        ui_place.clear();
+        auto ParseRect = [](const std::string& s) -> SDL_FRect {
+            std::istringstream iss(s);
+            SDL_FRect rect{ 0,0,0,0 };
+            iss >> rect.x >> rect.y >> rect.w >> rect.h;
+            if (iss.fail()) return { 0,0,0,0 };
+            return rect;
+            };
+        std::ifstream uiin(gp / "data" / "GameStart_Texture.json");
+        if (!uiin.is_open()) {
+            Log("Cannot open data/GameStart_Texture.json", __func__, Logcode::OPENFAILED);
+        }
+        else {
+            json uijs;
+            try {
+                uiin >> uijs;
+                for (auto& [key, obj] : uijs.items()) {
+                    if (!obj.is_object() || !obj.contains("place")) continue;
+                    const json& place = obj["place"];
+                    if (place.is_array()) {
+                        for (auto& var : place) {
+                            if (var.is_string())
+                                ui_place[key].push_back(ParseRect(var.get<std::string>()));
+                            else
+                                ui_place[key].push_back({ 0,0,0,0 });
+                        }
+                    }
+                    else if (place.is_string()) {
+                        ui_place[key].push_back(ParseRect(place.get<std::string>()));
+                    }
+                    else {
+                        ui_place[key].push_back({ 0,0,0,0 });
+                    }
+                }
+            }
+            catch (const json::parse_error& e) {
+                Log(e.what(), __func__, Logcode::PARSEERROR);
+            }
+            catch (const std::exception& e) {
+                Log(e.what(), __func__, Logcode::ERROR);
+            }
+        }
 	}
     void Logic::EventLogic() {
         SDL_Event event;
@@ -79,8 +126,16 @@ namespace GameStart {
                 }
                 break;
                 case SDL_EVENT_MOUSE_BUTTON_DOWN:
-                    
+                {
+                    if (event.button.button != SDL_BUTTON_LEFT) break;
+                    auto it = ui_place.find("nextstep");
+                    if (it == ui_place.end() || it->second.empty()) break;
+                    if (PlaceInside(event.button.x, event.button.y, it->second.front())) {
+                        state = State::Continue;
+                        return;
+                    }
                     break;
+                }
                 }
             }
         

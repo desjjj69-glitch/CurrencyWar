@@ -20,6 +20,9 @@ namespace GameStart {
 		};
 		State state = State::Waiting;
 	private:
+		static bool PlaceInside(float x, float y, const SDL_FRect& rect) {
+			return x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h;
+		}
 		void LoadinFromJson(const std::filesystem::path&);
 	};
 	extern Logic State;
