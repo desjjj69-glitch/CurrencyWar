@@ -69,6 +69,9 @@
     <ClCompile Include="WaitingForFight_EnemyTexture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="WaitingForFight_EquipmentTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="FightResult_Logic.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -100,6 +103,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="BasicEquipment.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalEquipment.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="GameStart_Logic.cpp">
@@ -185,6 +191,9 @@
     <ClInclude Include="WaitingForFight_EnemyTexture.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="WaitingForFight_EquipmentTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="FightResult_Logic.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -227,6 +236,9 @@
     <ClInclude Include="BasicEquipment.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NormalEquipment.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="EquipmentType.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -242,6 +254,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="data\BasicCharacterSettings.json">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="data\BasicEquipmentSettings.json">
       <Filter>资源文件</Filter>
     </None>
     <None Include="data\Enemy.json">

@@ -164,6 +164,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="BasicActor.cpp" />
     <ClCompile Include="BasicConfig.cpp" />
     <ClCompile Include="BasicEquipment.cpp" />
+    <ClCompile Include="NormalEquipment.cpp" />
     <ClCompile Include="BasicGameResource.cpp" />
     <ClCompile Include="CharacterObject.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
@@ -189,6 +190,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="WaitingForFightTexture.cpp" />
     <ClCompile Include="WaitingForFight_CharacterTexture.cpp" />
     <ClCompile Include="WaitingForFight_EnemyTexture.cpp" />
+    <ClCompile Include="WaitingForFight_EquipmentTexture.cpp" />
     <ClCompile Include="WaitingForFight_InteractLogic.cpp" />
     <ClCompile Include="WaitingForFight_Shop.cpp" />
     <ClCompile Include="WaitingForFight_Update.cpp" />
@@ -197,6 +199,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="AttackForm.h" />
     <ClInclude Include="AttributeTypes.h" />
     <ClInclude Include="BasicEquipment.h" />
+    <ClInclude Include="NormalEquipment.h" />
     <ClInclude Include="BasicSkill.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="CharacterAttribute.h" />
@@ -232,6 +235,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="WaitingForFightTexture.h" />
     <ClInclude Include="WaitingForFight_CharacterTexture.h" />
     <ClInclude Include="WaitingForFight_EnemyTexture.h" />
+    <ClInclude Include="WaitingForFight_EquipmentTexture.h" />
     <ClInclude Include="WaitingForFight_InteractLogic.h" />
     <ClInclude Include="WaitingForFight_ResourceType.h" />
     <ClInclude Include="WaitingForFight_Shop.h" />
@@ -243,6 +247,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <None Include="config\Fight_Logic.json" />
     <None Include="config\GameResource.json" />
     <None Include="data\BasicCharacterSettings.json" />
+    <None Include="data\BasicEquipmentSettings.json" />
     <None Include="data\Enemy.json" />
     <None Include="data\Fight_Texture.json" />
     <None Include="data\GameStart_Texture.json" />

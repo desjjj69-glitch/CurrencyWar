@@ -156,6 +156,8 @@ namespace WaitingForFight {
 		
 		enemy_tex.Loadin(gp, rdr);
 		
+		equipment_tex.Loadin(gp, rdr);
+		
 	}
 	WaitingForFightTexture::~WaitingForFightTexture() {
 		for (auto it = tex.begin();it != tex.end();++it) {

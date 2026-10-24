@@ -4,6 +4,7 @@
 #include"WaitingForFight_InteractLogic.h"
 #include"WaitingForFight_CharacterTexture.h"
 #include"WaitingForFight_EnemyTexture.h"
+#include"WaitingForFight_EquipmentTexture.h"
 #include"BasicObject.h"
 #include<unordered_map>
 #include<string>
@@ -17,6 +18,7 @@ namespace WaitingForFight {
 	private:
 		WaitingForFight_CharacterTexture character_tex;
 		WaitingForFight_EnemyTexture enemy_tex;
+		WaitingForFight_EquipmentTexture equipment_tex;
 		bool Loaded = 0;
 		bool texLoaded = 0;
 		void LoadinJson(const std::filesystem::path&)override;
