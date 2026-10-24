@@ -25,6 +25,7 @@ namespace GameStart {
 		std::unordered_map<std::string, SDL_Texture*> strategy_tex;
 
 		void Draw_Background(SDL_Renderer*&);
-		void Draw_Boss(SDL_Renderer*& rdr);
+		void Draw_Boss(SDL_Renderer*&);
+		void Draw_NextStep(SDL_Renderer*&);
 	};
 }

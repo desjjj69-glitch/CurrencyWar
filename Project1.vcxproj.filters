@@ -295,6 +295,12 @@
     <None Include="README.md">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="config\GameResource.json">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="data\GameStart_Texture.json">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\管理图像资源.txt">

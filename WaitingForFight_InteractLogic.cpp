@@ -19,6 +19,7 @@ namespace WaitingForFight {
 	}
 	void Logic::LoadinJson(const std::filesystem::path& gp) {
 		boss_name = StageData::g_GameStart_WaitingForFight.Boss_name;
+		Difficulty = StageData::g_GameStart_WaitingForFight.difficulty;
 		//Log("Here", __FUNCSIG__,  Logcode::OPENFAILED);
 		Object::Enemy_LoadinJson(gp, Boss,boss_name);
 		Object::Character_LoadinJson(gp);

@@ -8,6 +8,15 @@
       }
     ]
   },
+  "nextstep": {
+    "place": "1771 1414 507 75",
+    "image": [
+      {
+        "name": "Default",
+        "path": "nextstep_Default.png"
+      } 
+    ]
+  },
   "boss": {
     "place": [
       "158 410 369 774",

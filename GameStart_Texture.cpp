@@ -7,6 +7,19 @@
 using json = nlohmann::json;
 using Logger::Log;
 namespace GameStart {
+	static bool PlaceInside(float x, float y, SDL_FRect rect) {
+		return x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h;
+	}
+	static SDL_FRect ScaleRectCentered(const SDL_FRect& r, float sx, float sy) {
+		SDL_FRect o{ 0,0,0,0 };
+		o.w = r.w * sx;
+		o.h = r.h * sy;
+		o.x = r.x - (o.w - r.w) * 0.5f;
+		o.y = r.y - (o.h - r.h) * 0.5f;
+		return o;
+	}
+	// 等比 1.2：ScaleRectCentered(r, 1.2f, 1.2f)
+	// 只横向：ScaleRectCentered(r, 1.2f, 1.0f)
 	Texture::~Texture() {
 		// ---------- UI 纹理：两层 map ----------
 		for (auto& [key, mp] : ui_tex) {
@@ -57,6 +70,7 @@ namespace GameStart {
 		SDL_RenderClear(rdr);
 		Draw_Background(rdr);
 		Draw_Boss(rdr);
+		Draw_NextStep(rdr);
 	}
 	void Texture::LoadinJson(const std::filesystem::path& gp) {
 		auto ParseRect = [](const std::string& s) ->SDL_FRect {
@@ -143,5 +157,12 @@ namespace GameStart {
 		for (int i = 0;i< State.Boss_name.size();++i) {
 			SDL_RenderTexture(rdr, boss_tex[State.Boss_name[i]], NULL, &ui_place["boss"][i]);
 		}
+	}
+	void Texture::Draw_NextStep(SDL_Renderer*& rdr) {
+		SDL_FRect rect = ui_place["nextstep"][0];
+		if (PlaceInside(mouse_place.x, mouse_place.y, rect)) {
+			rect=ScaleRectCentered(rect, 1.2, 1.2);
+		}
+		SDL_RenderTexture(rdr, ui_tex["nextstep"]["Default"], NULL, &rect);
 	}
 }

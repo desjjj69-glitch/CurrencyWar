@@ -14,6 +14,7 @@ namespace GameStart {
 		LoadinFromJson(BasicGameRes.GamePath);
         using StageData::g_GameStart_WaitingForFight;
         g_GameStart_WaitingForFight.Boss_name = Boss_name;
+        g_GameStart_WaitingForFight.difficulty = difficulty;
 	}
 	void Logic::LoadinFromJson(const std::filesystem::path& gp) {
 		Boss_name.clear();
@@ -47,10 +48,26 @@ namespace GameStart {
                 
             }
         }
+
+        std::ifstream gameresource(gp / "config" / "GameResource.json");
+        json gr_js;
+        try {
+            gameresource >> gr_js;
+        }
+        catch (const json::parse_error& e) {
+            Log(e.what(), __func__, Logcode::PARSEERROR);
+        }
+        catch (const std::exception& e) {
+            Log(e.what(), __func__, Logcode::ERROR);
+        }
+        if (gr_js.contains("Difficulty") && gr_js["Difficulty"].is_number_integer()) {
+            difficulty = gr_js["Difficulty"].get<int>();
+        }
 	}
     void Logic::EventLogic() {
         SDL_Event event;
             while (SDL_PollEvent(&event)) {
+                SDL_ConvertEventToRenderCoordinates(BasicGameRes.GameRenderer, &event);
                 switch (event.type) {
                 case SDL_EVENT_KEY_DOWN:
                 {
@@ -61,6 +78,9 @@ namespace GameStart {
                     }
                 }
                 break;
+                case SDL_EVENT_MOUSE_BUTTON_DOWN:
+                    
+                    break;
                 }
             }
         

@@ -241,9 +241,11 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <None Include="assets\新建 文本文档.py" />
     <None Include="config\FightResult.json" />
     <None Include="config\Fight_Logic.json" />
+    <None Include="config\GameResource.json" />
     <None Include="data\BasicCharacterSettings.json" />
     <None Include="data\Enemy.json" />
     <None Include="data\Fight_Texture.json" />
+    <None Include="data\GameStart_Texture.json" />
     <None Include="data\WaitingForFight.json" />
     <None Include="data\WaitingForFight_ObjectPlace.json" />
     <None Include="lib\dll\libavif-16.dll" />

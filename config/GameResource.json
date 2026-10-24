@@ -41,5 +41,6 @@
   "MAX_SHOPLEVEL": 10,
   "ShopCharacterNumLimit": 9,
   "MoneyNum": 100000,
-  "MaxInterest": 5
+  "MaxInterest": 5,
+  "Difficulty": 137
 }
