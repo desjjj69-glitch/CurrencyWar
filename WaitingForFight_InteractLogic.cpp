@@ -182,7 +182,6 @@ namespace WaitingForFight {
 		Object::Enemy_LoadinJson(gp, Boss,boss_name);
 		Object::Character_LoadinJson(gp);
 		Mineral::LoadinJson(gp);
-		Init_Minerals();//开局固定的晶矿放进 Mineral 槽位（Loadin 只跑一次）
 		shop.LoadinJson(gp);//先把自成一块的资源读取了
 
 		auto ParseFRect = [](const std::string& s) -> SDL_FRect {
@@ -304,16 +303,24 @@ namespace WaitingForFight {
 				if (EquipmentColumnLimit <= 0) EquipmentColumnLimit = 6;
 			}
 		}
+		if (objpjs.contains("MineralSize") && objpjs["MineralSize"].is_object()) {
+			for (auto& [name, size] : objpjs["MineralSize"].items()) {
+				MineralType q;
+				if (!TryParseMineralType(name, q)) {
+					Log("Unknown mineral type: " + name, __func__, Logcode::PARSEERROR);
+					continue;
+				}
+				if (size.is_array() && size.size() >= 2 && size[0].is_number() && size[1].is_number()) {
+					MineralSize[q] = { size[0].get<float>(), size[1].get<float>() };
+				}
+			}
+		}
+		Init_Minerals();//尺寸读取完成后再放开局晶矿（Loadin 只跑一次）
 	}
 	Logic::Logic() {
 		Zone(OriginPlaceType::FrontBattleField).resize(4);
 		Zone(OriginPlaceType::Bench).resize(9);
 		Zone(OriginPlaceType::BackBattleField).resize(6);
-		//晶矿图片尺寸，暂时写死，以后从json读入
-		MineralSize[MineralType::Grey] = { 66.f, 57.f };
-		MineralSize[MineralType::Blue] = { 99.f, 93.f };
-		MineralSize[MineralType::Gold] = { 144.f, 131.f };
-		MineralSize[MineralType::Prismatic] = { 189.f, 168.f };
 	}
 	void Logic::Init_Minerals() {
 		auto& zone = Zone(OriginPlaceType::Mineral);

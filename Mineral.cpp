@@ -1,6 +1,6 @@
 #include"Mineral.h"
-#include"NormalEquipment.h"
-#include"ConsumableEquipment.h"
+#include"Equipment/NormalEquipment.h"
+#include"Equipment/ConsumableEquipment.h"
 #include"Logger.h"
 #include"json.hpp"
 #include"GetRandomNum.h"

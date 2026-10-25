@@ -163,9 +163,9 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <ClCompile Include="BasicActor.cpp" />
     <ClCompile Include="BasicConfig.cpp" />
-    <ClCompile Include="BasicEquipment.cpp" />
-    <ClCompile Include="NormalEquipment.cpp" />
-    <ClCompile Include="ConsumableEquipment.cpp" />
+    <ClCompile Include="Equipment\BasicEquipment.cpp" />
+    <ClCompile Include="Equipment\NormalEquipment.cpp" />
+    <ClCompile Include="Equipment\ConsumableEquipment.cpp" />
     <ClCompile Include="BasicGameResource.cpp" />
     <ClCompile Include="CharacterObject.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
@@ -201,14 +201,14 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <ClInclude Include="AttackForm.h" />
     <ClInclude Include="AttributeTypes.h" />
-    <ClInclude Include="BasicEquipment.h" />
-    <ClInclude Include="NormalEquipment.h" />
-    <ClInclude Include="ConsumableEquipment.h" />
+    <ClInclude Include="Equipment\BasicEquipment.h" />
+    <ClInclude Include="Equipment\NormalEquipment.h" />
+    <ClInclude Include="Equipment\ConsumableEquipment.h" />
     <ClInclude Include="BasicSkill.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="CharacterAttribute.h" />
     <ClInclude Include="EnemyObject.h" />
-    <ClInclude Include="EquipmentType.h" />
+    <ClInclude Include="Equipment\EquipmentType.h" />
     <ClInclude Include="FightResult_Texture.h" />
     <ClInclude Include="FightResult_Update.h" />
     <ClInclude Include="Fight_ActorType.h" />

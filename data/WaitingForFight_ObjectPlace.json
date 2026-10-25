@@ -38,5 +38,11 @@
     "ConsumableOrigin": [ 2419, 190 ],
     "EquipmentOrigin": [ 2419, 290 ],
     "ColumnLimit": 6
+  },
+  "MineralSize": {
+    "Grey": [ 66, 57 ],
+    "Blue": [ 99, 93 ],
+    "Gold": [ 144, 131 ],
+    "Prismatic": [ 189, 168 ]
   }
 }

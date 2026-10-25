@@ -2,7 +2,7 @@
 #include"BasicObject.h"
 #include"MineralType.h"
 #include"CharacterObject.h"
-#include"BasicEquipment.h"
+#include"Equipment/BasicEquipment.h"
 #include<filesystem>
 #include<map>
 #include<memory>

@@ -16,6 +16,9 @@
     <Filter Include="Skill">
       <UniqueIdentifier>{a1d169a0-64c9-42eb-bbe4-5c5a18b3e8b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Equipment">
+      <UniqueIdentifier>{c2f8b1a4-7d3e-4a5f-9b6c-1e2d3f4a5b6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -105,14 +108,14 @@
     <ClCompile Include="Fight_CalculateDamge.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="BasicEquipment.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Equipment\BasicEquipment.cpp">
+      <Filter>Equipment</Filter>
     </ClCompile>
-    <ClCompile Include="NormalEquipment.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Equipment\NormalEquipment.cpp">
+      <Filter>Equipment</Filter>
     </ClCompile>
-    <ClCompile Include="ConsumableEquipment.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Equipment\ConsumableEquipment.cpp">
+      <Filter>Equipment</Filter>
     </ClCompile>
     <ClCompile Include="Mineral.cpp">
       <Filter>源文件</Filter>
@@ -251,17 +254,17 @@
     <ClInclude Include="ParseSkill.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="BasicEquipment.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Equipment\BasicEquipment.h">
+      <Filter>Equipment</Filter>
     </ClInclude>
-    <ClInclude Include="NormalEquipment.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Equipment\NormalEquipment.h">
+      <Filter>Equipment</Filter>
     </ClInclude>
-    <ClInclude Include="ConsumableEquipment.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Equipment\ConsumableEquipment.h">
+      <Filter>Equipment</Filter>
     </ClInclude>
-    <ClInclude Include="EquipmentType.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Equipment\EquipmentType.h">
+      <Filter>Equipment</Filter>
     </ClInclude>
     <ClInclude Include="GameStart_Logic.h">
       <Filter>头文件</Filter>

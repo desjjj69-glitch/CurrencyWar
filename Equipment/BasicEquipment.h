@@ -2,7 +2,7 @@
 #include<string>
 #include<algorithm>
 #include"EquipmentType.h"
-#include"BasicObject.h"
+#include"../BasicObject.h"
 // 装备在备战阶段同样存放在 Logic::zone_ 里，因此继承 BasicObject
 class BasicEquipment :public BasicObject {
 	inline static int GloabalIndex_Equipment = 0;

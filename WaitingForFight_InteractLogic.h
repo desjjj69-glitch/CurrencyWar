@@ -3,7 +3,7 @@
 #include"EnemyObject.h"
 #include"WaitingForFight_Shop.h"
 #include"MineralType.h"
-#include"EquipmentType.h"
+#include"Equipment/EquipmentType.h"
 #include"SDL_Functions.h"
 #include<memory>
 #include<string>
@@ -14,7 +14,7 @@
 #include<vector>
 #include<array>
 class Mineral;//定义见 Mineral.h
-class BasicEquipment;//定义见 BasicEquipment.h
+class BasicEquipment;//定义见 Equipment/BasicEquipment.h
 namespace WaitingForFight {
 	//晶矿内容类型
 	enum class MineralContentType {

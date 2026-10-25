@@ -1,7 +1,7 @@
 #include"WaitingForFightTexture.h"
 #include"WaitingForFight_InteractLogic.h"
 #include"Mineral.h"
-#include"BasicEquipment.h"
+#include"Equipment/BasicEquipment.h"
 #include<fstream>
 #include<sstream>
 #include"Logger.h"
