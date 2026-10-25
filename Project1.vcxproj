@@ -242,6 +242,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="Skill\DataDrivenSkill.h" />
     <ClInclude Include="Skill\SkillFactory.h" />
     <ClInclude Include="StageData.h" />
+    <ClInclude Include="StrategyEvent.h" />
     <ClInclude Include="WaitingForFightTexture.h" />
     <ClInclude Include="WaitingForFight_CharacterTexture.h" />
     <ClInclude Include="WaitingForFight_EnemyTexture.h" />

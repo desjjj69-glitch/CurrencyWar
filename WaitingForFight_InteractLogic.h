@@ -5,6 +5,7 @@
 #include"MineralType.h"
 #include"Equipment/EquipmentType.h"
 #include"SDL_Functions.h"
+#include"StrategyEvent.h"
 #include<memory>
 #include<string>
 #include<unordered_map>
@@ -163,6 +164,11 @@ namespace WaitingForFight {
 		void HandleEvent(const SDL_Event&);//所有事件
 
 		void EventLogic(SDL_Event&);//处理所有逻辑事务
+
+		void AddStageStrategy(std::unique_ptr<IStrategy> s);
+		void AddPermanentStrategy(std::unique_ptr<IStrategy> s);
+		void ClearStageStrategies() { stageStrategies.clear(); }
+		void EmitStrategyEvent(const StrategyEvent& e);
 	private:
 		bool PlaceInside(float, float, const SDL_FRect&);
 		bool HandleMineralPress(float, float);//点中晶矿返回 true：可开则开，备战席不够则吃掉点击
@@ -185,6 +191,11 @@ namespace WaitingForFight {
 		bool StarUp();
 		void Init_Enemys();
 		void Init_Boss();
+
+		std::vector<std::unique_ptr<IStrategy>> stageStrategies;      // 投资环境（阶段级）
+		std::vector<std::unique_ptr<IStrategy>> permanentStrategies;  // 投资策略（永久）
+		std::vector<StrategyEvent> pendingEvents;
+		int emittingDepth = 0;
 	};
 	extern Logic State;
 }
