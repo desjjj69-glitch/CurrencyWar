@@ -329,6 +329,7 @@ namespace WaitingForFight {
 		places.clear();
 
 		//开局固定 2 灰 + 1 蓝，具体内容统一交给 GetMineral 生成
+		//测试阶段，给很多装备
 		std::vector<std::unique_ptr<Mineral>> startMinerals;
 		startMinerals.push_back(GetMineral(MineralType::Grey, {
 			{ .type = MineralContentType::Money, .amount = 1 }
@@ -339,6 +340,7 @@ namespace WaitingForFight {
 		startMinerals.push_back(GetMineral(MineralType::Blue, {
 			{ .type = MineralContentType::Character }
 			}));
+		for(int i=0;i<20;i++)
 		startMinerals.push_back(GetMineral(MineralType::Blue, {
 			{.type = MineralContentType::Equipment}
 			}));

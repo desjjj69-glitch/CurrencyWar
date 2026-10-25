@@ -348,7 +348,7 @@
     {
       "Name": "Flower_of_Life",
       "Path": "Flower_of_Life.png",
-      "Type": ""
+      "Type": "Basic"
     },
     {
       "Name": "Folding_Knife",
@@ -775,5 +775,294 @@
       "Path": "Wormhole Tunneling Drill_Privilege.png",
       "Type": ""
     }
-  ]
+  ],
+  
+    "SynthesisRecipes": [
+      {
+        "A": "Batch_Produced_Armor",
+        "B": "Batch_Produced_Armor",
+        "Result": "Very Hard Armor"
+      },
+      {
+        "A": "Batch_Produced_Armor",
+        "B": "Ether_Drill",
+        "Result": "Flash Grenade"
+      },
+      {
+        "A": "Batch_Produced_Armor",
+        "B": "Folding_Knife",
+        "Result": "Confidence Injector"
+      },
+      {
+        "A": "Batch_Produced_Armor",
+        "B": "Lucky_Star",
+        "Result": "Eye-for-an-Eye Armor"
+      },
+      {
+        "A": "Batch_Produced_Armor",
+        "B": "Peace_Pistol",
+        "Result": "Adaptive Exoskeleton"
+      },
+      {
+        "A": "Batch_Produced_Armor",
+        "B": "Photon_Battery",
+        "Result": "Light-Energy Shield"
+      },
+      {
+        "A": "Batch_Produced_Armor",
+        "B": "Roller_Skates",
+        "Result": "Meteor Wings"
+      },
+      {
+        "A": "Batch_Produced_Armor",
+        "B": "Flower_of_Life",
+        "Result": "Pain Blocking Chip"
+      },
+      {
+        "A": "Batch_Produced_Armor",
+        "B": "Red Diamond",
+        "Result": "Starlight of Belobog"
+      },
+      {
+        "A": "Batch_Produced_Armor",
+        "B": "Blue Diamond",
+        "Result": "Starlight of Damage over Time"
+      },
+      {
+        "A": "Ether_Drill",
+        "B": "Ether_Drill",
+        "Result": "Wormhole Tunneling Drill"
+      },
+      {
+        "A": "Ether_Drill",
+        "B": "Folding_Knife",
+        "Result": "Kinetic Stimulus Sword"
+      },
+      {
+        "A": "Ether_Drill",
+        "B": "Lucky_Star",
+        "Result": "Flag of Victory"
+      },
+      {
+        "A": "Ether_Drill",
+        "B": "Peace_Pistol",
+        "Result": "Decapitation Strike"
+      },
+      {
+        "A": "Ether_Drill",
+        "B": "Photon_Battery",
+        "Result": "Planetary Drilling Missile"
+      },
+      {
+        "A": "Ether_Drill",
+        "B": "Roller_Skates",
+        "Result": "Lightspeed Propeller"
+      },
+      {
+        "A": "Ether_Drill",
+        "B": "Flower_of_Life",
+        "Result": "Material Decomposition Liquid"
+      },
+      {
+        "A": "Ether_Drill",
+        "B": "Red Diamond",
+        "Result": "Starlight of the Interstellar Traveler"
+      },
+      {
+        "A": "Ether_Drill",
+        "B": "Blue Diamond",
+        "Result": "Starlight of Break"
+      },
+      {
+        "A": "Folding_Knife",
+        "B": "Folding_Knife",
+        "Result": "Starbreaker Blade"
+      },
+      {
+        "A": "Folding_Knife",
+        "B": "Lucky_Star",
+        "Result": "High-frequency Chainsaw"
+      },
+      {
+        "A": "Folding_Knife",
+        "B": "Peace_Pistol",
+        "Result": "Weapon Master"
+      },
+      {
+        "A": "Folding_Knife",
+        "B": "Photon_Battery",
+        "Result": "Battlefield Evolution Manual"
+      },
+      {
+        "A": "Folding_Knife",
+        "B": "Roller_Skates",
+        "Result": "Firestorm Surge"
+      },
+      {
+        "A": "Folding_Knife",
+        "B": "Flower_of_Life",
+        "Result": "Bloodshot Eyes"
+      },
+      {
+        "A": "Folding_Knife",
+        "B": "Red Diamond",
+        "Result": "Starlight of the Xianzhou"
+      },
+      {
+        "A": "Folding_Knife",
+        "B": "Blue Diamond",
+        "Result": "Starlight of Skill Point"
+      },
+      {
+        "A": "Lucky_Star",
+        "B": "Lucky_Star",
+        "Result": "Randomizer Dice"
+      },
+      {
+        "A": "Lucky_Star",
+        "B": "Peace_Pistol",
+        "Result": "Anti-Satellite Sniper Rifle"
+      },
+      {
+        "A": "Lucky_Star",
+        "B": "Photon_Battery",
+        "Result": "Bad Joke Engine"
+      },
+      {
+        "A": "Lucky_Star",
+        "B": "Roller_Skates",
+        "Result": "Chasing Stars"
+      },
+      {
+        "A": "Lucky_Star",
+        "B": "Flower_of_Life",
+        "Result": "Hot-Blooded Fist"
+      },
+      {
+        "A": "Lucky_Star",
+        "B": "Red Diamond",
+        "Result": "Starlight of the Star of the Gala"
+      },
+      {
+        "A": "Lucky_Star",
+        "B": "Blue Diamond",
+        "Result": "Starlight of Multi-Target"
+      },
+      {
+        "A": "Peace_Pistol",
+        "B": "Peace_Pistol",
+        "Result": "Space-Based Orbital Cannon"
+      },
+      {
+        "A": "Peace_Pistol",
+        "B": "Photon_Battery",
+        "Result": "Energy Accumulation Sail"
+      },
+      {
+        "A": "Peace_Pistol",
+        "B": "Roller_Skates",
+        "Result": "Electromagnetic Catapult"
+      },
+      {
+        "A": "Peace_Pistol",
+        "B": "Flower_of_Life",
+        "Result": "Cover-Generation Gun"
+      },
+      {
+        "A": "Peace_Pistol",
+        "B": "Red Diamond",
+        "Result": "Starlight of the Night Demigod"
+      },
+      {
+        "A": "Peace_Pistol",
+        "B": "Blue Diamond",
+        "Result": "Starlight of Debuff"
+      },
+      {
+        "A": "Photon_Battery",
+        "B": "Photon_Battery",
+        "Result": "Perpetual Motion Machine"
+      },
+      {
+        "A": "Photon_Battery",
+        "B": "Roller_Skates",
+        "Result": "Electrified Treads"
+      },
+      {
+        "A": "Photon_Battery",
+        "B": "Flower_of_Life",
+        "Result": "Absolute Heat"
+      },
+      {
+        "A": "Photon_Battery",
+        "B": "Red Diamond",
+        "Result": "Starlight of the Galactic Scholar"
+      },
+      {
+        "A": "Photon_Battery",
+        "B": "Blue Diamond",
+        "Result": "Starlight of Energy"
+      },
+      {
+        "A": "Roller_Skates",
+        "B": "Roller_Skates",
+        "Result": "Anti-gravity Boots"
+      },
+      {
+        "A": "Roller_Skates",
+        "B": "Flower_of_Life",
+        "Result": "Blooming Everywhere"
+      },
+      {
+        "A": "Roller_Skates",
+        "B": "Red Diamond",
+        "Result": "Starlight of the Day Demigod"
+      },
+      {
+        "A": "Roller_Skates",
+        "B": "Blue Diamond",
+        "Result": "Starlight of Pursuit"
+      },
+      {
+        "A": "Flower_of_Life",
+        "B": "Flower_of_Life",
+        "Result": "Ring of Life"
+      },
+      {
+        "A": "Flower_of_Life",
+        "B": "Red Diamond",
+        "Result": "Starlight of the Wolf Hunter"
+      },
+      {
+        "A": "Flower_of_Life",
+        "B": "Blue Diamond",
+        "Result": "Starlight of Bloodburn"
+      },
+      {
+        "A": "Red Diamond",
+        "B": "Red Diamond",
+        "Result": "Wealth Keeper's Dream"
+      },
+      {
+        "A": "Red Diamond",
+        "B": "Blue Diamond",
+        "Result": "Wealth Keeper's Dream"
+      },
+      {
+        "A": "Red Diamond",
+        "B": "Trash Bag",
+        "Result": "Starlight of Elation"
+      },
+      {
+        "A": "Blue Diamond",
+        "B": "Blue Diamond",
+        "Result": "Wealth Keeper's Dream"
+      },
+      {
+        "A": "Blue Diamond",
+        "B": "Trash Bag",
+        "Result": "Starlight of Elation"
+      }
+    ]
+  
 }
