@@ -1,5 +1,6 @@
 #include"WaitingForFight_InteractLogic.h"
 #include"Mineral.h"
+#include"Equipment/EquipmentSynthesis.h"
 #include"BasicGameResource.h"
 #include"json.hpp"
 #include"Logger.h"
@@ -182,6 +183,7 @@ namespace WaitingForFight {
 		Object::Enemy_LoadinJson(gp, Boss,boss_name);
 		Object::Character_LoadinJson(gp);
 		Mineral::LoadinJson(gp);
+		EquipmentSynthesis::LoadinJson(gp);
 		shop.LoadinJson(gp);//先把自成一块的资源读取了
 
 		auto ParseFRect = [](const std::string& s) -> SDL_FRect {
@@ -588,10 +590,50 @@ namespace WaitingForFight {
 		}
 		if (holding->Type() == ResourceType::Equipment) {
 			auto* equipment = static_cast<BasicEquipment*>(holding.get());
-			if (equipment->Kind() != EquipmentType::Consumable) {
-				//放到角色格子上且角色装备栏未满：装备给角色
-				auto* character = CharacterAt(x, y);
-				if (character && character->HasEquipmentSpace()) {
+			if (equipment->Kind() == EquipmentType::Consumable) {
+				return 0;//Consumable 不参与合成，直接默认放回
+			}
+
+			//情况1：落在 Equipment 槽位的某件装备上 → 合成结果追加到 Equipment 末尾
+			auto& eqZone = Zone(OriginPlaceType::Equipment);
+			auto& eqPlaces = ObjectPlace(OriginPlaceType::Equipment);
+			if (eqZone.size() == eqPlaces.size()) {
+				for (size_t i = 0; i < eqPlaces.size(); ++i) {
+					if (!eqZone[i]) continue;
+					if (!PlaceInside(x, y, eqPlaces[i])) continue;
+					auto* target = dynamic_cast<BasicEquipment*>(eqZone[i].get());
+					if (!target || target->Kind() == EquipmentType::Consumable) {
+						break;
+					}
+					auto result = EquipmentSynthesis::Synthesize(equipment->GetName(), target->GetName());
+					if (!result) {
+						break;//这一格没有配方，默认放回
+					}
+					//丢弃参与合成的两件装备
+					eqZone.erase(eqZone.begin() + static_cast<std::ptrdiff_t>(i));
+					eqPlaces.erase(eqPlaces.begin() + static_cast<std::ptrdiff_t>(i));
+					RelayoutEquipment(OriginPlaceType::Equipment);
+					holding.reset();
+					AddEquipment(std::move(result));//结果默认 Advanced，追加到末尾
+					return 1;
+				}
+			}
+
+			//情况2：落在角色身上 → 从左往右找第一件能合成的装备，原地替换
+			auto* character = CharacterAt(x, y);
+			if (character) {
+				auto& equipped = character->GetEquipments();
+				for (size_t i = 0; i < equipped.size(); ++i) {
+					if (!equipped[i]) continue;
+					if (equipped[i]->Kind() == EquipmentType::Consumable) continue;
+					auto result = EquipmentSynthesis::Synthesize(equipment->GetName(), equipped[i]->GetName());
+					if (!result) continue;
+					equipped[i] = std::move(result);//原地替换
+					holding.reset();//丢弃手里这件
+					return 1;
+				}
+				//都无法合成 → 能放就放，否则默认放回
+				if (character->HasEquipmentSpace()) {
 					std::unique_ptr<BasicEquipment> equip(static_cast<BasicEquipment*>(holding.release()));
 					if (!character->AddEquipment(equip)) {
 						holding = std::move(equip);//理论上不会失败，兜底

@@ -123,7 +123,7 @@
     {
       "Name": "Cover-Generation Gun",
       "Path": "Cover-Generation Gun.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Cover-Generation Gun_Privilege",
@@ -193,7 +193,7 @@
     {
       "Name": "Decapitation Strike",
       "Path": "Decapitation Strike.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Decapitation Strike_Privilege",
@@ -228,7 +228,7 @@
     {
       "Name": "Electrified Treads",
       "Path": "Electrified Treads.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Electrified Treads_Privilege",
@@ -238,7 +238,7 @@
     {
       "Name": "Electromagnetic Catapult",
       "Path": "Electromagnetic Catapult.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Electromagnetic Catapult_Privilege",
@@ -253,7 +253,7 @@
     {
       "Name": "Energy Accumulation Sail",
       "Path": "Energy Accumulation Sail.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Energy Accumulation Sail_Privilege",
@@ -308,7 +308,7 @@
     {
       "Name": "Eye-for-an-Eye Armor",
       "Path": "Eye-for-an-Eye Armor.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Eye-for-an-Eye Armor_Privilege",
@@ -318,7 +318,7 @@
     {
       "Name": "Firestorm Surge",
       "Path": "Firestorm Surge.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Firestorm Surge_Privilege",
@@ -328,7 +328,7 @@
     {
       "Name": "Flag of Victory",
       "Path": "Flag of Victory.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Flag of Victory_Privilege",
@@ -338,7 +338,7 @@
     {
       "Name": "Flash Grenade",
       "Path": "Flash Grenade.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Flash Grenade_Privilege",
@@ -383,7 +383,7 @@
     {
       "Name": "High-frequency Chainsaw",
       "Path": "High-frequency Chainsaw.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "High-frequency Chainsaw_Privilege",
@@ -428,7 +428,7 @@
     {
       "Name": "Light-Energy Shield",
       "Path": "Light-Energy Shield.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Light-Energy Shield_Privilege",
@@ -438,7 +438,7 @@
     {
       "Name": "Lightspeed Propeller",
       "Path": "Lightspeed Propeller.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Lightspeed Propeller_Privilege",
@@ -453,7 +453,7 @@
     {
       "Name": "Material Decomposition Liquid",
       "Path": "Material Decomposition Liquid.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Material Decomposition Liquid_Privilege",
@@ -468,7 +468,7 @@
     {
       "Name": "Meteor Wings",
       "Path": "Meteor Wings.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Meteor Wings_Privilege",
@@ -478,7 +478,7 @@
     {
       "Name": "Pain Blocking Chip",
       "Path": "Pain Blocking Chip.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Pain Blocking Chip_Privilege",
@@ -498,7 +498,7 @@
     {
       "Name": "Perpetual Motion Machine",
       "Path": "Perpetual Motion Machine.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Perpetual Motion Machine_Privilege",
@@ -518,7 +518,7 @@
     {
       "Name": "Planetary Drilling Missile",
       "Path": "Planetary Drilling Missile.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Planetary Drilling Missile_Privilege",
@@ -538,7 +538,7 @@
     {
       "Name": "Randomizer Dice",
       "Path": "Randomizer Dice.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Randomizer Dice_Privilege",
@@ -553,7 +553,7 @@
     {
       "Name": "Ring of Life",
       "Path": "Ring of Life.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Ring of Life_Privilege",
@@ -568,7 +568,7 @@
     {
       "Name": "Space-Based Orbital Cannon",
       "Path": "Space-Based Orbital Cannon.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Space-Based Orbital Cannon_Privilege",
@@ -583,7 +583,7 @@
     {
       "Name": "Starbreaker Blade",
       "Path": "Starbreaker Blade.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starbreaker Blade_Privilege",
@@ -593,37 +593,37 @@
     {
       "Name": "Starlight of Belobog",
       "Path": "Starlight of Belobog.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of Bloodburn",
       "Path": "Starlight of Bloodburn.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of Break",
       "Path": "Starlight of Break.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of Damage over Time",
       "Path": "Starlight of Damage over Time.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of Debuff",
       "Path": "Starlight of Debuff.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of Elation",
       "Path": "Starlight of Elation.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of Energy",
       "Path": "Starlight of Energy.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of Healing",
@@ -633,12 +633,12 @@
     {
       "Name": "Starlight of Multi-Target",
       "Path": "Starlight of Multi-Target.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of Pursuit",
       "Path": "Starlight of Pursuit.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of Quantum Resonance",
@@ -653,12 +653,12 @@
     {
       "Name": "Starlight of Skill Point",
       "Path": "Starlight of Skill Point.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of the Day Demigod",
       "Path": "Starlight of the Day Demigod.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of the Express Companion",
@@ -668,7 +668,7 @@
     {
       "Name": "Starlight of the Galactic Scholar",
       "Path": "Starlight of the Galactic Scholar.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of the Holy Grail of Fate",
@@ -678,27 +678,27 @@
     {
       "Name": "Starlight of the Interstellar Traveler",
       "Path": "Starlight of the Interstellar Traveler.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of the Night Demigod",
       "Path": "Starlight of the Night Demigod.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of the Star of the Gala",
       "Path": "Starlight of the Star of the Gala.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of the Wolf Hunter",
       "Path": "Starlight of the Wolf Hunter.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Starlight of the Xianzhou",
       "Path": "Starlight of the Xianzhou.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Stellaron Hunter Cartridge Max",
@@ -733,7 +733,7 @@
     {
       "Name": "Very Hard Armor",
       "Path": "Very Hard Armor.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Very Hard Armor_Privilege",
@@ -753,12 +753,12 @@
     {
       "Name": "Wealth Keeper's Dream",
       "Path": "Wealth Keeper's Dream.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Weapon Master",
       "Path": "Weapon Master.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Weapon Master_Privilege",
@@ -768,7 +768,7 @@
     {
       "Name": "Wormhole Tunneling Drill",
       "Path": "Wormhole Tunneling Drill.png",
-      "Type": ""
+      "Type": "Advanced"
     },
     {
       "Name": "Wormhole Tunneling Drill_Privilege",

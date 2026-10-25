@@ -252,9 +252,37 @@ namespace WaitingForFight {
 		};
 		
 		SDL_RenderTexture(rdr, tex["CharacterOnBattleFieldLimit"][0], NULL, &buttonrect);
-		//绘制一个数字/数字
+		//绘制“场上角色数/场上角色数量限制”，文字锚点为纹理顶边中点
+		int num = 0;
+		for (auto& p : State.Zone(Logic::OriginPlaceType::FrontBattleField)) {
+			if (p) ++num;
+		}
+		for (auto& p : State.Zone(Logic::OriginPlaceType::BackBattleField)) {
+			if (p) ++num;
+		}
 		static int oldlimit = -1;
 		static int oldnum = -1;
+		const std::string key = "BattleFieldLimit";
+		if (oldnum != num || oldlimit != State.CharacterOnBattleFieldLimit) {
+			oldnum = num;
+			oldlimit = State.CharacterOnBattleFieldLimit;
+			MySDL::DisplayWord(
+				ft,
+				rdr,
+				std::to_string(oldnum) + "/" + std::to_string(oldlimit),
+				word_place[key].x,
+				word_place[key].y,
+				word_tex[key],
+				word_place[key],
+				word_color[key],
+				word_multiply[key]
+			);
+		}
+		if (word_tex[key]) {
+			SDL_FRect rect = word_place[key];
+			rect.x -= rect.w / 2;//x 是文字顶边中点
+			SDL_RenderTexture(rdr, word_tex[key], NULL, &rect);
+		}
 	}
 	void WaitingForFightTexture::Draw_ContinueWin(SDL_Renderer*& rdr, TTF_Font*& ft) {
 		static int old = -1;
@@ -483,17 +511,18 @@ namespace WaitingForFight {
 			};
 			SDL_RenderTexture(rdr,startex , NULL, &starrect);
 		}
-		//角色装备：以角色图标左下角为第一件装备的左上角，从左到右绘制
+		//角色装备：以角色图标左下角为第一件装备的左上角，宽度按角色图标三等分
 		const auto& eqs = c->GetEquipments();
+		const float eqsize = rect.w / 3.0f;
 		for (size_t i = 0; i < eqs.size(); ++i) {
 			if (!eqs[i]) continue;
 			SDL_Texture* t = equipment_tex.GetEquipmentTexture(eqs[i]->GetName());
 			if (!t) continue;
 			SDL_FRect eqrect{
-				rect.x + State.EquipmentSize.x * static_cast<float>(i),
+				rect.x + eqsize * static_cast<float>(i),
 				rect.y + rect.h,
-				State.EquipmentSize.x,
-				State.EquipmentSize.y
+				eqsize,
+				eqsize
 			};
 			SDL_RenderTexture(rdr, t, NULL, &eqrect);
 		}

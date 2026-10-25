@@ -117,6 +117,12 @@
     <ClCompile Include="Equipment\ConsumableEquipment.cpp">
       <Filter>Equipment</Filter>
     </ClCompile>
+    <ClCompile Include="Equipment\AdvancedEquipment.cpp">
+      <Filter>Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="Equipment\EquipmentSynthesis.cpp">
+      <Filter>Equipment</Filter>
+    </ClCompile>
     <ClCompile Include="Mineral.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -261,6 +267,12 @@
       <Filter>Equipment</Filter>
     </ClInclude>
     <ClInclude Include="Equipment\ConsumableEquipment.h">
+      <Filter>Equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="Equipment\AdvancedEquipment.h">
+      <Filter>Equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="Equipment\EquipmentSynthesis.h">
       <Filter>Equipment</Filter>
     </ClInclude>
     <ClInclude Include="Equipment\EquipmentType.h">

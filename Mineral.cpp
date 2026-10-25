@@ -1,5 +1,6 @@
 #include"Mineral.h"
 #include"Equipment/NormalEquipment.h"
+#include"Equipment/AdvancedEquipment.h"
 #include"Equipment/ConsumableEquipment.h"
 #include"Logger.h"
 #include"json.hpp"
@@ -153,8 +154,13 @@ std::unique_ptr<BasicEquipment> Mineral::MakeEquipment(const std::string& name, 
 		e->SetName(name);
 		return e;
 	}
+	if (type == EquipmentType::Advanced) {
+		auto e = std::make_unique<AdvancedEquipment>();
+		e->SetName(name);
+		return e;
+	}
 	if (type != EquipmentType::Normal) {
-		//目前只实现了 NormalEquipment / ConsumableEquipment，其它品阶等对应类补上后再支持
+		//目前只实现了 NormalEquipment / AdvancedEquipment / ConsumableEquipment，其它品阶等对应类补上后再支持
 		Log("Equipment type not implemented", __func__, Logcode::ERROR);
 		return nullptr;
 	}
