@@ -478,6 +478,7 @@ namespace WaitingForFight {
 			break;
 		case SDL_EVENT_MOUSE_BUTTON_DOWN:
 			if (event.button.button == SDL_BUTTON_LEFT) {
+				LeftButtonDown = true;
 				// 晶矿不能拖动：按下时只要点在晶矿上就直接打开，点击/长按/拖动都由这一处兜住
 				if (HandleMineralPress(event.button.x, event.button.y)) {
 					Mmode = MouseMode::Idle;
@@ -490,6 +491,9 @@ namespace WaitingForFight {
 			}
 			break;
 		case SDL_EVENT_MOUSE_BUTTON_UP:
+			if (event.button.button == SDL_BUTTON_LEFT) {
+				LeftButtonDown = false;
+			}
 			if (Mmode == MouseMode::Pressed) {
 				// 没到长按、没拖动 → 算点击
 				Click();
@@ -506,6 +510,10 @@ namespace WaitingForFight {
 			Mmode = MouseMode::Idle;
 			break;
 		case SDL_EVENT_MOUSE_MOTION:
+			// 手里没东西、左键按住拖动时，经过晶矿就自动开矿
+			if (LeftButtonDown && !holding) {
+				HandleMineralPress(event.motion.x, event.motion.y);
+			}
 			if (Mmode == MouseMode::LongPressed
 				|| (Mmode == MouseMode::Pressed && DragDisTest(event.motion))
 				) {
@@ -519,6 +527,7 @@ namespace WaitingForFight {
 			break;
 		case SDL_EVENT_WINDOW_FOCUS_LOST:
 			if (holding) PutBack();
+			LeftButtonDown = false;
 			Mmode = MouseMode::Idle;
 			break;
 		}
@@ -1031,6 +1040,11 @@ namespace WaitingForFight {
 		int m = 20;
 		State.shop.Dcard(m, 1);
 		State.AtWaitingForFight = true;
+		LeftButtonDown = false;
+		//TODO 以后所有添加状态的，加一层保险，在这里复位
+		//比如这个鼠标按下，当我鼠标失焦时，可能出现未复位的情况
+
+
 		// 先检查维度是否越界
 		if (dimension_index >= stage.size()) {
 			// 游戏结束，这里暂时用 exit(0)，以后可以换成 GameEnd()

@@ -49,6 +49,7 @@ namespace WaitingForFight {
 			Dragging
 		};
 		MouseMode Mmode = MouseMode::Idle;
+		bool LeftButtonDown = false;//左键是否处于按下状态（用于拖动扫矿）
 		
 		enum class OriginPlaceType {
 			FrontBattleField=0,
