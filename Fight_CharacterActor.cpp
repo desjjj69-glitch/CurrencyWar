@@ -2,7 +2,9 @@
 #include"Skill/SkillFactory.h"
 namespace Fight {
 	void Character_Actor::NewActor(const CharacterObject& ch) {
-		config = ch;
+		config.name = ch.name;
+		config.game_attribute = ch.game_attribute;
+		config.basic_attribute = ch.basic_attribute;
 		name = config.name;
 		RealTimeBuffs.clear();
 		Energy = config.basic_attribute.EnergyLimit;

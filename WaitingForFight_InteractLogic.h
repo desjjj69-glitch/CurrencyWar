@@ -166,6 +166,10 @@ namespace WaitingForFight {
 		bool PlaceInside(float, float, const SDL_FRect&);
 		bool HandleMineralPress(float, float);//点中晶矿返回 true：可开则开，备战席不够则吃掉点击
 		void Init_Minerals();//开局固定的 2 灰 + 1 蓝放进 Mineral 槽位（只在 Loadin 时调用一次）
+		SDL_FRect EquipmentRect(OriginPlaceType type, size_t index)const;//按布局算第 index 件装备的位置
+		void RelayoutEquipment(OriginPlaceType type);//装备被取走后重排剩余装备位置
+		CharacterObject* CharacterAt(float x, float y);//取指定位置的场上/备战席角色
+		void ReturnCharacterEquipments(CharacterObject* character);//角色离开时把装备放回装备槽位
 		bool DragDisTest(const SDL_MouseMotionEvent&);
 		int CountResouceNum(OriginPlaceType t) {
 			int num = 0;

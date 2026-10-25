@@ -443,7 +443,13 @@ namespace WaitingForFight {
 			Draw_Character(rdr, State.holding, rect);
 		}
 		break;
-				
+		case ResourceType::Equipment:
+		{
+			auto* e = static_cast<BasicEquipment*>(State.holding.get());
+			SDL_Texture* t = equipment_tex.GetEquipmentTexture(e->GetName());
+			if (t) SDL_RenderTexture(rdr, t, NULL, &rect);
+		}
+		break;
 		}
 	}
 	void WaitingForFightTexture::Draw_Sell(SDL_Renderer*& rdr, TTF_Font*& ft) {
@@ -476,6 +482,20 @@ namespace WaitingForFight {
 				static_cast<float>(startex->h)
 			};
 			SDL_RenderTexture(rdr,startex , NULL, &starrect);
+		}
+		//角色装备：以角色图标左下角为第一件装备的左上角，从左到右绘制
+		const auto& eqs = c->GetEquipments();
+		for (size_t i = 0; i < eqs.size(); ++i) {
+			if (!eqs[i]) continue;
+			SDL_Texture* t = equipment_tex.GetEquipmentTexture(eqs[i]->GetName());
+			if (!t) continue;
+			SDL_FRect eqrect{
+				rect.x + State.EquipmentSize.x * static_cast<float>(i),
+				rect.y + rect.h,
+				State.EquipmentSize.x,
+				State.EquipmentSize.y
+			};
+			SDL_RenderTexture(rdr, t, NULL, &eqrect);
 		}
 	}
 	void WaitingForFightTexture::Draw_EnemyPreview(SDL_Renderer*& rdr, TTF_Font*& ft) {

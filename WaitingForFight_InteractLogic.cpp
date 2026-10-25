@@ -401,6 +401,30 @@ namespace WaitingForFight {
 		mineral->SetSpecified(true);
 		return mineral;
 	}
+	SDL_FRect Logic::EquipmentRect(OriginPlaceType type, size_t index)const {
+		SDL_FRect rect{ 0.f,0.f,EquipmentSize.x,EquipmentSize.y };
+		if (type == OriginPlaceType::ConsumableEquipment) {
+			//Consumable 单行，从右往左排
+			rect.x = ConsumableEquipmentOrigin.x - EquipmentSize.x * static_cast<float>(index);
+			rect.y = ConsumableEquipmentOrigin.y;
+		}
+		else {
+			//其它装备一列最多 EquipmentColumnLimit 个，放满后往左换一列
+			const size_t limit = static_cast<size_t>(EquipmentColumnLimit > 0 ? EquipmentColumnLimit : 6);
+			rect.x = EquipmentOrigin.x - EquipmentSize.x * static_cast<float>(index / limit);
+			rect.y = EquipmentOrigin.y + EquipmentSize.y * static_cast<float>(index % limit);
+		}
+		return rect;
+	}
+	void Logic::RelayoutEquipment(OriginPlaceType type) {
+		auto& zone = Zone(type);
+		auto& places = ObjectPlace(type);
+		places.clear();
+		places.reserve(zone.size());
+		for (size_t i = 0; i < zone.size(); ++i) {
+			places.push_back(EquipmentRect(type, i));
+		}
+	}
 	bool Logic::AddEquipment(std::unique_ptr<BasicEquipment> equipment) {
 		if (!equipment) {
 			return false;
@@ -410,27 +434,38 @@ namespace WaitingForFight {
 			? OriginPlaceType::ConsumableEquipment
 			: OriginPlaceType::Equipment;
 		auto& zone = Zone(placeType);
-		auto& places = ObjectPlace(placeType);
 		const size_t index = zone.size();
-
-		SDL_FRect rect{ 0.f,0.f,EquipmentSize.x,EquipmentSize.y };
-		if (consumable) {
-			//Consumable 单行，从右往左排
-			rect.x = ConsumableEquipmentOrigin.x - EquipmentSize.x * static_cast<float>(index);
-			rect.y = ConsumableEquipmentOrigin.y;
-		}
-		else {
-			//其它装备一列最多 EquipmentColumnLimit 个，放满后往左换一列
-			const size_t limit = static_cast<size_t>(EquipmentColumnLimit > 0 ? EquipmentColumnLimit : 6);
-			const size_t column = index / limit;
-			const size_t row = index % limit;
-			rect.x = EquipmentOrigin.x - EquipmentSize.x * static_cast<float>(column);
-			rect.y = EquipmentOrigin.y + EquipmentSize.y * static_cast<float>(row);
-		}
-
-		places.push_back(rect);
+		ObjectPlace(placeType).push_back(EquipmentRect(placeType, index));
 		zone.push_back(std::move(equipment));
 		return true;
+	}
+	CharacterObject* Logic::CharacterAt(float x, float y) {
+		const OriginPlaceType types[] = {
+			OriginPlaceType::FrontBattleField,
+			OriginPlaceType::BackBattleField,
+			OriginPlaceType::Bench
+		};
+		for (OriginPlaceType type : types) {
+			auto& zone = Zone(type);
+			auto& places = ObjectPlace(type);
+			if (zone.size() != places.size()) continue;
+			for (size_t i = 0; i < zone.size(); ++i) {
+				if (!zone[i]) continue;
+				if (!PlaceInside(x, y, places[i])) continue;
+				if (auto* c = dynamic_cast<CharacterObject*>(zone[i].get())) {
+					return c;
+				}
+			}
+		}
+		return nullptr;
+	}
+	void Logic::ReturnCharacterEquipments(CharacterObject* character) {
+		if (!character) return;
+		auto& eqs = character->GetEquipments();
+		for (auto& e : eqs) {
+			if (e) AddEquipment(std::move(e));
+		}
+		eqs.clear();
 	}
 	void Logic::HandleEvent(const SDL_Event& event) {
 		switch (event.type) {
@@ -523,7 +558,16 @@ namespace WaitingForFight {
 						continue;//晶矿不允许拖动，交互在鼠标按下时已经处理
 					}
 					if (zone_[i][j]->Type() == ResourceType::Equipment) {
-						continue;//装备暂时不允许拖动
+						//装备允许拖动：直接从 zone_/objectplace_ 里 erase，并重排剩余装备
+						holdoriginplace = static_cast<OriginPlaceType>(i);
+						OriginIndex = static_cast<size_t>(j);
+						OriginPlace = objectplace_[i][j];
+						Offset = { PressStartX - objectplace_[i][j].x, PressStartY - objectplace_[i][j].y,0,0 };
+						holding = std::move(zone_[i][j]);
+						zone_[i].erase(zone_[i].begin() + j);
+						objectplace_[i].erase(objectplace_[i].begin() + j);
+						RelayoutEquipment(static_cast<OriginPlaceType>(i));
+						return 1;
 					}
 					holdoriginplace = static_cast<OriginPlaceType>(i);
 					OriginIndex = j;
@@ -539,6 +583,22 @@ namespace WaitingForFight {
 	int Logic::PutDown(float x, float y) {
 		if (!holding) {
 			return 0;
+		}
+		if (holding->Type() == ResourceType::Equipment) {
+			auto* equipment = static_cast<BasicEquipment*>(holding.get());
+			if (equipment->Kind() != EquipmentType::Consumable) {
+				//放到角色格子上且角色装备栏未满：装备给角色
+				auto* character = CharacterAt(x, y);
+				if (character && character->HasEquipmentSpace()) {
+					std::unique_ptr<BasicEquipment> equip(static_cast<BasicEquipment*>(holding.release()));
+					if (!character->AddEquipment(equip)) {
+						holding = std::move(equip);//理论上不会失败，兜底
+						return 0;
+					}
+					return 1;
+				}
+			}
+			return 0;//其余情况默认放回原槽位末尾（PutBack -> AddEquipment）
 		}
 		auto CheckIfBattleFieldDulplicate = [&](OriginPlaceType t,int tryi,const std::string& name="") {
 			auto& z = Zone(t);
@@ -567,7 +627,8 @@ namespace WaitingForFight {
 			//只有角色有“出售”这一逻辑
 			if (PlaceInside(x, y, buttonplace["SellCharacter_Left"]) ||
 				PlaceInside(x, y, buttonplace["SellCharacter_Right"])) {
-				
+				//出售角色时装备回收，不随角色一起卖掉
+				ReturnCharacterEquipments(static_cast<CharacterObject*>(holding.get()));
 				shop.Sell(holding, MoneyNum);
 				return 0;
 			}
@@ -674,6 +735,11 @@ namespace WaitingForFight {
 	}
 	void Logic::PutBack() {
 		if (!holding) {
+			return;
+		}
+		if (holding->Type() == ResourceType::Equipment) {
+			std::unique_ptr<BasicEquipment> equip(static_cast<BasicEquipment*>(holding.release()));
+			AddEquipment(std::move(equip));//放回原槽位末尾
 			return;
 		}
 		Zone(holdoriginplace)[OriginIndex] = std::move(holding);
@@ -817,6 +883,8 @@ namespace WaitingForFight {
 
 					if (discard.size() >= 2) {
 						keeper->game_attribute.stars += 1;
+						ReturnCharacterEquipments(AsCharacter(bench[discard[0]]));
+						ReturnCharacterEquipments(AsCharacter(bench[discard[1]]));
 						bench[discard[0]].reset();
 						bench[discard[1]].reset();
 						return true;
@@ -844,6 +912,8 @@ namespace WaitingForFight {
 				// 保留最左边：当前 i 必须是同组中索引最小的
 				if (same.size() >= 3 && same.front() == i) {
 					keeper->game_attribute.stars += 1;
+					ReturnCharacterEquipments(AsCharacter(bench[same[1]]));
+					ReturnCharacterEquipments(AsCharacter(bench[same[2]]));
 					bench[same[1]].reset();
 					bench[same[2]].reset();
 					return true;
