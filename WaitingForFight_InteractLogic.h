@@ -14,6 +14,7 @@
 #include<vector>
 #include<array>
 class Mineral;//定义见 Mineral.h
+class BasicEquipment;//定义见 BasicEquipment.h
 namespace WaitingForFight {
 	//晶矿内容类型
 	enum class MineralContentType {
@@ -106,6 +107,12 @@ namespace WaitingForFight {
 		//各品质晶矿的图片尺寸（先写死，以后从json读入）
 		std::map<MineralType, SDL_FPoint> MineralSize;
 
+		//装备摆放规则（从 WaitingForFight_ObjectPlace.json 的 EquipmentLayout 读入）
+		SDL_FPoint EquipmentSize{ 100.f, 100.f };
+		SDL_FPoint ConsumableEquipmentOrigin{ 2419.f, 190.f };//Consumable 从右往左排，单行
+		SDL_FPoint EquipmentOrigin{ 2419.f, 290.f };//其它装备：一列 6 个，放满后往左换列
+		int EquipmentColumnLimit = 6;
+
 		std::vector<std::vector<std::string>> stage;//关卡类型
 		size_t dimension_index = 0;//所在位面（0开头)
 		size_t stage_index = 0;//所在关卡
@@ -139,6 +146,9 @@ namespace WaitingForFight {
 		//    State.GetMineral(MineralType::Grey, { {.type=MineralContentType::Money, .amount=1} });
 		std::unique_ptr<Mineral> GetMineral(MineralType quality,
 			const std::vector<MineralContentSpec>& contents = {});
+
+		//把一件装备放进 ConsumableEquipment / Equipment 槽位，并按布局规则追加位置
+		bool AddEquipment(std::unique_ptr<BasicEquipment> equipment);
 
 		
 		void Click();

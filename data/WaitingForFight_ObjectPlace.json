@@ -32,5 +32,11 @@
       "1472 880 173 180",
       "1655 880 181 180"
     ]
+  },
+  "EquipmentLayout": {
+    "Size": [ 100, 100 ],
+    "ConsumableOrigin": [ 2419, 190 ],
+    "EquipmentOrigin": [ 2419, 290 ],
+    "ColumnLimit": 6
   }
 }

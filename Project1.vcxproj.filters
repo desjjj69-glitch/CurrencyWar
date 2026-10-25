@@ -111,6 +111,9 @@
     <ClCompile Include="NormalEquipment.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ConsumableEquipment.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="Mineral.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -252,6 +255,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="NormalEquipment.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsumableEquipment.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="EquipmentType.h">

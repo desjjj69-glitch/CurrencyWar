@@ -47,6 +47,7 @@ namespace WaitingForFight {
 		void Draw_Shop(SDL_Renderer*&, TTF_Font*&);
 		void Draw_Bench(SDL_Renderer*&);
 		void Draw_Mineral(SDL_Renderer*&);
+		void Draw_Equipment(SDL_Renderer*&);
 		void Draw_FrontBattleField(SDL_Renderer*&);
 		void Draw_BackBattleField(SDL_Renderer*&);
 		void Draw_holding(SDL_Renderer*& rdr);

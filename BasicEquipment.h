@@ -14,7 +14,7 @@ public:
 	WaitingForFight::ResourceType Type() const override {
 		return WaitingForFight::ResourceType::Equipment;
 	}
-	// 装备品质（Normal/Advanced/Privilege）。不能叫 Type()，会和 BasicObject::Type() 的返回类型冲突
+	// 装备类型（Normal/Advanced/Privilege/Consumable）。不能叫 Type()，会和 BasicObject::Type() 的返回类型冲突
 	virtual EquipmentType Kind() const = 0;
 
 	std::string GetName() const { return name; };

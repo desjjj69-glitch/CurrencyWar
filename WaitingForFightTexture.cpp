@@ -1,6 +1,7 @@
 #include"WaitingForFightTexture.h"
 #include"WaitingForFight_InteractLogic.h"
 #include"Mineral.h"
+#include"BasicEquipment.h"
 #include<fstream>
 #include<sstream>
 #include"Logger.h"
@@ -39,6 +40,7 @@ namespace WaitingForFight {
 		Draw_FrontBattleField(rdr);
 		Draw_BackBattleField(rdr);
 		Draw_Bench(rdr);
+		Draw_Equipment(rdr);
 		Draw_Mineral(rdr);
 		if (State.Rmode == Logic::RealTimeMode::Shop) {
 			Draw_Shop(rdr,ft);
@@ -392,6 +394,23 @@ namespace WaitingForFight {
 			if (!t) continue;
 			SDL_RenderTexture(rdr, t, NULL, &places[i]);
 		}
+	}
+	void WaitingForFightTexture::Draw_Equipment(SDL_Renderer*& rdr) {
+		auto DrawZone = [&](Logic::OriginPlaceType type) {
+			auto& zone = State.Zone(type);
+			auto& places = State.ObjectPlace(type);
+			const size_t count = zone.size() < places.size() ? zone.size() : places.size();
+			for (size_t i = 0; i < count; ++i) {
+				if (!zone[i]) continue;
+				auto* e = dynamic_cast<BasicEquipment*>(zone[i].get());
+				if (!e) continue;
+				SDL_Texture* t = equipment_tex.GetEquipmentTexture(e->GetName());
+				if (!t) continue;
+				SDL_RenderTexture(rdr, t, NULL, &places[i]);
+			}
+			};
+		DrawZone(Logic::OriginPlaceType::ConsumableEquipment);
+		DrawZone(Logic::OriginPlaceType::Equipment);
 	}
 	void WaitingForFightTexture::Draw_FrontBattleField(SDL_Renderer*& rdr) {
 		SDL_RenderTexture(rdr, tex["Character_FrontBattleField_Background"][0], NULL, &place["Character_FrontBattleField_Background"][0]);

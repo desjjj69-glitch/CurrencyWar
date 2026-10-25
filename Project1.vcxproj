@@ -165,6 +165,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="BasicConfig.cpp" />
     <ClCompile Include="BasicEquipment.cpp" />
     <ClCompile Include="NormalEquipment.cpp" />
+    <ClCompile Include="ConsumableEquipment.cpp" />
     <ClCompile Include="BasicGameResource.cpp" />
     <ClCompile Include="CharacterObject.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
@@ -202,6 +203,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="AttributeTypes.h" />
     <ClInclude Include="BasicEquipment.h" />
     <ClInclude Include="NormalEquipment.h" />
+    <ClInclude Include="ConsumableEquipment.h" />
     <ClInclude Include="BasicSkill.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="CharacterAttribute.h" />

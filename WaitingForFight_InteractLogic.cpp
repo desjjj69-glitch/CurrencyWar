@@ -123,7 +123,7 @@ namespace WaitingForFight {
 
 				auto* m = static_cast<Mineral*>(obj.get());
 				const std::string summary = m->OpenMineral();//开局固定的内容或首次随机结果，重复点不会重抽
-				const int need = static_cast<int>(m->GetCharacter().size() + m->GetEquipment().size());
+				const int need = static_cast<int>(m->GetCharacter().size());//只有角色占备战席，装备有自己的槽位
 
 				auto& bench = Zone(OriginPlaceType::Bench);
 				int empty = 0;
@@ -167,10 +167,7 @@ namespace WaitingForFight {
 				}
 				for (auto& e : m->GetEquipment()) {
 					if (!e) continue;
-					const std::string name = e->GetName();
-					if (!ToBench(std::move(e))) {
-						Log("Mineral: bench full, equipment dropped: " + name, __func__, Logcode::ERROR);
-					}
+					AddEquipment(std::move(e));//Consumable/普通装备各自进入对应槽位
 				}
 				holder.reset();//从zone_里删除这个晶矿
 				return true;
@@ -289,6 +286,24 @@ namespace WaitingForFight {
 				}
 			}
 		}
+		if (objpjs.contains("EquipmentLayout") && objpjs["EquipmentLayout"].is_object()) {
+			const auto& layout = objpjs["EquipmentLayout"];
+			auto ReadPoint = [](const json& j, SDL_FPoint& out) {
+				if (j.is_array() && j.size() >= 2 && j[0].is_number() && j[1].is_number()) {
+					out.x = j[0].get<float>();
+					out.y = j[1].get<float>();
+					return true;
+				}
+				return false;
+				};
+			if (layout.contains("Size")) ReadPoint(layout["Size"], EquipmentSize);
+			if (layout.contains("ConsumableOrigin")) ReadPoint(layout["ConsumableOrigin"], ConsumableEquipmentOrigin);
+			if (layout.contains("EquipmentOrigin")) ReadPoint(layout["EquipmentOrigin"], EquipmentOrigin);
+			if (layout.contains("ColumnLimit") && layout["ColumnLimit"].is_number_integer()) {
+				EquipmentColumnLimit = layout["ColumnLimit"].get<int>();
+				if (EquipmentColumnLimit <= 0) EquipmentColumnLimit = 6;
+			}
+		}
 	}
 	Logic::Logic() {
 		Zone(OriginPlaceType::FrontBattleField).resize(4);
@@ -317,7 +332,9 @@ namespace WaitingForFight {
 		startMinerals.push_back(GetMineral(MineralType::Blue, {
 			{ .type = MineralContentType::Character }
 			}));
-
+		startMinerals.push_back(GetMineral(MineralType::Blue, {
+			{.type = MineralContentType::Equipment}
+			}));
 		//画面右上角的随机区域（暂时写死）
 		const SDL_FRect area{ 1691.f, 275.f, 555.f, 476.f };
 		auto Overlap = [](const SDL_FRect& a, const SDL_FRect& b) {
@@ -376,6 +393,37 @@ namespace WaitingForFight {
 		mineral->SetExp(exp);
 		mineral->SetSpecified(true);
 		return mineral;
+	}
+	bool Logic::AddEquipment(std::unique_ptr<BasicEquipment> equipment) {
+		if (!equipment) {
+			return false;
+		}
+		const bool consumable = equipment->Kind() == EquipmentType::Consumable;
+		const OriginPlaceType placeType = consumable
+			? OriginPlaceType::ConsumableEquipment
+			: OriginPlaceType::Equipment;
+		auto& zone = Zone(placeType);
+		auto& places = ObjectPlace(placeType);
+		const size_t index = zone.size();
+
+		SDL_FRect rect{ 0.f,0.f,EquipmentSize.x,EquipmentSize.y };
+		if (consumable) {
+			//Consumable 单行，从右往左排
+			rect.x = ConsumableEquipmentOrigin.x - EquipmentSize.x * static_cast<float>(index);
+			rect.y = ConsumableEquipmentOrigin.y;
+		}
+		else {
+			//其它装备一列最多 EquipmentColumnLimit 个，放满后往左换一列
+			const size_t limit = static_cast<size_t>(EquipmentColumnLimit > 0 ? EquipmentColumnLimit : 6);
+			const size_t column = index / limit;
+			const size_t row = index % limit;
+			rect.x = EquipmentOrigin.x - EquipmentSize.x * static_cast<float>(column);
+			rect.y = EquipmentOrigin.y + EquipmentSize.y * static_cast<float>(row);
+		}
+
+		places.push_back(rect);
+		zone.push_back(std::move(equipment));
+		return true;
 	}
 	void Logic::HandleEvent(const SDL_Event& event) {
 		switch (event.type) {
@@ -466,6 +514,9 @@ namespace WaitingForFight {
 					}
 					if (zone_[i][j]->Type() == ResourceType::Mineral) {
 						continue;//晶矿不允许拖动，交互在鼠标按下时已经处理
+					}
+					if (zone_[i][j]->Type() == ResourceType::Equipment) {
+						continue;//装备暂时不允许拖动
 					}
 					holdoriginplace = static_cast<OriginPlaceType>(i);
 					OriginIndex = j;

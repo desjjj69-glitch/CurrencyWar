@@ -1,5 +1,6 @@
 #include"Mineral.h"
 #include"NormalEquipment.h"
+#include"ConsumableEquipment.h"
 #include"Logger.h"
 #include"json.hpp"
 #include"GetRandomNum.h"
@@ -49,6 +50,7 @@ namespace {
 		if (s == "Normal" || s == "Basic") { out = EquipmentType::Normal; return true; }
 		if (s == "Advanced") { out = EquipmentType::Advanced; return true; }
 		if (s == "Privilege") { out = EquipmentType::Privilege; return true; }
+		if (s == "Consumable") { out = EquipmentType::Consumable; return true; }
 		return false;
 	}
 }
@@ -146,8 +148,13 @@ bool Mineral::FindEquipmentQuality(const std::string& name, EquipmentType& out) 
 }
 
 std::unique_ptr<BasicEquipment> Mineral::MakeEquipment(const std::string& name, EquipmentType type) {
+	if (type == EquipmentType::Consumable) {
+		auto e = std::make_unique<ConsumableEquipment>();
+		e->SetName(name);
+		return e;
+	}
 	if (type != EquipmentType::Normal) {
-		//目前只实现了 NormalEquipment，其它品阶等对应类补上后再支持
+		//目前只实现了 NormalEquipment / ConsumableEquipment，其它品阶等对应类补上后再支持
 		Log("Equipment type not implemented", __func__, Logcode::ERROR);
 		return nullptr;
 	}
