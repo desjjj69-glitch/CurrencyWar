@@ -23,7 +23,6 @@ namespace GameStart {
 		static bool PlaceInside(float x, float y, const SDL_FRect& rect) {
 			return x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h;
 		}
-		void Init_Minerals();//开局固定 2 灰 + 1 蓝，写入交接数据
 		void LoadinFromJson(const std::filesystem::path&);
 	};
 	extern Logic State;

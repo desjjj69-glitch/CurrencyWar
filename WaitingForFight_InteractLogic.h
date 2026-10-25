@@ -155,7 +155,7 @@ namespace WaitingForFight {
 	private:
 		bool PlaceInside(float, float, const SDL_FRect&);
 		bool HandleMineralPress(float, float);//点中晶矿返回 true：可开则开，备战席不够则吃掉点击
-		void Init_Minerals();//把开局交接的晶矿放进 Mineral 槽位（只在 Loadin 时调用一次）
+		void Init_Minerals();//开局固定的 2 灰 + 1 蓝放进 Mineral 槽位（只在 Loadin 时调用一次）
 		bool DragDisTest(const SDL_MouseMotionEvent&);
 		int CountResouceNum(OriginPlaceType t) {
 			int num = 0;

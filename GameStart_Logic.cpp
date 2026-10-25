@@ -17,45 +17,7 @@ namespace GameStart {
         using StageData::g_GameStart_WaitingForFight;
         g_GameStart_WaitingForFight.Boss_name = Boss_name;
         g_GameStart_WaitingForFight.difficulty = difficulty;
-        Init_Minerals();
 	}
-    void Logic::Init_Minerals() {
-        using StageData::g_GameStart_WaitingForFight;
-        g_GameStart_WaitingForFight.minerals.clear();
-
-        //要在开局就确定具体角色，先保证角色默认表已经读入
-        Object::Character_LoadinJson(BasicGameRes.GamePath);
-        auto PickByCost = [](int cost) -> std::string {
-            std::vector<std::string> pool;
-            for (auto& [name, ch] : Object::Character_DefaultSetting) {
-                if (ch.game_attribute.cost == cost) pool.push_back(name);
-            }
-            if (pool.empty()) return {};
-            return pool[static_cast<size_t>(GetRandomNum(0, static_cast<int>(pool.size()) - 1))];
-            };
-
-        StageData::MineralStartData grey_money;
-        grey_money.quality = MineralType::Grey;
-        grey_money.money = 1;
-
-        StageData::MineralStartData grey_character;
-        grey_character.quality = MineralType::Grey;
-        if (auto name = PickByCost(1); !name.empty()) {
-            grey_character.characters.push_back(std::move(name));
-        }
-
-        StageData::MineralStartData blue_character;
-        blue_character.quality = MineralType::Blue;
-        if (auto name = PickByCost(2); !name.empty()) {
-            blue_character.characters.push_back(std::move(name));
-        }
-
-        g_GameStart_WaitingForFight.minerals.push_back(std::move(grey_money));
-        g_GameStart_WaitingForFight.minerals.push_back(std::move(grey_character));
-        g_GameStart_WaitingForFight.minerals.push_back(std::move(blue_character));
-
-        Log("Mineral: 2 Grey + 1 Blue", __func__, Logcode::OK);
-    }
 	void Logic::LoadinFromJson(const std::filesystem::path& gp) {
 		Boss_name.clear();
         Boss_name.resize(3);

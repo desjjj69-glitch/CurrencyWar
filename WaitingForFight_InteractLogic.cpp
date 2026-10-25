@@ -185,7 +185,7 @@ namespace WaitingForFight {
 		Object::Enemy_LoadinJson(gp, Boss,boss_name);
 		Object::Character_LoadinJson(gp);
 		Mineral::LoadinJson(gp);
-		Init_Minerals();//开局交接的晶矿放进 Mineral 槽位（Loadin 只跑一次）
+		Init_Minerals();//开局固定的晶矿放进 Mineral 槽位（Loadin 只跑一次）
 		shop.LoadinJson(gp);//先把自成一块的资源读取了
 
 		auto ParseFRect = [](const std::string& s) -> SDL_FRect {
@@ -306,23 +306,27 @@ namespace WaitingForFight {
 		zone.clear();
 		places.clear();
 
+		//开局固定 2 灰 + 1 蓝，具体内容统一交给 GetMineral 生成
+		std::vector<std::unique_ptr<Mineral>> startMinerals;
+		startMinerals.push_back(GetMineral(MineralType::Grey, {
+			{ .type = MineralContentType::Money, .amount = 1 }
+			}));
+		startMinerals.push_back(GetMineral(MineralType::Grey, {
+			{ .type = MineralContentType::Character }
+			}));
+		startMinerals.push_back(GetMineral(MineralType::Blue, {
+			{ .type = MineralContentType::Character }
+			}));
+
 		//画面右上角的随机区域（暂时写死）
 		const SDL_FRect area{ 1691.f, 275.f, 555.f, 476.f };
 		auto Overlap = [](const SDL_FRect& a, const SDL_FRect& b) {
 			return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
 			};
 
-		for (auto& data : StageData::g_GameStart_WaitingForFight.minerals) {
-			auto m = std::make_unique<Mineral>(data.quality);
-			for (auto& name : data.characters) {
-				auto c = std::make_unique<CharacterObject>();
-				c->NewCharacter(name);
-				m->GetCharacter().push_back(std::move(c));
-			}
-			m->SetMoney(data.money);
-			m->SetSpecified(true);//内容在开局阶段已经固定
-
-			SDL_FPoint size = MineralSize[data.quality];
+		for (auto& m : startMinerals) {
+			if (!m) continue;
+			SDL_FPoint size = MineralSize[m->Quality()];
 			if (size.x <= 0.f || size.y <= 0.f) size = { 66.f,57.f };//兜底
 			float maxX = area.x + area.w - size.x;
 			float maxY = area.y + area.h - size.y;
