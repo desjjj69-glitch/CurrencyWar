@@ -3,6 +3,9 @@
     "background": [
       "background.png"
     ],
+    "background_StageStrategy": [
+      "background_StageStrategy.png"
+    ],
     "Blood_TotalNum": [
       "Blood_TotalNum.png"
     ],
@@ -75,6 +78,9 @@
     "background": [
       "0.0 0.0 2560.0 1600.0"
     ],
+    "background_StageStrategy": [
+      "0.0 0.0 2560.0 1600.0"
+    ],
     "Blood_TotalNum": [
       "1822.0 75.0 91.0 89.0"
     ],
@@ -143,12 +149,16 @@
   },
   "StageStrategy": {
     "Card": [
-      "280 350 600 880",
-      "970 350 600 880",
-      "1670 350 600 880"
+      "351 342 527 815",
+      "1017 342 526 815",
+      "1682 342 527 815"
     ],
-    "Confirm": "1200 1420 503 67",
-    "Refresh": "859 1420 62 67"
+    "Confirm": "1026 1420 507 67",
+    "Refresh": [
+      "486 1189 217 64",
+      "1152 1189 216 64",
+      "1818 1189 216 64"
+    ]
   },
   "Word": {
     "Blood": "255 255 255 255 1.5 1845 110 91 89",

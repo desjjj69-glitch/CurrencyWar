@@ -28,11 +28,11 @@ namespace WaitingForFight {
 		SDL_RenderClear(rdr);
 
 		
-		Draw_Background(rdr);
 		if (State.Rmode == Logic::RealTimeMode::StrategyChoose) {
 			Draw_StrategyChoose(rdr, ft);
 			return;
 		}
+		Draw_Background(rdr);
 		Draw_QuitButton(rdr);
 		Draw_Blood(rdr, ft);
 		Draw_Stage(rdr, ft);
@@ -190,6 +190,9 @@ namespace WaitingForFight {
 		if (stage_confirm_selected) { SDL_DestroyTexture(stage_confirm_selected); stage_confirm_selected = nullptr; }
 		if (stage_confirm_notselected) { SDL_DestroyTexture(stage_confirm_notselected); stage_confirm_notselected = nullptr; }
 		if (stage_refresh_tex) { SDL_DestroyTexture(stage_refresh_tex); stage_refresh_tex = nullptr; }
+		for (auto& t : stage_refresh_text_tex) {
+			if (t) { SDL_DestroyTexture(t); t = nullptr; }
+		}
 		texLoaded = false;
 	}
 	void WaitingForFightTexture::Draw_Background(SDL_Renderer*& rdr) {
@@ -576,7 +579,15 @@ namespace WaitingForFight {
 		return texptr;
 	}
 	void WaitingForFightTexture::Draw_StrategyChoose(SDL_Renderer*& rdr, TTF_Font*& ft) {
-		(void)ft;
+		auto bg = tex.find("background_StageStrategy");
+		auto bgPlace = place.find("background_StageStrategy");
+		if (bg != tex.end() && !bg->second.empty() && bg->second[0] &&
+			bgPlace != place.end() && !bgPlace->second.empty()) {
+			SDL_RenderTexture(rdr, bg->second[0], NULL, &bgPlace->second[0]);
+		}
+		else {
+			Draw_Background(rdr);
+		}
 		auto Fit = [](const SDL_FRect& box, float w, float h) {
 			if (w <= 0.f || h <= 0.f) return box;
 			const float scale = std::min(box.w / w, box.h / h);
@@ -627,10 +638,41 @@ namespace WaitingForFight {
 			}
 		}
 
-		if (State.stage_strategy_refresh_left > 0) {
+		if (State.stage_strategy_refresh_left[0] > 0 ||
+			State.stage_strategy_refresh_left[1] > 0 ||
+			State.stage_strategy_refresh_left[2] > 0) {
 			auto refreshIt = State.ui_place.find("StageStrategy_Refresh");
-			if (refreshIt != State.ui_place.end() && !refreshIt->second.empty() && stage_refresh_tex) {
-				SDL_RenderTexture(rdr, stage_refresh_tex, NULL, &refreshIt->second[0]);
+			if (refreshIt != State.ui_place.end()) {
+				for (size_t i = 0; i < refreshIt->second.size() && i < 3; ++i) {
+					if (State.stage_strategy_refresh_left[i] <= 0) continue;
+					const SDL_FRect& rect = refreshIt->second[i];
+					if (stage_refresh_tex) {
+						float tw = 0.f, th = 0.f;
+						if (SDL_GetTextureSize(stage_refresh_tex, &tw, &th) && tw > 0.f && th > 0.f) {
+							SDL_FRect icon{
+								rect.x,
+								rect.y + (rect.h - th) * 0.5f,
+								tw, th
+							};
+							SDL_RenderTexture(rdr, stage_refresh_tex, NULL, &icon);
+						}
+					}
+					if (ft) {
+						SDL_Color white = { 255, 255, 255, 255 };
+						MySDL::DisplayWord(ft, rdr,
+							"刷新次数" + std::to_string(State.stage_strategy_refresh_left[i]),
+							rect.x + 80.f, rect.y,
+							stage_refresh_text_tex[i],
+							stage_refresh_text_rect[i],
+							white, 0.9f);
+						if (stage_refresh_text_tex[i]) {
+							stage_refresh_text_rect[i].y =
+								rect.y + (rect.h - stage_refresh_text_rect[i].h) * 0.5f;
+							SDL_RenderTexture(rdr, stage_refresh_text_tex[i],
+								NULL, &stage_refresh_text_rect[i]);
+						}
+					}
+				}
 			}
 		}
 	}

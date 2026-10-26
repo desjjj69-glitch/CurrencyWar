@@ -1,6 +1,6 @@
 {
   "stage": [
-    [ "Bonus", "Bonus","Strategy","Normal","Supply","Normal","Encounter","Bonus","Boss" ],
+    [ "Bonus", "Bonus", "Strategy", "Normal", "Supply", "Normal", "Encounter", "Bonus", "Boss" ],
     [ "Normal","Strategy","Supply","Normal","Encounter","Bonus","Boss" ],
     [ "Normal", "Strategy", "Supply", "Normal", "Encounter", "Bonus", "Boss" ]
   ],

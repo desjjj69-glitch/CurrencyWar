@@ -109,7 +109,7 @@ namespace WaitingForFight {
 		std::unordered_map<std::string, std::vector<SDL_FRect>> ui_place;//阶段策略选择界面的位置
 		std::vector<std::string> stage_strategies;//阶段策略三选一
 		int stage_strategy_selected = -1;
-		int stage_strategy_refresh_left = 1;
+		std::array<int, 3> stage_strategy_refresh_left = { 1,1,1 };
 
 		//各品质晶矿的图片尺寸（先写死，以后从json读入）
 		std::map<MineralType, SDL_FPoint> MineralSize;
@@ -185,7 +185,7 @@ namespace WaitingForFight {
 		void Init_Minerals();//开局固定的 2 灰 + 1 蓝放进 Mineral 槽位（只在 Loadin 时调用一次）
 		bool AddMineral(std::unique_ptr<Mineral> mineral);//按随机位置追加一个晶矿
 		void BeginStageStrategyChoose();
-		void RefreshStageStrategyChoose();
+		void RefreshStageStrategyChoose(int index);
 		void ConfirmStageStrategyChoose();
 		void HandleStageStrategyClick();
 		SDL_FRect EquipmentRect(OriginPlaceType type, size_t index)const;//按布局算第 index 件装备的位置

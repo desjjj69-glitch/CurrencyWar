@@ -862,18 +862,30 @@ namespace WaitingForFight {
 	}
 	void Logic::BeginStageStrategyChoose() {
 		stage_strategy_selected = -1;
-		stage_strategy_refresh_left = 1;
+		stage_strategy_refresh_left.fill(1);
 		stage_strategies = Strategy::Registry::Instance().PickRandom(3, {}, "StageStrategy");
 		Log("StageStrategy pick=" + std::to_string(stage_strategies.size()), __func__, Logcode::OK);
 	}
-	void Logic::RefreshStageStrategyChoose() {
-		if (stage_strategy_refresh_left <= 0) {
+	void Logic::RefreshStageStrategyChoose(int index) {
+		if (index < 0 || index >= 3 ||
+			index >= static_cast<int>(stage_strategies.size()) ||
+			stage_strategy_refresh_left[static_cast<size_t>(index)] <= 0) {
 			return;
 		}
-		--stage_strategy_refresh_left;
-		stage_strategy_selected = -1;
-		stage_strategies = Strategy::Registry::Instance().PickRandom(3, {}, "StageStrategy");
-		Log("StageStrategy refresh=" + std::to_string(stage_strategies.size()), __func__, Logcode::OK);
+		const size_t slot = static_cast<size_t>(index);
+		--stage_strategy_refresh_left[slot];
+		if (stage_strategy_selected == index) {
+			stage_strategy_selected = -1;
+		}
+		std::vector<std::string> exclude;
+		exclude.push_back(stage_strategies[slot]);//只排除当前这一格，允许和其它格重复
+		auto ids = Strategy::Registry::Instance().PickRandom(1, exclude, "StageStrategy");
+		if (!ids.empty()) {
+			stage_strategies[slot] = ids[0];
+		}
+		Log("StageStrategy refresh index=" + std::to_string(index)
+			+ " left=" + std::to_string(stage_strategy_refresh_left[slot]),
+			__func__, Logcode::OK);
 	}
 	void Logic::ConfirmStageStrategyChoose() {
 		if (stage_strategy_selected < 0 ||
@@ -903,10 +915,13 @@ namespace WaitingForFight {
 				return;
 			}
 		}
-		if (const SDL_FRect* refresh = First("StageStrategy_Refresh")) {
-			if (PlaceInside(PressStartX, PressStartY, *refresh)) {
-				RefreshStageStrategyChoose();
-				return;
+		auto refreshIt = ui_place.find("StageStrategy_Refresh");
+		if (refreshIt != ui_place.end()) {
+			for (size_t i = 0; i < refreshIt->second.size() && i < 3; ++i) {
+				if (PlaceInside(PressStartX, PressStartY, refreshIt->second[i])) {
+					RefreshStageStrategyChoose(static_cast<int>(i));
+					return;
+				}
 			}
 		}
 		auto it = ui_place.find("StageStrategy_Card");
@@ -1172,7 +1187,7 @@ namespace WaitingForFight {
 		Rmode = RealTimeMode::Normal;
 		stage_strategies.clear();
 		stage_strategy_selected = -1;
-		stage_strategy_refresh_left = 1;
+		stage_strategy_refresh_left.fill(1);
 		//TODO 以后所有添加状态的，加一层保险，在这里复位
 		//比如这个鼠标按下，当我鼠标失焦时，可能出现未复位的情况
 

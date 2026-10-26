@@ -11,6 +11,7 @@
 #include<string>
 #include<vector>
 #include<filesystem>
+#include<array>
 namespace WaitingForFight {
 	class WaitingForFightTexture :public BasicTexture {//统一管理所有备战阶段的绘制
 	public:
@@ -40,6 +41,8 @@ namespace WaitingForFight {
 		SDL_Texture* stage_confirm_selected = nullptr;
 		SDL_Texture* stage_confirm_notselected = nullptr;
 		SDL_Texture* stage_refresh_tex = nullptr;
+		std::array<SDL_Texture*, 3> stage_refresh_text_tex{};
+		std::array<SDL_FRect, 3> stage_refresh_text_rect{};
 		SDL_Texture* GetStageStrategyTex(const std::string&, SDL_Renderer*&);
 		void Draw_StrategyChoose(SDL_Renderer*&, TTF_Font*&);
 		void Word_Simplepara(SDL_Renderer*&, TTF_Font*&, const std::string&, const std::string&);//text,key
