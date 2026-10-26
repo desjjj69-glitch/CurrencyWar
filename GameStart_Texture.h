@@ -27,5 +27,6 @@ namespace GameStart {
 		void Draw_Background(SDL_Renderer*&);
 		void Draw_Boss(SDL_Renderer*&);
 		void Draw_NextStep(SDL_Renderer*&);
+		void Draw_Environment(SDL_Renderer*&);//环境选择阶段：背景 + 选中边框
 	};
 }

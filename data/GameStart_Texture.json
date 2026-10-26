@@ -17,6 +17,22 @@
       } 
     ]
   },
+  "background_environment": {
+    "place": "0 0 2560 1600",
+    "image": [
+      {
+        "name": "Default",
+        "path": "background_Environment_Default.png"
+      }
+    ]
+  },
+  "environment": {
+    "place": [
+      "280 350 600 880",
+      "970 350 600 880",
+      "1670 350 600 880"
+    ]
+  },
   "boss": {
     "place": [
       "158 410 369 774",

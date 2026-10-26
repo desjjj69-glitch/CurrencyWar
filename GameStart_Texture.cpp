@@ -75,6 +75,7 @@ namespace GameStart {
 			Draw_NextStep(rdr);
 			break;
 		case Logic::State::EnvironmentChoose:
+			Draw_Environment(rdr);
 			break;
 		}
 		
@@ -171,5 +172,32 @@ namespace GameStart {
 			rect=ScaleRectCentered(rect, 1.2, 1.2);
 		}
 		SDL_RenderTexture(rdr, ui_tex["nextstep"]["Default"], NULL, &rect);
+	}
+	void Texture::Draw_Environment(SDL_Renderer*& rdr) {
+		//背景
+		auto bg = ui_tex.find("background_environment");
+		if (bg != ui_tex.end()) {
+			auto def = bg->second.find("Default");
+			auto placeIt = ui_place.find("background_environment");
+			if (def != bg->second.end() && def->second && placeIt != ui_place.end() && !placeIt->second.empty()) {
+				SDL_RenderTexture(rdr, def->second, NULL, &placeIt->second[0]);
+			}
+		}
+		//选中的环境画一圈白色边框
+		auto it = ui_place.find("environment");
+		if (it == ui_place.end()) return;
+		if (State.environment_selected < 0 || State.environment_selected >= static_cast<int>(it->second.size())) return;
+		const SDL_FRect& rect = it->second[static_cast<size_t>(State.environment_selected)];
+		SDL_SetRenderDrawColor(rdr, 255, 255, 255, 255);
+		const float thickness = 6.f;
+		for (float i = 0.f; i < thickness; i += 1.f) {
+			SDL_FRect border{
+				rect.x + i,
+				rect.y + i,
+				rect.w - 2.f * i,
+				rect.h - 2.f * i
+			};
+			SDL_RenderRect(rdr, &border);
+		}
 	}
 }

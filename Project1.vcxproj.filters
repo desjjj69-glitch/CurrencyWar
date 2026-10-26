@@ -141,6 +141,12 @@
     <ClCompile Include="Strategy\Strategy_TestStrategy1.cpp">
       <Filter>Strategy</Filter>
     </ClCompile>
+    <ClCompile Include="Strategy\Strategy_TestStrategy2.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\Strategy_TestStrategy3.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
     <ClCompile Include="Strategy\StrategyBus.cpp">
       <Filter>Strategy</Filter>
     </ClCompile>
@@ -300,6 +306,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Strategy\Strategy_TestStrategy1.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\Strategy_TestStrategy2.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\Strategy_TestStrategy3.h">
       <Filter>Strategy</Filter>
     </ClInclude>
     <ClInclude Include="Strategy\StrategyBus.h">

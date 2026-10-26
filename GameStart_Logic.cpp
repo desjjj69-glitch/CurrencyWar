@@ -15,12 +15,31 @@ namespace GameStart {
     Logic State;
 	void Logic::Init() {
         state = State::Waiting;
+        environment_strategies.clear();
+        environment_selected = -1;
         Strategy::Registry::Instance().LoadPool(BasicGameRes.GamePath);//完成策略的注册
 		LoadinFromJson(BasicGameRes.GamePath);
         using StageData::g_GameStart_WaitingForFight;
         g_GameStart_WaitingForFight.Boss_name = Boss_name;
         g_GameStart_WaitingForFight.difficulty = difficulty;
 	}
+    void Logic::BeginEnvironmentChoose() {
+        environment_selected = -1;
+        environment_strategies = Strategy::Registry::Instance().PickRandom(3);
+        Log("EnvironmentChoose pick=" + std::to_string(environment_strategies.size()), __func__, Logcode::OK);
+    }
+    void Logic::ConfirmEnvironment(int index) {
+        if (index < 0 || index >= static_cast<int>(environment_strategies.size())) {
+            return;
+        }
+        const std::string& id = environment_strategies[static_cast<size_t>(index)];
+        if (id.empty()) {
+            return;
+        }
+        Strategy::Bus::Instance().AddPermanentStrategy(id);
+        Log("EnvironmentChoose confirm=" + id, __func__, Logcode::OK);
+        state = State::Continue;
+    }
 	void Logic::LoadinFromJson(const std::filesystem::path& gp) {
 		Boss_name.clear();
         Boss_name.resize(3);
@@ -137,6 +156,7 @@ namespace GameStart {
                         if (it == ui_place.end() || it->second.empty()) break;
                         if (PlaceInside(event.button.x, event.button.y, it->second.front())) {
                             state = State::EnvironmentChoose;
+                            BeginEnvironmentChoose();
                             return;
                         }
                         break;
@@ -145,13 +165,29 @@ namespace GameStart {
                 }break;
                 case State::EnvironmentChoose: {
                     switch (event.type) {
-                        {
-                            switch (event.key.scancode) {//暂时写上
-                            case SDL_SCANCODE_SPACE:
-                                state = State::Continue;
-                                return;
+                    case SDL_EVENT_MOUSE_BUTTON_DOWN:
+                    {
+                        if (event.button.button != SDL_BUTTON_LEFT) break;
+                        auto it = ui_place.find("environment");
+                        if (it == ui_place.end()) break;
+                        for (size_t i = 0; i < it->second.size() && i < environment_strategies.size(); ++i) {
+                            if (!PlaceInside(event.button.x, event.button.y, it->second[i])) continue;
+                            if (environment_selected == static_cast<int>(i)) {
+                                ConfirmEnvironment(static_cast<int>(i));//再次点击同一格：确认
                             }
+                            else {
+                                environment_selected = static_cast<int>(i);//第一次点击：选中
+                            }
+                            return;
                         }
+                        break;
+                    }
+                    case SDL_EVENT_KEY_DOWN:
+                        if (event.key.scancode == SDL_SCANCODE_SPACE && environment_selected >= 0) {
+                            ConfirmEnvironment(environment_selected);
+                            return;
+                        }
+                        break;
                     }
                 }break;
                 }

@@ -5,6 +5,18 @@
       "params": [
 
       ]
+    },
+    {
+      "id": "TestStrategy2",
+      "params": [
+
+      ]
+    },
+    {
+      "id": "TestStrategy3",
+      "params": [
+
+      ]
     }
   ]
 }
