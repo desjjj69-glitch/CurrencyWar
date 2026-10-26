@@ -30,6 +30,9 @@ namespace Fight {
 		}
 		std::vector<ActorList>ActionList;
 		std::vector<ExtraActorEntry>ExtraAction;
+		double NowActionValue = 0;
+		double ActionValueLimit = 150;
+		double DefaultActionValueLimit = 150;
 
 		void LoadinJson(const std::filesystem::path&);
 		void Init();

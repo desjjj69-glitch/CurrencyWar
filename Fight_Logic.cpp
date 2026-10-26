@@ -155,6 +155,15 @@ namespace Fight {
 		if (js.contains("DefaultSkillPointMax") && js["DefaultSkillPointMax"].is_number_integer()) {
 			DefaultSkillPointMax = js["DefaultSkillPointMax"].get<int>();
 		}
+		if (js.contains("NowActionValue") && js["NowActionValue"].is_number()) {
+			NowActionValue = js["NowActionValue"].get<double>();
+		}
+		if (js.contains("ActionValueLimit") && js["ActionValueLimit"].is_number()) {
+			ActionValueLimit = js["ActionValueLimit"].get<double>();
+		}
+		if (js.contains("DefaultActionValueLimit") && js["DefaultActionValueLimit"].is_number()) {
+			DefaultActionValueLimit = js["DefaultActionValueLimit"].get<double>();
+		}
 		//从配置文件中读取UI位置
 		std::ifstream uiConfigIn(gp / "data" / "Fight_Texture.json");
 		json uiJs;
@@ -209,6 +218,8 @@ namespace Fight {
 		GlobalIdIndex = 0;
 		SkillPoint = DefaultSkillPoint;
 		SkillPointMax = DefaultSkillPointMax;
+		NowActionValue = 0;
+		ActionValueLimit = DefaultActionValueLimit;
 		using StageData::g_WaitingForFight_to_Fight;
 		for (auto& var : actors) {
 			var.clear();//把上一次战斗所有内容都清除
@@ -685,6 +696,25 @@ namespace Fight {
 			}
 		}
 		else if (!ActionList.empty()) {
+			//行动值上限失败判定：当前行动值已达上限，且下一个行动者的行动值也超过上限
+			if (NowActionValue >= ActionValueLimit &&
+				ActionList.front().ActionValue > ActionValueLimit) {
+				bool enemyAlive = false;
+				for (auto& e : Actor(PlaceType::Enemy)) {
+					if (e) { enemyAlive = true; break; }
+				}
+				if (enemyAlive) {
+					Log("ActionValueLimit reached: now=" + std::to_string(NowActionValue)
+						+ " limit=" + std::to_string(ActionValueLimit)
+						+ " next=" + std::to_string(ActionList.front().ActionValue),
+						__func__);
+					DataHandOff(0);
+					AtFight = FightGlobalState::EndFight;
+					CurrentState = StateType::FightEnd;
+					return;
+				}
+			}
+			NowActionValue = ActionList.front().ActionValue;
 			NowActing = FindActorFromActionList(0);
 			RemoveFromActionList_index(0);
 			StateShifter(NowActing);
@@ -766,17 +796,23 @@ namespace Fight {
 			break;
 			
 		}
-		//在一次行动之后，要把已经死亡的角色/敌人移除行动条，并可能加入新的敌人
-		for (auto& var : Actor(PlaceType::FrontCharacter)) {
-			auto* p = dynamic_cast<Character_Actor*>(var.get());
-			if (!p)continue;
-			if (p->heart <= 0) {
-				RemoveFromExtraList_id(p->id());
-				RemoveFromActionList_id(p->id());
-				if (NowActing == p)NowActing = nullptr;
-				var.reset();
+		//在一次行动之后处理死亡：角色不会真正退场，血量归零立即恢复并扣行动值上限
+		auto ReviveDeadCharacters = [&](std::vector<std::unique_ptr<BasicActor>>& vec) {
+			for (auto& var : vec) {
+				auto* p = dynamic_cast<Character_Actor*>(var.get());
+				if (!p)continue;
+				if (p->heart <= 0) {
+					p->heart = p->MaxHeart * 8 / 10;
+					if (p->heart <= 0) p->heart = 1;
+					ActionValueLimit -= 35;
+					Log("Character death penalty: " + p->Name()
+						+ " heart=" + std::to_string(p->heart)
+						+ " limit=" + std::to_string(ActionValueLimit), __func__);
+				}
 			}
-		}
+		};
+		ReviveDeadCharacters(Actor(PlaceType::FrontCharacter));
+		ReviveDeadCharacters(Actor(PlaceType::BackCharacter));
 		auto GetEnemyFromPool = [&]() ->std::unique_ptr<BasicActor>{
 			for (auto& var : EnemyActorPool) {
 				if (var) {
@@ -807,15 +843,6 @@ namespace Fight {
 		}
 		if (flag == -1) {
 			DataHandOff(1);
-			AtFight = FightGlobalState::EndFight;
-		}
-		for (auto& var : Actor(PlaceType::FrontCharacter)) {
-			if (var) {
-				flag = 1;
-			}
-		}
-		if (flag == 0) {
-			DataHandOff(0);
 			AtFight = FightGlobalState::EndFight;
 		}
 	}

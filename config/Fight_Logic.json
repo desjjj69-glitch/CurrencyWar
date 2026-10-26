@@ -14,5 +14,8 @@
   "SkillPoint": 3,
   "SkillPointMax": 5,
   "DefaultSkillPoint": 3,
-  "DefaultSkillPointMax": 5
+  "DefaultSkillPointMax": 5,
+  "NowActionValue": 0,
+  "ActionValueLimit": 150,
+  "DefaultActionValueLimit": 150
 }
