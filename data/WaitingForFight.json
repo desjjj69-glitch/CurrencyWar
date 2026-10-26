@@ -9,6 +9,21 @@
     "background_SupplyChoose": [
       "background_SupplyChoose.png"
     ],
+    "background_EncounterHardnessChoose": [
+      "background_EncounterHardnessChoose.png"
+    ],
+    "Encounter_Hardness1": [
+      "Encounter_Hardness1.png"
+    ],
+    "Encounter_Hardness2": [
+      "Encounter_Hardness2.png"
+    ],
+    "Encounter_Hardness3": [
+      "Encounter_Hardness3.png"
+    ],
+    "Encounter_Hardness4": [
+      "Encounter_Hardness4.png"
+    ],
     "Blood_TotalNum": [
       "Blood_TotalNum.png"
     ],
@@ -85,6 +100,9 @@
       "0.0 0.0 2560.0 1600.0"
     ],
     "background_SupplyChoose": [
+      "0.0 0.0 2560.0 1600.0"
+    ],
+    "background_EncounterHardnessChoose": [
       "0.0 0.0 2560.0 1600.0"
     ],
     "Blood_TotalNum": [
@@ -190,6 +208,14 @@
     ],
     "Refresh": "1719 1419 250 62",
     "Confirm": "2003 1418 505 72"
+  },
+  "EncounterHardness": {
+    "Card": [
+      "655 412 476 698",
+      "1430 412 476 698"
+    ],
+    "Refresh": "862 1260 260 70",
+    "Confirm": "1190 1260 510 72"
   },
   "Word": {
     "Blood": "255 255 255 255 1.5 1845 110 91 89",

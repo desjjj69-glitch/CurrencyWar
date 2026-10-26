@@ -7,6 +7,7 @@
 #include"Logger.h"
 #include"json.hpp"
 #include<algorithm>
+#include<cmath>
 using Logger::Log;
 using json = nlohmann::json;
 namespace WaitingForFight {
@@ -28,6 +29,10 @@ namespace WaitingForFight {
 		SDL_RenderClear(rdr);
 
 		
+		if (State.Rmode == Logic::RealTimeMode::EncounterHardnessChoose) {
+			Draw_EncounterHardnessChoose(rdr, ft);
+			return;
+		}
 		if (State.Rmode == Logic::RealTimeMode::SupplyChoose) {
 			Draw_SupplyChoose(rdr, ft);
 			return;
@@ -200,6 +205,10 @@ namespace WaitingForFight {
 		if (supply_refresh_text_tex) {
 			SDL_DestroyTexture(supply_refresh_text_tex);
 			supply_refresh_text_tex = nullptr;
+		}
+		if (encounter_refresh_text_tex) {
+			SDL_DestroyTexture(encounter_refresh_text_tex);
+			encounter_refresh_text_tex = nullptr;
 		}
 		texLoaded = false;
 	}
@@ -792,6 +801,107 @@ namespace WaitingForFight {
 						rect.y + (rect.h - supply_refresh_text_rect.h) * 0.5f;
 					SDL_RenderTexture(rdr, supply_refresh_text_tex,
 						NULL, &supply_refresh_text_rect);
+				}
+			}
+		}
+	}
+	void WaitingForFightTexture::Draw_EncounterHardnessChoose(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		auto bg = tex.find("background_EncounterHardnessChoose");
+		auto bgPlace = place.find("background_EncounterHardnessChoose");
+		if (bg != tex.end() && !bg->second.empty() && bg->second[0] &&
+			bgPlace != place.end() && !bgPlace->second.empty()) {
+			SDL_RenderTexture(rdr, bg->second[0], NULL, &bgPlace->second[0]);
+		}
+		else {
+			Draw_Background(rdr);
+		}
+
+		auto DrawPolygonBorder = [&](const SDL_FRect& rect) {
+			const SDL_FPoint normalized[] = {
+				{0.5f, 0.0f},
+				{1.0f, 0.20f},
+				{1.0f, 0.77f},
+				{0.5f, 1.0f},
+				{0.0f, 0.77f},
+				{0.0f, 0.20f}
+			};
+			const float cx = rect.x + rect.w * 0.5f;
+			const float cy = rect.y + rect.h * 0.5f;
+			SDL_SetRenderDrawColor(rdr, 255, 255, 255, 255);
+			for (int pass = 0; pass < 5; ++pass) {
+				SDL_FPoint points[6];
+				for (int i = 0; i < 6; ++i) {
+					float x = rect.x + normalized[i].x * rect.w;
+					float y = rect.y + normalized[i].y * rect.h;
+					float dx = cx - x;
+					float dy = cy - y;
+					float len = std::sqrt(dx * dx + dy * dy);
+					if (len > 0.001f) {
+						x += dx / len * static_cast<float>(pass);
+						y += dy / len * static_cast<float>(pass);
+					}
+					points[i] = { x, y };
+				}
+				for (int i = 0; i < 6; ++i) {
+					const SDL_FPoint& a = points[i];
+					const SDL_FPoint& b = points[(i + 1) % 6];
+					SDL_RenderLine(rdr, a.x, a.y, b.x, b.y);
+				}
+			}
+			};
+
+		auto cardIt = State.ui_place.find("EncounterHardness_Card");
+		if (cardIt != State.ui_place.end()) {
+			for (size_t i = 0; i < cardIt->second.size() && i < 2; ++i) {
+				const int hardness = State.encounter_hardness[i];
+				std::string key = "Encounter_Hardness" + std::to_string(hardness);
+				auto t = tex.find(key);
+				if (t != tex.end() && !t->second.empty() && t->second[0]) {
+					SDL_RenderTexture(rdr, t->second[0], NULL, &cardIt->second[i]);
+				}
+				if (State.encounter_selected == static_cast<int>(i)) {
+					DrawPolygonBorder(cardIt->second[i]);
+				}
+			}
+		}
+
+		auto confirmIt = State.ui_place.find("EncounterHardness_Confirm");
+		if (confirmIt != State.ui_place.end() && !confirmIt->second.empty()) {
+			SDL_Texture* t = State.encounter_selected >= 0
+				? stage_confirm_selected : stage_confirm_notselected;
+			if (t) {
+				SDL_RenderTexture(rdr, t, NULL, &confirmIt->second[0]);
+			}
+		}
+
+		auto refreshIt = State.ui_place.find("EncounterHardness_Refresh");
+		if (refreshIt != State.ui_place.end() && !refreshIt->second.empty() &&
+			State.encounter_refresh_left > 0) {
+			const SDL_FRect& rect = refreshIt->second[0];
+			if (stage_refresh_tex) {
+				float tw = 0.f, th = 0.f;
+				if (SDL_GetTextureSize(stage_refresh_tex, &tw, &th) && tw > 0.f && th > 0.f) {
+					SDL_FRect icon{
+						rect.x,
+						rect.y + (rect.h - th) * 0.5f,
+						tw, th
+					};
+					SDL_RenderTexture(rdr, stage_refresh_tex, NULL, &icon);
+				}
+			}
+			if (ft) {
+				SDL_Color white = { 255, 255, 255, 255 };
+				MySDL::DisplayWord(ft, rdr,
+					"剩余次数: " + std::to_string(State.encounter_refresh_left),
+					rect.x + 80.f, rect.y,
+					encounter_refresh_text_tex,
+					encounter_refresh_text_rect,
+					white, 0.9f);
+				if (encounter_refresh_text_tex) {
+					encounter_refresh_text_rect.y =
+						rect.y + (rect.h - encounter_refresh_text_rect.h) * 0.5f;
+					SDL_RenderTexture(rdr, encounter_refresh_text_tex,
+						NULL, &encounter_refresh_text_rect);
 				}
 			}
 		}

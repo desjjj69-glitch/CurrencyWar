@@ -278,6 +278,26 @@ namespace WaitingForFight {
 				ParseList("Refresh", "SupplyChoose_Refresh");
 				ParseList("Confirm", "SupplyChoose_Confirm");
 			}
+			if (jsui.contains("EncounterHardness") && jsui["EncounterHardness"].is_object()) {
+				auto& ec = jsui["EncounterHardness"];
+				auto ParseList = [&](const std::string& key, const std::string& outKey) {
+					auto it = ec.find(key);
+					if (it == ec.end()) return;
+					if (it->is_array()) {
+						for (auto& var : *it) {
+							if (var.is_string()) {
+								ui_place[outKey].push_back(ParseFRect(var.get<std::string>()));
+							}
+						}
+					}
+					else if (it->is_string()) {
+						ui_place[outKey].push_back(ParseFRect(it->get<std::string>()));
+					}
+				};
+				ParseList("Card", "EncounterHardness_Card");
+				ParseList("Refresh", "EncounterHardness_Refresh");
+				ParseList("Confirm", "EncounterHardness_Confirm");
+			}
 		}
 		catch (const json::parse_error& e) {
 			Log(e.what(), __FUNCSIG__, Logcode::PARSEERROR);
@@ -552,7 +572,8 @@ namespace WaitingForFight {
 			if (event.button.button == SDL_BUTTON_LEFT) {
 				LeftButtonDown = true;
 				if (Rmode == RealTimeMode::StrategyChoose ||
-					Rmode == RealTimeMode::SupplyChoose) {
+					Rmode == RealTimeMode::SupplyChoose ||
+					Rmode == RealTimeMode::EncounterHardnessChoose) {
 					Mmode = MouseMode::Pressed;
 					PressStartTime = SDL_GetTicks();
 					PressStartX = event.button.x;
@@ -591,7 +612,8 @@ namespace WaitingForFight {
 			break;
 		case SDL_EVENT_MOUSE_MOTION:
 			if (Rmode == RealTimeMode::StrategyChoose ||
-				Rmode == RealTimeMode::SupplyChoose) {
+				Rmode == RealTimeMode::SupplyChoose ||
+				Rmode == RealTimeMode::EncounterHardnessChoose) {
 				break;
 			}
 			// 手里没东西、左键按住拖动时，经过晶矿就自动开矿
@@ -1059,6 +1081,59 @@ namespace WaitingForFight {
 			}
 		}
 	}
+	void Logic::EncounterHardnessPickOut() {
+		encounter_hardness[0] = GetRandomNum(1, 2);
+		encounter_hardness[1] = GetRandomNum(2, 4);
+		encounter_selected = -1;
+		Log("EncounterHardness pick=" + std::to_string(encounter_hardness[0])
+			+ "," + std::to_string(encounter_hardness[1]),
+			__func__, Logcode::OK);
+	}
+	void Logic::RefreshEncounterHardness() {
+		if (encounter_refresh_left <= 0) {
+			return;
+		}
+		--encounter_refresh_left;
+		EncounterHardnessPickOut();
+	}
+	void Logic::ConfirmEncounterHardness() {
+		if (encounter_selected < 0 || encounter_selected >= 2) {
+			return;
+		}
+		encounter_difficulty_bonus = encounter_hardness[static_cast<size_t>(encounter_selected)];
+		Log("EncounterHardness confirm bonus=" + std::to_string(encounter_difficulty_bonus),
+			__func__, Logcode::OK);
+		Rmode = RealTimeMode::Normal;
+	}
+	void Logic::HandleEncounterHardnessClick() {
+		auto First = [&](const std::string& key) -> const SDL_FRect* {
+			auto it = ui_place.find(key);
+			if (it == ui_place.end() || it->second.empty()) return nullptr;
+			return &it->second[0];
+		};
+		if (const SDL_FRect* confirm = First("EncounterHardness_Confirm")) {
+			if (PlaceInside(PressStartX, PressStartY, *confirm)) {
+				if (encounter_selected >= 0) {
+					ConfirmEncounterHardness();
+				}
+				return;
+			}
+		}
+		if (const SDL_FRect* refresh = First("EncounterHardness_Refresh")) {
+			if (PlaceInside(PressStartX, PressStartY, *refresh)) {
+				RefreshEncounterHardness();
+				return;
+			}
+		}
+		auto it = ui_place.find("EncounterHardness_Card");
+		if (it == ui_place.end()) return;
+		for (size_t i = 0; i < it->second.size() && i < 2; ++i) {
+			if (PlaceInside(PressStartX, PressStartY, it->second[i])) {
+				encounter_selected = static_cast<int>(i);
+				return;
+			}
+		}
+	}
 	void Logic::Click() {
 		//UI按钮检测
 		Log("Click"+std::to_string(MotionX)+":"+std::to_string(MotionY), __func__, Logcode::OK);
@@ -1066,6 +1141,10 @@ namespace WaitingForFight {
 			return PlaceInside(PressStartX, PressStartY, buttonplace[s]);
 			};
 		
+		if (Rmode == RealTimeMode::EncounterHardnessChoose) {
+			HandleEncounterHardnessClick();
+			return;
+		}
 		if (Rmode == RealTimeMode::SupplyChoose) {
 			HandleSupplyChooseClick();
 			return;
@@ -1152,7 +1231,7 @@ namespace WaitingForFight {
 		g_WaitingForFight_to_Fight.Enemys = &Enemys;
 		g_WaitingForFight_publicData.dimension_index = &dimension_index;
 		g_WaitingForFight_publicData.stage_index = &stage_index;
-		g_WaitingForFight_to_Fight.difficulty = Difficulty;//写入战斗阶段的逻辑
+		g_WaitingForFight_to_Fight.difficulty = Difficulty + encounter_difficulty_bonus;//写入战斗阶段的逻辑
 
 		//写入战斗结算阶段
 		g_WaitingForFight_to_FightResult.ContinueWinTimes = &ContinueWinTimes;
@@ -1321,6 +1400,10 @@ namespace WaitingForFight {
 		supply_refresh_left = 1;
 		supply_characters.fill("");
 		supply_equipments.fill("");
+		encounter_selected = -1;
+		encounter_refresh_left = 1;
+		encounter_difficulty_bonus = 0;
+		encounter_hardness = { 1,2 };
 		//TODO 以后所有添加状态的，加一层保险，在这里复位
 		//比如这个鼠标按下，当我鼠标失焦时，可能出现未复位的情况
 
@@ -1402,6 +1485,11 @@ namespace WaitingForFight {
 			//进入补给五选一，确认后才恢复正常备战界面
 			Rmode = RealTimeMode::SupplyChoose;
 			SupplyPickOut();
+		}
+		else if (stageTypeName == "Encounter") {
+			//进入遭遇难度二选一，确认后才恢复正常备战界面
+			Rmode = RealTimeMode::EncounterHardnessChoose;
+			EncounterHardnessPickOut();
 		}
 	}
 	
