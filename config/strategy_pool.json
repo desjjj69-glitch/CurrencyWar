@@ -1,19 +1,19 @@
 {
   "strategies": [
     {
-      "id": "TestStrategy1",
+      "id": "Strategy_3",
       "params": [
 
       ]
     },
     {
-      "id": "TestStrategy2",
+      "id": "Strategy_4",
       "params": [
 
       ]
     },
     {
-      "id": "TestStrategy3",
+      "id": "Strategy_6",
       "params": [
 
       ]

@@ -154,10 +154,10 @@ namespace WaitingForFight {
 		}
 		return -1;
 	}
-	void Shop::Dcard(int& money,int free) {
+	bool Shop::Dcard(int& money,int free) {
 		if (!free) {
 			if (money < Dcardmoney) {
-				return;
+				return false;
 			}
 			money -= Dcardmoney;
 		}//不接受此次D牌
@@ -186,14 +186,14 @@ namespace WaitingForFight {
 			
 			choosecost = ChooseIndex(Potential[ShopLevel]) + 1;
 			if (choosecost == 0) {//如果所有费用角色都没了（实际不可能）
-				return;
+				return false;
 			}//都没了直接返回，给玩家仅有的几个角色
 			for (auto it = ShopPool[static_cast<size_t>(choosecost-1)].begin();it != ShopPool[static_cast<size_t>(choosecost - 1)].end();++it) {
 				countnum.push_back(static_cast<int>(it->second.size()));
 			}
 			choosecharacter = ChooseIndex(countnum);//保证num为0的组不会被选择
 			if (choosecharacter == -1) {//实际也不可能
-				return;
+				return false;
 			}
 			auto it = ShopPool[static_cast<size_t>(choosecost - 1)].begin();
 			auto jt = std::next(it, choosecharacter);
@@ -201,8 +201,7 @@ namespace WaitingForFight {
 			RealShop[i] = std::move(*vt);
 			(*jt).second.erase(vt);
 		}
-		
-
+		return true;
 	}
 	void Shop::LoadinJson(const std::filesystem::path& gp) {
 		static bool loadin = false;

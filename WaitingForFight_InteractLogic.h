@@ -122,6 +122,8 @@ namespace WaitingForFight {
 		int Blood = 80;
 
 		int ContinueWinTimes = 0;
+		int last_continue_win_times = -1;//上次通知策略的连胜数
+		int last_dimension = -1;//上次通知策略的位面
 
 		Shop shop;
 
@@ -152,6 +154,11 @@ namespace WaitingForFight {
 		//把一件装备放进 ConsumableEquipment / Equipment 槽位，并按布局规则追加位置
 		bool AddEquipment(std::unique_ptr<BasicEquipment> equipment);
 
+		//给策略使用的接口
+		void AddMoney(int amount) { MoneyNum += amount; }
+		void AddMineralMoney(int money);//生成一个只有 money 的晶矿并放进 Mineral 槽位
+		bool AddEquipmentByName(const std::string& name);//按名字创建装备并放进装备槽位
+
 		
 		void Click();
 		void LongPress();
@@ -170,6 +177,7 @@ namespace WaitingForFight {
 		bool PlaceInside(float, float, const SDL_FRect&);
 		bool HandleMineralPress(float, float);//点中晶矿返回 true：可开则开，备战席不够则吃掉点击
 		void Init_Minerals();//开局固定的 2 灰 + 1 蓝放进 Mineral 槽位（只在 Loadin 时调用一次）
+		bool AddMineral(std::unique_ptr<Mineral> mineral);//按随机位置追加一个晶矿
 		SDL_FRect EquipmentRect(OriginPlaceType type, size_t index)const;//按布局算第 index 件装备的位置
 		void RelayoutEquipment(OriginPlaceType type);//装备被取走后重排剩余装备位置
 		CharacterObject* CharacterAt(float x, float y);//取指定位置的场上/备战席角色

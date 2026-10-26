@@ -1,13 +1,24 @@
 #include"Strategy_TestStrategy1.h"
 #include "AutoRegister.h"
-REGISTER_STRATEGY("TestStrategy1", Strategy::Impl::TestStrategy1);
+#include "../WaitingForFight_InteractLogic.h"
+REGISTER_STRATEGY("Strategy_3", Strategy::Impl::Strategy_3);
 namespace Strategy::Impl {
-    void TestStrategy1::OnEvent(IGameContext& ctx, const Event& e) {
-        if (e.type != EventType::PrepStageBegin) return;    // 只在进入备战节点时触发
+    void Strategy_3::OnEvent(IGameContext& ctx, const Event& e) {
+        if (e.type != EventType::DimensionChanged) return;
         if (ctx.Kind() != StageKind::WaitingForFight)return;
-        //TODO 补完策略内容
-    }
-    TestStrategy1::TestStrategy1(const nlohmann::json& p) {
+        auto* logic = dynamic_cast<WaitingForFight::Logic*>(&ctx);
+        if (!logic)return;
 
+        int money = 0;
+        switch (e.amount) {
+        case 0: money = 6; break;
+        case 1: money = 8; break;
+        case 2: money = 12; break;
+        default: return;
+        }
+        logic->AddMineralMoney(money);
+    }
+    Strategy_3::Strategy_3(const nlohmann::json& p) {
+        (void)p;
     }
 }

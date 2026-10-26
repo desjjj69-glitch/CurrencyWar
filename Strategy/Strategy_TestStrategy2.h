@@ -1,11 +1,14 @@
+// 原 TestStrategy2，现环境策略 Strategy_4
 #pragma once
 #include "StrategyBus.h"
 #include"../json.hpp"
 namespace Strategy::Impl {
-    class TestStrategy2 : public IStrategy {
+    class Strategy_4 : public IStrategy {
     public:
-        explicit TestStrategy2(const nlohmann::json& p);
-        std::string Id() const override { return "TestStrategy2"; }
+        explicit Strategy_4(const nlohmann::json& p);
+        std::string Id() const override { return "Strategy_4"; }
         void OnEvent(IGameContext& ctx, const Event& e) override;
+    private:
+        bool granted_ = false;
     };
 }

@@ -12,6 +12,8 @@ namespace Strategy {
         // ---- 备战阶段 ----
         PrepStageBegin,
         PrepStageEnd,
+        DimensionChanged,
+        WinStreakChanged,
         ShopRefreshed,
         CharacterBought,
         CharacterSold,

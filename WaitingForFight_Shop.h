@@ -26,7 +26,7 @@ namespace WaitingForFight {
 		void PutBacktoPool(std::unique_ptr<BasicObject>&);
 		bool RemoveOneFromPool(const std::string&, int);//按名字和费用从池中扣一份；见底返回 false
 		int Buy(int&,int&,std::vector<std::unique_ptr<BasicObject>>&,int);//money,index,备战席直接传进来,人数限制
-		void Dcard(int&,int free=0);//money,控制D牌是不是免费
+		bool Dcard(int&,int free=0);//money,控制D牌是不是免费；返回是否真的刷新
 		void LoadinJson(const std::filesystem::path&);
 		void BuyExp(int&);
 		int LevelUp();

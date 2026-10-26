@@ -1,13 +1,18 @@
 #include"Strategy_TestStrategy2.h"
 #include "AutoRegister.h"
-REGISTER_STRATEGY("TestStrategy2", Strategy::Impl::TestStrategy2);
+#include "../WaitingForFight_InteractLogic.h"
+REGISTER_STRATEGY("Strategy_4", Strategy::Impl::Strategy_4);
 namespace Strategy::Impl {
-    void TestStrategy2::OnEvent(IGameContext& ctx, const Event& e) {
-        if (e.type != EventType::PrepStageBegin) return;
+    void Strategy_4::OnEvent(IGameContext& ctx, const Event& e) {
+        if (e.type != EventType::WinStreakChanged) return;
+        if (granted_ || e.amount != 5) return;
         if (ctx.Kind() != StageKind::WaitingForFight)return;
-        //TODO 补完策略内容
+        auto* logic = dynamic_cast<WaitingForFight::Logic*>(&ctx);
+        if (!logic)return;
+        logic->AddEquipmentByName("Wealth Keeper's Dream");
+        granted_ = true;
     }
-    TestStrategy2::TestStrategy2(const nlohmann::json& p) {
+    Strategy_4::Strategy_4(const nlohmann::json& p) {
         (void)p;
     }
 }

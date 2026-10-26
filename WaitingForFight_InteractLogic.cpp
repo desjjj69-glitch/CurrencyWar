@@ -325,55 +325,76 @@ namespace WaitingForFight {
 		Zone(OriginPlaceType::BackBattleField).resize(6);
 	}
 	void Logic::Init_Minerals() {
-		auto& zone = Zone(OriginPlaceType::Mineral);
-		auto& places = ObjectPlace(OriginPlaceType::Mineral);
-		zone.clear();
-		places.clear();
+		Zone(OriginPlaceType::Mineral).clear();
+		ObjectPlace(OriginPlaceType::Mineral).clear();
 
 		//开局固定 2 灰 + 1 蓝，具体内容统一交给 GetMineral 生成
-		//测试阶段，给很多装备
-		std::vector<std::unique_ptr<Mineral>> startMinerals;
-		startMinerals.push_back(GetMineral(MineralType::Grey, {
+		//测试阶段，额外给很多装备矿
+		AddMineral(GetMineral(MineralType::Grey, {
 			{ .type = MineralContentType::Money, .amount = 1 }
 			}));
-		startMinerals.push_back(GetMineral(MineralType::Grey, {
+		AddMineral(GetMineral(MineralType::Grey, {
 			{ .type = MineralContentType::Character }
 			}));
-		startMinerals.push_back(GetMineral(MineralType::Blue, {
+		AddMineral(GetMineral(MineralType::Blue, {
 			{ .type = MineralContentType::Character }
 			}));
-		for(int i=0;i<20;i++)
-		startMinerals.push_back(GetMineral(MineralType::Blue, {
-			{.type = MineralContentType::Equipment}
-			}));
+		for (int i = 0; i < 20; ++i) {
+			AddMineral(GetMineral(MineralType::Blue, {
+				{ .type = MineralContentType::Equipment }
+				}));
+		}
+	}
+	bool Logic::AddMineral(std::unique_ptr<Mineral> mineral) {
+		if (!mineral) {
+			return false;
+		}
+		auto& zone = Zone(OriginPlaceType::Mineral);
+		auto& places = ObjectPlace(OriginPlaceType::Mineral);
+
 		//画面右上角的随机区域（暂时写死）
 		const SDL_FRect area{ 1691.f, 275.f, 555.f, 476.f };
 		auto Overlap = [](const SDL_FRect& a, const SDL_FRect& b) {
 			return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
 			};
+		SDL_FPoint size = MineralSize[mineral->Quality()];
+		if (size.x <= 0.f || size.y <= 0.f) size = { 66.f,57.f };//兜底
+		float maxX = area.x + area.w - size.x;
+		float maxY = area.y + area.h - size.y;
+		if (maxX < area.x) maxX = area.x;
+		if (maxY < area.y) maxY = area.y;
 
-		for (auto& m : startMinerals) {
-			if (!m) continue;
-			SDL_FPoint size = MineralSize[m->Quality()];
-			if (size.x <= 0.f || size.y <= 0.f) size = { 66.f,57.f };//兜底
-			float maxX = area.x + area.w - size.x;
-			float maxY = area.y + area.h - size.y;
-			if (maxX < area.x) maxX = area.x;
-			if (maxY < area.y) maxY = area.y;
-
-			SDL_FRect rect{ area.x, area.y, size.x, size.y };
-			for (int attempt = 0; attempt < 32; ++attempt) {
-				rect.x = static_cast<float>(GetRandomNum(static_cast<int>(area.x), static_cast<int>(maxX)));
-				rect.y = static_cast<float>(GetRandomNum(static_cast<int>(area.y), static_cast<int>(maxY)));
-				bool overlap = false;
-				for (auto& p : places) {
-					if (Overlap(rect, p)) { overlap = true; break; }
-				}
-				if (!overlap) break;
+		SDL_FRect rect{ area.x, area.y, size.x, size.y };
+		for (int attempt = 0; attempt < 32; ++attempt) {
+			rect.x = static_cast<float>(GetRandomNum(static_cast<int>(area.x), static_cast<int>(maxX)));
+			rect.y = static_cast<float>(GetRandomNum(static_cast<int>(area.y), static_cast<int>(maxY)));
+			bool overlap = false;
+			for (auto& p : places) {
+				if (Overlap(rect, p)) { overlap = true; break; }
 			}
-			places.push_back(rect);
-			zone.push_back(std::move(m));
+			if (!overlap) break;
 		}
+		places.push_back(rect);
+		zone.push_back(std::move(mineral));
+		return true;
+	}
+	void Logic::AddMineralMoney(int money) {
+		AddMineral(GetMineral(MineralType::Grey, {
+			{ .type = MineralContentType::Money, .amount = money }
+			}));
+	}
+	bool Logic::AddEquipmentByName(const std::string& name) {
+		EquipmentType type;
+		if (!Mineral::FindEquipmentQuality(name, type)) {
+			Log("Equipment not found: " + name, __func__, Logcode::NOTFOUND);
+			return false;
+		}
+		auto e = Mineral::MakeEquipment(name, type);
+		if (!e) {
+			return false;
+		}
+		AddEquipment(std::move(e));
+		return true;
 	}
 	
 	std::unique_ptr<Mineral> Logic::GetMineral(MineralType quality, const std::vector<MineralContentSpec>& contents) {
@@ -814,7 +835,9 @@ namespace WaitingForFight {
 			}
 			else if (uiinside("Shop_DcardButton")) {
 				Log("Dcard", __func__);
-				shop.Dcard(MoneyNum);
+				if (shop.Dcard(MoneyNum)) {
+					Strategy::Bus::Instance().Emit(*this, { Strategy::EventType::ShopRefreshed });
+				}
 				return;
 			}
 			auto& plc = ObjectPlace(OriginPlaceType::ShopCharacter);
@@ -1064,6 +1087,16 @@ namespace WaitingForFight {
 				exit(0);
 			}
 		}
+		//通知策略：位面切换 / 连胜变化 / 进入备战节点
+		if (last_dimension != static_cast<int>(dimension_index)) {
+			last_dimension = static_cast<int>(dimension_index);
+			Strategy::Bus::Instance().Emit(*this, { Strategy::EventType::DimensionChanged, "", last_dimension, 0 });
+		}
+		if (last_continue_win_times != ContinueWinTimes) {
+			last_continue_win_times = ContinueWinTimes;
+			Strategy::Bus::Instance().Emit(*this, { Strategy::EventType::WinStreakChanged, "", ContinueWinTimes, 0 });
+		}
+		Strategy::Bus::Instance().Emit(*this, { Strategy::EventType::PrepStageBegin, "", 0, static_cast<int>(stage_index) });
 		enum StageType {
 			Bonus,
 			Normal,
