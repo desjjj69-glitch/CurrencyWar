@@ -43,8 +43,11 @@ namespace WaitingForFight {
 		SDL_Texture* stage_refresh_tex = nullptr;
 		std::array<SDL_Texture*, 3> stage_refresh_text_tex{};
 		std::array<SDL_FRect, 3> stage_refresh_text_rect{};
+		SDL_Texture* supply_refresh_text_tex = nullptr;
+		SDL_FRect supply_refresh_text_rect{};
 		SDL_Texture* GetStageStrategyTex(const std::string&, SDL_Renderer*&);
 		void Draw_StrategyChoose(SDL_Renderer*&, TTF_Font*&);
+		void Draw_SupplyChoose(SDL_Renderer*&, TTF_Font*&);
 		void Word_Simplepara(SDL_Renderer*&, TTF_Font*&, const std::string&, const std::string&);//text,key
 		void Draw_Background(SDL_Renderer*&);
 		void Draw_QuitButton(SDL_Renderer*&);

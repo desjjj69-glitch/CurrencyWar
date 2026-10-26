@@ -40,7 +40,8 @@ namespace WaitingForFight {
 			Normal,
 			Shop,
 			DetailInfo,
-			StrategyChoose
+			StrategyChoose,
+			SupplyChoose
 		};
 		RealTimeMode Rmode = RealTimeMode::Normal;
 		bool AtWaitingForFight = false;
@@ -110,6 +111,10 @@ namespace WaitingForFight {
 		std::vector<std::string> stage_strategies;//阶段策略三选一
 		int stage_strategy_selected = -1;
 		std::array<int, 3> stage_strategy_refresh_left = { 1,1,1 };
+		std::array<std::string, 5> supply_characters;//Supply：5个随机角色
+		std::array<std::string, 5> supply_equipments;//Supply：5个随机装备
+		int supply_selected = -1;
+		int supply_refresh_left = 1;
 
 		//各品质晶矿的图片尺寸（先写死，以后从json读入）
 		std::map<MineralType, SDL_FPoint> MineralSize;
@@ -188,6 +193,10 @@ namespace WaitingForFight {
 		void RefreshStageStrategyChoose(int index);
 		void ConfirmStageStrategyChoose();
 		void HandleStageStrategyClick();
+		void SupplyPickOut();
+		void RefreshSupplyChoose();
+		void ConfirmSupplyChoose();
+		void HandleSupplyChooseClick();
 		SDL_FRect EquipmentRect(OriginPlaceType type, size_t index)const;//按布局算第 index 件装备的位置
 		void RelayoutEquipment(OriginPlaceType type);//装备被取走后重排剩余装备位置
 		CharacterObject* CharacterAt(float x, float y);//取指定位置的场上/备战席角色

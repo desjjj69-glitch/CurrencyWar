@@ -6,6 +6,9 @@
     "background_StageStrategy": [
       "background_StageStrategy.png"
     ],
+    "background_SupplyChoose": [
+      "background_SupplyChoose.png"
+    ],
     "Blood_TotalNum": [
       "Blood_TotalNum.png"
     ],
@@ -79,6 +82,9 @@
       "0.0 0.0 2560.0 1600.0"
     ],
     "background_StageStrategy": [
+      "0.0 0.0 2560.0 1600.0"
+    ],
+    "background_SupplyChoose": [
       "0.0 0.0 2560.0 1600.0"
     ],
     "Blood_TotalNum": [
@@ -159,6 +165,31 @@
       "1152 1189 216 64",
       "1818 1189 216 64"
     ]
+  },
+  "SupplyChoose": {
+    "Character": [
+      "155 470 360 393",
+      "628 470 360 393",
+      "1100 470 360 393",
+      "1572 470 360 393",
+      "2044 470 360 393"
+    ],
+    "Equipment": [
+      "145 935 115 115",
+      "618 935 115 115",
+      "1090 935 115 115",
+      "1562 935 115 115",
+      "2034 935 115 115"
+    ],
+    "Frame": [
+      "123 540 425 573",
+      "596 540 424 573",
+      "1068 540 424 573",
+      "1540 540 424 573",
+      "2012 540 425 573"
+    ],
+    "Refresh": "1719 1419 250 62",
+    "Confirm": "2003 1418 505 72"
   },
   "Word": {
     "Blood": "255 255 255 255 1.5 1845 110 91 89",

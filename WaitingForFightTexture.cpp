@@ -28,6 +28,10 @@ namespace WaitingForFight {
 		SDL_RenderClear(rdr);
 
 		
+		if (State.Rmode == Logic::RealTimeMode::SupplyChoose) {
+			Draw_SupplyChoose(rdr, ft);
+			return;
+		}
 		if (State.Rmode == Logic::RealTimeMode::StrategyChoose) {
 			Draw_StrategyChoose(rdr, ft);
 			return;
@@ -192,6 +196,10 @@ namespace WaitingForFight {
 		if (stage_refresh_tex) { SDL_DestroyTexture(stage_refresh_tex); stage_refresh_tex = nullptr; }
 		for (auto& t : stage_refresh_text_tex) {
 			if (t) { SDL_DestroyTexture(t); t = nullptr; }
+		}
+		if (supply_refresh_text_tex) {
+			SDL_DestroyTexture(supply_refresh_text_tex);
+			supply_refresh_text_tex = nullptr;
 		}
 		texLoaded = false;
 	}
@@ -672,6 +680,118 @@ namespace WaitingForFight {
 								NULL, &stage_refresh_text_rect[i]);
 						}
 					}
+				}
+			}
+		}
+	}
+
+	void WaitingForFightTexture::Draw_SupplyChoose(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		auto bg = tex.find("background_SupplyChoose");
+		auto bgPlace = place.find("background_SupplyChoose");
+		if (bg != tex.end() && !bg->second.empty() && bg->second[0] &&
+			bgPlace != place.end() && !bgPlace->second.empty()) {
+			SDL_RenderTexture(rdr, bg->second[0], NULL, &bgPlace->second[0]);
+		}
+		else {
+			Draw_Background(rdr);
+		}
+
+		auto Fit = [](const SDL_FRect& box, float w, float h) {
+			if (w <= 0.f || h <= 0.f) return box;
+			const float scale = std::min(box.w / w, box.h / h);
+			const float dw = w * scale;
+			const float dh = h * scale;
+			return SDL_FRect{
+				box.x + (box.w - dw) * 0.5f,
+				box.y + (box.h - dh) * 0.5f,
+				dw, dh
+			};
+			};
+
+		auto frameIt = State.ui_place.find("SupplyChoose_Frame");
+		auto charIt = State.ui_place.find("SupplyChoose_Character");
+		auto equipIt = State.ui_place.find("SupplyChoose_Equipment");
+		if (frameIt != State.ui_place.end()) {
+			for (size_t i = 0; i < frameIt->second.size() && i < 5; ++i) {
+				SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
+				SDL_RenderFillRect(rdr, &frameIt->second[i]);
+
+				if (charIt != State.ui_place.end() && i < charIt->second.size() &&
+					i < State.supply_characters.size()) {
+					SDL_Texture* t = character_tex.GetCharacterTexture(State.supply_characters[i]);
+					if (t) {
+						float tw = 0.f, th = 0.f;
+						if (SDL_GetTextureSize(t, &tw, &th) && tw > 0.f && th > 0.f) {
+							SDL_FRect dst = Fit(charIt->second[i], tw, th);
+							SDL_RenderTexture(rdr, t, NULL, &dst);
+						}
+					}
+				}
+				if (equipIt != State.ui_place.end() && i < equipIt->second.size() &&
+					i < State.supply_equipments.size()) {
+					SDL_Texture* t = equipment_tex.GetEquipmentTexture(State.supply_equipments[i]);
+					if (t) {
+						float tw = 0.f, th = 0.f;
+						if (SDL_GetTextureSize(t, &tw, &th) && tw > 0.f && th > 0.f) {
+							SDL_FRect dst = Fit(equipIt->second[i], tw, th);
+							SDL_RenderTexture(rdr, t, NULL, &dst);
+						}
+					}
+				}
+				if (State.supply_selected == static_cast<int>(i)) {
+					const SDL_FRect& rect = frameIt->second[i];
+					SDL_SetRenderDrawColor(rdr, 255, 255, 255, 255);
+					const float thickness = 6.f;
+					for (float j = 0.f; j < thickness; j += 1.f) {
+						SDL_FRect border{
+							rect.x + j,
+							rect.y + j,
+							rect.w - 2.f * j,
+							rect.h - 2.f * j
+						};
+						SDL_RenderRect(rdr, &border);
+					}
+				}
+			}
+		}
+
+		auto confirmIt = State.ui_place.find("SupplyChoose_Confirm");
+		if (confirmIt != State.ui_place.end() && !confirmIt->second.empty()) {
+			SDL_Texture* t = State.supply_selected >= 0
+				? stage_confirm_selected : stage_confirm_notselected;
+			if (t) {
+				SDL_RenderTexture(rdr, t, NULL, &confirmIt->second[0]);
+			}
+		}
+
+		auto refreshIt = State.ui_place.find("SupplyChoose_Refresh");
+		if (refreshIt != State.ui_place.end() && !refreshIt->second.empty() &&
+			State.supply_refresh_left > 0) {
+			const SDL_FRect& rect = refreshIt->second[0];
+			if (stage_refresh_tex) {
+				float tw = 0.f, th = 0.f;
+				if (SDL_GetTextureSize(stage_refresh_tex, &tw, &th) && tw > 0.f && th > 0.f) {
+					SDL_FRect icon{
+						rect.x,
+						rect.y + (rect.h - th) * 0.5f,
+						tw, th
+					};
+					SDL_RenderTexture(rdr, stage_refresh_tex, NULL, &icon);
+				}
+			}
+			if (ft) {
+				SDL_Color white = { 255, 255, 255, 255 };
+				MySDL::DisplayWord(ft, rdr,
+					"剩余次数: " + std::to_string(State.supply_refresh_left),
+					rect.x + 80.f, rect.y,
+					supply_refresh_text_tex,
+					supply_refresh_text_rect,
+					white, 0.9f);
+				if (supply_refresh_text_tex) {
+					supply_refresh_text_rect.y =
+						rect.y + (rect.h - supply_refresh_text_rect.h) * 0.5f;
+					SDL_RenderTexture(rdr, supply_refresh_text_tex,
+						NULL, &supply_refresh_text_rect);
 				}
 			}
 		}

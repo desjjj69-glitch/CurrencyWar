@@ -256,6 +256,28 @@ namespace WaitingForFight {
 				ParseList("Confirm", "StageStrategy_Confirm");
 				ParseList("Refresh", "StageStrategy_Refresh");
 			}
+			if (jsui.contains("SupplyChoose") && jsui["SupplyChoose"].is_object()) {
+				auto& sc = jsui["SupplyChoose"];
+				auto ParseList = [&](const std::string& key, const std::string& outKey) {
+					auto it = sc.find(key);
+					if (it == sc.end()) return;
+					if (it->is_array()) {
+						for (auto& var : *it) {
+							if (var.is_string()) {
+								ui_place[outKey].push_back(ParseFRect(var.get<std::string>()));
+							}
+						}
+					}
+					else if (it->is_string()) {
+						ui_place[outKey].push_back(ParseFRect(it->get<std::string>()));
+					}
+				};
+				ParseList("Character", "SupplyChoose_Character");
+				ParseList("Equipment", "SupplyChoose_Equipment");
+				ParseList("Frame", "SupplyChoose_Frame");
+				ParseList("Refresh", "SupplyChoose_Refresh");
+				ParseList("Confirm", "SupplyChoose_Confirm");
+			}
 		}
 		catch (const json::parse_error& e) {
 			Log(e.what(), __FUNCSIG__, Logcode::PARSEERROR);
@@ -529,7 +551,8 @@ namespace WaitingForFight {
 		case SDL_EVENT_MOUSE_BUTTON_DOWN:
 			if (event.button.button == SDL_BUTTON_LEFT) {
 				LeftButtonDown = true;
-				if (Rmode == RealTimeMode::StrategyChoose) {
+				if (Rmode == RealTimeMode::StrategyChoose ||
+					Rmode == RealTimeMode::SupplyChoose) {
 					Mmode = MouseMode::Pressed;
 					PressStartTime = SDL_GetTicks();
 					PressStartX = event.button.x;
@@ -567,7 +590,8 @@ namespace WaitingForFight {
 			Mmode = MouseMode::Idle;
 			break;
 		case SDL_EVENT_MOUSE_MOTION:
-			if (Rmode == RealTimeMode::StrategyChoose) {
+			if (Rmode == RealTimeMode::StrategyChoose ||
+				Rmode == RealTimeMode::SupplyChoose) {
 				break;
 			}
 			// 手里没东西、左键按住拖动时，经过晶矿就自动开矿
@@ -934,6 +958,107 @@ namespace WaitingForFight {
 			}
 		}
 	}
+	void Logic::SupplyPickOut() {
+		supply_selected = -1;
+		std::vector<std::string> characters;
+		characters.reserve(Object::Character_DefaultSetting.size());
+		for (auto& [name, obj] : Object::Character_DefaultSetting) {
+			characters.push_back(name);
+		}
+		std::vector<std::string> equipments;
+		const EquipmentType types[] = {
+			EquipmentType::Normal,
+			EquipmentType::Advanced,
+			EquipmentType::Privilege,
+			EquipmentType::Consumable
+		};
+		for (auto type : types) {
+			for (auto& name : Mineral::EquipmentNamesOf(type)) {
+				equipments.push_back(name);
+			}
+		}
+		auto PickFive = [](std::vector<std::string>& pool, std::array<std::string, 5>& out) {
+			for (auto& name : out) name.clear();
+			for (size_t i = 0; i < out.size() && !pool.empty(); ++i) {
+				int index = GetRandomNum(0, static_cast<int>(pool.size()) - 1);
+				out[i] = pool[static_cast<size_t>(index)];
+				pool.erase(pool.begin() + index);
+			}
+		};
+		PickFive(characters, supply_characters);
+		PickFive(equipments, supply_equipments);
+		Log("SupplyPickOut characters=" + std::to_string(supply_characters.size())
+			+ " equipments=" + std::to_string(supply_equipments.size()),
+			__func__, Logcode::OK);
+	}
+	void Logic::RefreshSupplyChoose() {
+		if (supply_refresh_left <= 0) {
+			return;
+		}
+		--supply_refresh_left;
+		SupplyPickOut();
+	}
+	void Logic::ConfirmSupplyChoose() {
+		if (supply_selected < 0 || supply_selected >= 5) {
+			return;
+		}
+		const std::string characterName = supply_characters[static_cast<size_t>(supply_selected)];
+		const std::string equipmentName = supply_equipments[static_cast<size_t>(supply_selected)];
+		auto& bench = Zone(OriginPlaceType::Bench);
+		bool added = false;
+		for (auto& slot : bench) {
+			if (slot) continue;
+			auto c = std::make_unique<CharacterObject>();
+			c->NewCharacter(characterName);
+			slot = std::move(c);
+			added = true;
+			break;
+		}
+		if (!added) {
+			Log("Supply: bench full, character dropped: " + characterName, __func__, Logcode::ERROR);
+		}
+		if (!equipmentName.empty()) {
+			EquipmentType type;
+			if (Mineral::FindEquipmentQuality(equipmentName, type)) {
+				auto e = Mineral::MakeEquipment(equipmentName, type);
+				if (e) AddEquipment(std::move(e));
+			}
+		}
+		Log("Supply confirm: " + characterName + " + " + equipmentName, __func__, Logcode::OK);
+		Rmode = RealTimeMode::Normal;
+	}
+	void Logic::HandleSupplyChooseClick() {
+		auto First = [&](const std::string& key) -> const SDL_FRect* {
+			auto it = ui_place.find(key);
+			if (it == ui_place.end() || it->second.empty()) return nullptr;
+			return &it->second[0];
+		};
+		if (const SDL_FRect* confirm = First("SupplyChoose_Confirm")) {
+			if (PlaceInside(PressStartX, PressStartY, *confirm)) {
+				if (supply_selected >= 0) {
+					ConfirmSupplyChoose();
+				}
+				return;
+			}
+		}
+		if (const SDL_FRect* refresh = First("SupplyChoose_Refresh")) {
+			if (PlaceInside(PressStartX, PressStartY, *refresh)) {
+				RefreshSupplyChoose();
+				return;
+			}
+		}
+		const char* keys[] = { "SupplyChoose_Character", "SupplyChoose_Frame" };
+		for (const char* key : keys) {
+			auto it = ui_place.find(key);
+			if (it == ui_place.end()) continue;
+			for (size_t i = 0; i < it->second.size() && i < 5; ++i) {
+				if (PlaceInside(PressStartX, PressStartY, it->second[i])) {
+					supply_selected = static_cast<int>(i);
+					return;
+				}
+			}
+		}
+	}
 	void Logic::Click() {
 		//UI按钮检测
 		Log("Click"+std::to_string(MotionX)+":"+std::to_string(MotionY), __func__, Logcode::OK);
@@ -941,6 +1066,10 @@ namespace WaitingForFight {
 			return PlaceInside(PressStartX, PressStartY, buttonplace[s]);
 			};
 		
+		if (Rmode == RealTimeMode::SupplyChoose) {
+			HandleSupplyChooseClick();
+			return;
+		}
 		if (Rmode == RealTimeMode::StrategyChoose) {
 			HandleStageStrategyClick();
 			return;
@@ -1188,6 +1317,10 @@ namespace WaitingForFight {
 		stage_strategies.clear();
 		stage_strategy_selected = -1;
 		stage_strategy_refresh_left.fill(1);
+		supply_selected = -1;
+		supply_refresh_left = 1;
+		supply_characters.fill("");
+		supply_equipments.fill("");
 		//TODO 以后所有添加状态的，加一层保险，在这里复位
 		//比如这个鼠标按下，当我鼠标失焦时，可能出现未复位的情况
 
@@ -1264,6 +1397,11 @@ namespace WaitingForFight {
 			//进入阶段策略三选一，确认后才恢复正常备战界面
 			Rmode = RealTimeMode::StrategyChoose;
 			BeginStageStrategyChoose();
+		}
+		else if (stageTypeName == "Supply") {
+			//进入补给五选一，确认后才恢复正常备战界面
+			Rmode = RealTimeMode::SupplyChoose;
+			SupplyPickOut();
 		}
 	}
 	
