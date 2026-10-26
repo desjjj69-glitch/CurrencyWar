@@ -191,6 +191,9 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="Skill\DataDrivenSkill.cpp" />
     <ClCompile Include="Skill\SkillFactory.cpp" />
     <ClCompile Include="StageData.cpp" />
+    <ClCompile Include="Strategy\StrategyBus.cpp" />
+    <ClCompile Include="Strategy\StrategyRegistry.cpp" />
+    <ClCompile Include="Strategy\Strategy_TestStrategy1.cpp" />
     <ClCompile Include="WaitingForFightTexture.cpp" />
     <ClCompile Include="WaitingForFight_CharacterTexture.cpp" />
     <ClCompile Include="WaitingForFight_EnemyTexture.cpp" />
@@ -242,7 +245,10 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="Skill\DataDrivenSkill.h" />
     <ClInclude Include="Skill\SkillFactory.h" />
     <ClInclude Include="StageData.h" />
-    <ClInclude Include="StrategyEvent.h" />
+    <ClInclude Include="Strategy\AutoRegister.h" />
+    <ClInclude Include="Strategy\StrategyBus.h" />
+    <ClInclude Include="Strategy\StrategyRegistry.h" />
+    <ClInclude Include="Strategy\Strategy_TestStrategy1.h" />
     <ClInclude Include="WaitingForFightTexture.h" />
     <ClInclude Include="WaitingForFight_CharacterTexture.h" />
     <ClInclude Include="WaitingForFight_EnemyTexture.h" />
@@ -259,6 +265,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <None Include="config\Fight_Logic.json" />
     <None Include="config\Mineral.json" />
     <None Include="config\GameResource.json" />
+    <None Include="config\strategy_pool.json" />
     <None Include="data\BasicCharacterSettings.json" />
     <None Include="data\BasicEquipmentSettings.json" />
     <None Include="data\Enemy.json" />

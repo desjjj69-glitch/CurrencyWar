@@ -5,6 +5,7 @@
 #include"json.hpp"
 #include"GetRandomNum.h"
 #include"StageData.h"
+#include"Strategy/StrategyRegistry.h"
 #include<fstream>
 #include<sstream>
 using json = nlohmann::json;
@@ -13,6 +14,7 @@ namespace GameStart {
     Logic State;
 	void Logic::Init() {
         state = State::Waiting;
+        Strategy::Registry::Instance().LoadPool(BasicGameRes.GamePath);//完成策略的注册
 		LoadinFromJson(BasicGameRes.GamePath);
         using StageData::g_GameStart_WaitingForFight;
         g_GameStart_WaitingForFight.Boss_name = Boss_name;

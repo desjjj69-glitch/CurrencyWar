@@ -1103,4 +1103,5 @@ namespace WaitingForFight {
 			break;
 		}
 	}
+	
 }
