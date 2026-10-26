@@ -12,6 +12,7 @@ namespace GameStart {
 		std::unordered_map<std::string, std::vector<SDL_FRect>> ui_place;
 		int difficulty = 137;
 		std::vector<std::string> environment_strategies;//本局环境选择抽到的三个策略 id
+		std::vector<std::string> environment_acquired;//已获得的环境策略，重抽时不再出现
 		int environment_selected = -1;//当前选中的环境/策略下标
 		int environment_refresh_left = 1;//环境选择阶段剩余刷新次数
 		void Init();

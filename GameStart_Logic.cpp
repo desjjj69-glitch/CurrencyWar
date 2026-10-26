@@ -16,6 +16,7 @@ namespace GameStart {
 	void Logic::Init() {
         state = State::Waiting;
         environment_strategies.clear();
+        environment_acquired.clear();
         environment_selected = -1;
         environment_refresh_left = 1;
         Strategy::Registry::Instance().LoadPool(BasicGameRes.GamePath);//完成策略的注册
@@ -23,11 +24,12 @@ namespace GameStart {
         using StageData::g_GameStart_WaitingForFight;
         g_GameStart_WaitingForFight.Boss_name = Boss_name;
         g_GameStart_WaitingForFight.difficulty = difficulty;
+        g_GameStart_WaitingForFight.money_bonus = 0;
 	}
     void Logic::BeginEnvironmentChoose() {
         environment_selected = -1;
         environment_refresh_left = 1;
-        environment_strategies = Strategy::Registry::Instance().PickRandom(3);
+        environment_strategies = Strategy::Registry::Instance().PickRandom(3, environment_acquired);
         Log("EnvironmentChoose pick=" + std::to_string(environment_strategies.size()), __func__, Logcode::OK);
     }
     void Logic::RefreshEnvironment() {
@@ -36,7 +38,7 @@ namespace GameStart {
         }
         --environment_refresh_left;
         environment_selected = -1;
-        environment_strategies = Strategy::Registry::Instance().PickRandom(3);
+        environment_strategies = Strategy::Registry::Instance().PickRandom(3, environment_acquired);
         Log("EnvironmentChoose refresh=" + std::to_string(environment_strategies.size()), __func__, Logcode::OK);
     }
     void Logic::ConfirmEnvironment(int index) {
@@ -48,7 +50,17 @@ namespace GameStart {
             return;
         }
         Strategy::Bus::Instance().AddPermanentStrategy(id);
+        environment_acquired.push_back(id);
         Log("EnvironmentChoose confirm=" + id, __func__, Logcode::OK);
+        if (id == "Strategy_13") {
+            //Strategy_13：立刻记 6 金币，然后重抽一次环境，且不再提供刷新
+            StageData::g_GameStart_WaitingForFight.money_bonus += 6;
+            environment_selected = -1;
+            environment_refresh_left = 0;
+            environment_strategies = Strategy::Registry::Instance().PickRandom(3, environment_acquired);
+            Log("EnvironmentChoose redraw after Strategy_13", __func__, Logcode::OK);
+            return;
+        }
         state = State::Continue;
     }
 	void Logic::LoadinFromJson(const std::filesystem::path& gp) {

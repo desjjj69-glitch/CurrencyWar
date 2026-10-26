@@ -203,6 +203,8 @@ namespace WaitingForFight {
 			Blood = js.value("Blood", Blood);
 			//Log(std::to_string(Blood), __func__);
 			MoneyNum = js.value("MoneyNum", MoneyNum);
+			MoneyNum += StageData::g_GameStart_WaitingForFight.money_bonus;
+			StageData::g_GameStart_WaitingForFight.money_bonus = 0;
 
 			//Log(std::to_string(MoneyNum), __func__);
 			MaxInterest = js.value("MaxInterest", MaxInterest);

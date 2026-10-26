@@ -433,7 +433,7 @@ namespace Fight {
 					}
 					else if (PlaceInside(x, y, ui_place["Normal"][0])) {
 						CurrentState = StateType::PlayerExecuting;
-						SkillPoint = std::max(++SkillPoint, SkillPointMax);
+						SkillPoint = std::min(++SkillPoint, SkillPointMax);
 					}
 					break;
 				case CharacterState::Skill:
@@ -533,7 +533,7 @@ namespace Fight {
 					else if (key.scancode == SDL_SCANCODE_Q || key.scancode == SDL_SCANCODE_SPACE) {
 						CurrentState = StateType::PlayerExecuting;
 						
-						SkillPoint = std::max(++SkillPoint, SkillPointMax);
+						SkillPoint = std::min(++SkillPoint, SkillPointMax);
 					}
 					break;
 				case CharacterState::Skill:

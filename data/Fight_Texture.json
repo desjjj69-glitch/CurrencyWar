@@ -87,6 +87,15 @@
       ]
     },
     {
+      "type": "SkillPoint",
+      "SkillPoint": [
+        {
+          "index": 0,
+          "place": "1867 1430 0 0"
+        }
+      ]
+    },
+    {
       "type": "EnemyTargetChoose_Main",
       "EnemyTargetChoose_Main": [
         {

@@ -9,6 +9,7 @@ namespace StageData {//负责数据交接
 	struct GameStart_WaitingForFight {//开始阶段到备战阶段
 		std::vector<std::string>Boss_name;
 		int difficulty = 0;
+		int money_bonus = 0;//环境策略等开局一次性金币加成，进入备战时结算
 	};
 	struct WaitingForFight_publicData {//公有数据
 		size_t* dimension_index;//直接把原始地址给出了

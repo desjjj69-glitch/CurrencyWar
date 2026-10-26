@@ -27,7 +27,8 @@ namespace Strategy {
         std::unique_ptr<IStrategy> Make(const std::string& id) const;
 
         // 用于"给出三选一"的界面：随机抽 n 个已注册的 id
-        std::vector<std::string> PickRandom(int n) const;
+        // exclude 中的 id 不会被抽出（例如已经获得过的策略）
+        std::vector<std::string> PickRandom(int n, const std::vector<std::string>& exclude = {}) const;
 
     private:
         std::unordered_map<std::string, StrategyFactory> factories_;

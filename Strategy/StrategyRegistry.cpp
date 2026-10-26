@@ -45,11 +45,18 @@ namespace Strategy {
         return fit->second(params);
     }
 
-    std::vector<std::string> Registry::PickRandom(int n) const {
-        const int total = static_cast<int>(allIds_.size());
+    std::vector<std::string> Registry::PickRandom(int n, const std::vector<std::string>& exclude) const {
+        std::vector<std::string> pool;
+        pool.reserve(allIds_.size());
+        for (const auto& id : allIds_) {
+            if (std::find(exclude.begin(), exclude.end(), id) == exclude.end()) {
+                pool.push_back(id);
+            }
+        }
+
+        const int total = static_cast<int>(pool.size());
         if (n <= 0 || total == 0) return {};
 
-        std::vector<std::string> pool = allIds_;
         const int take = std::min(n, total);   // n > 总数时取总数，不越界
 
         // 部分 Fisher-Yates：只打乱前 take 个位置

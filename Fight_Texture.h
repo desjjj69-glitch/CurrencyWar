@@ -43,9 +43,12 @@ namespace Fight {
 		std::unordered_map<std::string, SDL_Texture*>character_tex;
 		SDL_Texture* energy_text = nullptr;
 		SDL_FRect    energy_rect = { 0, 0, 0, 0 };
+		SDL_Texture* skillpoint_text = nullptr;
+		SDL_FRect    skillpoint_rect = { 0, 0, 0, 0 };
 		void Draw_Character(SDL_Renderer*&, TTF_Font*&);
 		void Draw_BackCharacter(SDL_Renderer*&, TTF_Font*&);
 		void Draw_CharacterSelecting(SDL_Renderer*&, TTF_Font*&);
+		void Draw_SkillPoint(SDL_Renderer*&, TTF_Font*&);
 		void Draw_Pause(SDL_Renderer*&, TTF_Font*&);
 	};
 }

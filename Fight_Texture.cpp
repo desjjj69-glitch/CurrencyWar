@@ -22,6 +22,7 @@ namespace Fight {
 		Draw_Enemy(rdr);//TODO 要建立从ui_place到真实位置的双射，因为可能有的地方是nullptr
 		//算了不建立也行，nullptr的位置不绘制就行
 		Draw_EnemyTargetChoose(rdr);
+		Draw_SkillPoint(rdr, ft);
 		if (State.AtFight == Fight_Logic::FightGlobalState::Pause) {
 			Draw_Pause(rdr, ft);
 
@@ -42,6 +43,7 @@ namespace Fight {
 		KillMap(character_tex);
 		KillMap(enemy_tex);
 		if (energy_text) { SDL_DestroyTexture(energy_text); energy_text = nullptr; }
+		if (skillpoint_text) { SDL_DestroyTexture(skillpoint_text); skillpoint_text = nullptr; }
 		for (auto& [type, inner] : dynamic_ui_tex) {
 			KillMap(inner);
 		}
@@ -466,6 +468,18 @@ namespace Fight {
 			SDL_RenderTexture(rdr, GetUITex("Normal", State.NowActing->Name()), NULL, &ui_place["Normal"][1]);
 			SDL_RenderTexture(rdr, GetUITex("Skill", State.NowActing->Name()), NULL, &ui_place["Skill"][0]);
 			break;
+		}
+	}
+	void Fight_Texture::Draw_SkillPoint(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		auto it = ui_place.find("SkillPoint");
+		if (it == ui_place.end() || it->second.empty()) return;
+		SDL_Color white = { 255, 255, 255, 255 };
+		MySDL::DisplayWord(ft, rdr, std::to_string(State.SkillPoint),
+			it->second[0].x, it->second[0].y,
+			skillpoint_text, skillpoint_rect,
+			white, 1.5f);
+		if (skillpoint_text) {
+			SDL_RenderTexture(rdr, skillpoint_text, nullptr, &skillpoint_rect);
 		}
 	}
 }
