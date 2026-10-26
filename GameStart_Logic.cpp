@@ -6,6 +6,7 @@
 #include"GetRandomNum.h"
 #include"StageData.h"
 #include"Strategy/StrategyRegistry.h"
+#include"Strategy/StrategyBus.h"
 #include<fstream>
 #include<sstream>
 using json = nlohmann::json;
@@ -117,28 +118,44 @@ namespace GameStart {
         SDL_Event event;
             while (SDL_PollEvent(&event)) {
                 SDL_ConvertEventToRenderCoordinates(BasicGameRes.GameRenderer, &event);
-                switch (event.type) {
-                case SDL_EVENT_KEY_DOWN:
-                {
-                    switch (event.key.scancode) {
-                    case SDL_SCANCODE_SPACE:
-                        state = State::Continue;
-                        return;
-                    }
-                }
-                break;
-                case SDL_EVENT_MOUSE_BUTTON_DOWN:
-                {
-                    if (event.button.button != SDL_BUTTON_LEFT) break;
-                    auto it = ui_place.find("nextstep");
-                    if (it == ui_place.end() || it->second.empty()) break;
-                    if (PlaceInside(event.button.x, event.button.y, it->second.front())) {
-                        state = State::Continue;
-                        return;
+                switch (state) {
+                case State::Waiting: {
+                    switch (event.type) {
+                    case SDL_EVENT_KEY_DOWN:
+                    {
+                        switch (event.key.scancode) {
+                        case SDL_SCANCODE_SPACE:
+                            state = State::Continue;
+                            return;
+                        }
                     }
                     break;
+                    case SDL_EVENT_MOUSE_BUTTON_DOWN:
+                    {
+                        if (event.button.button != SDL_BUTTON_LEFT) break;
+                        auto it = ui_place.find("nextstep");
+                        if (it == ui_place.end() || it->second.empty()) break;
+                        if (PlaceInside(event.button.x, event.button.y, it->second.front())) {
+                            state = State::EnvironmentChoose;
+                            return;
+                        }
+                        break;
+                    }
+                    }
+                }break;
+                case State::EnvironmentChoose: {
+                    switch (event.type) {
+                        {
+                            switch (event.key.scancode) {//暂时写上
+                            case SDL_SCANCODE_SPACE:
+                                state = State::Continue;
+                                return;
+                            }
+                        }
+                    }
+                }break;
                 }
-                }
+                
             }
         
     }

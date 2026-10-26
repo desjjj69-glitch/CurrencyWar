@@ -19,6 +19,9 @@
     <Filter Include="Equipment">
       <UniqueIdentifier>{c2f8b1a4-7d3e-4a5f-9b6c-1e2d3f4a5b6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Strategy">
+      <UniqueIdentifier>{389ba4c8-119d-4d16-acd2-819bc8a2095f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -134,6 +137,15 @@
     </ClCompile>
     <ClCompile Include="GameStart_Update.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\Strategy_TestStrategy1.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\StrategyBus.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\StrategyRegistry.cpp">
+      <Filter>Strategy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +299,18 @@
     <ClInclude Include="GameStart_Update.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Strategy\Strategy_TestStrategy1.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\StrategyBus.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\StrategyRegistry.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\AutoRegister.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\BasicCharacterSettings.json">
@@ -358,6 +382,7 @@
     <None Include="data\Mineral_Texture.json">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="config\strategy_pool.json" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\管理图像资源.txt">

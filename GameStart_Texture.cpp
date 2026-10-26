@@ -68,9 +68,16 @@ namespace GameStart {
 			mouse_place = { -1.f, -1.f };   // 转换失败视为不在任何控件上
 		SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 		SDL_RenderClear(rdr);
-		Draw_Background(rdr);
-		Draw_Boss(rdr);
-		Draw_NextStep(rdr);
+		switch (State.state) {
+		case Logic::State::Waiting:
+			Draw_Background(rdr);
+			Draw_Boss(rdr);
+			Draw_NextStep(rdr);
+			break;
+		case Logic::State::EnvironmentChoose:
+			break;
+		}
+		
 	}
 	void Texture::LoadinJson(const std::filesystem::path& gp) {
 		auto ParseRect = [](const std::string& s) ->SDL_FRect {

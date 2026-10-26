@@ -16,7 +16,8 @@ namespace GameStart {
 		void EventLogic();
 		enum class State {
 			Continue,
-			Waiting
+			Waiting,
+			EnvironmentChoose
 		};
 		State state = State::Waiting;
 	private:

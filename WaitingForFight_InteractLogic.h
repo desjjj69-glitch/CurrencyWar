@@ -34,7 +34,7 @@ namespace WaitingForFight {
 		int amount = 0;                                 // Money/Exp 数量
 		int count = 1;                                  // Character/Equipment 数量
 	};
-	class Logic {//保存所有备战阶段的资源
+	class Logic:public Strategy::IGameContext {//保存所有备战阶段的资源
 	public:
 		enum class RealTimeMode {
 			Normal,
@@ -188,11 +188,9 @@ namespace WaitingForFight {
 		bool StarUp();
 		void Init_Enemys();
 		void Init_Boss();
-
-		std::vector<std::unique_ptr<Strategy::IStrategy>> stageStrategies;      // 投资环境（阶段级）
-		std::vector<std::unique_ptr<Strategy::IStrategy>> permanentStrategies;  // 投资策略（永久）
-		std::vector<Strategy::EventType> pendingEvents;
-		int emittingDepth = 0;
+	public:
+		Strategy::StageKind Kind()const { return Strategy::StageKind::WaitingForFight; }
+		
 	};
 	extern Logic State;
 }

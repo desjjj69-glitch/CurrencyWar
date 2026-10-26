@@ -44,20 +44,12 @@ namespace Strategy {
     };
 
     // 策略能操作的游戏状态 —— 只暴露"各阶段都能安全操作"的方法
+    enum class StageKind{WaitingForFight,Fight,FightResult};
     class IGameContext {
     public:
         virtual ~IGameContext() = default;
 
-        virtual int  GetMoney() const = 0;
-        virtual void AddMoney(int delta) = 0;
-        virtual int  GetExp() const = 0;
-        virtual void AddExp(int delta) = 0;
-        virtual int  GetHp() const = 0;
-        virtual void AddHp(int delta) = 0;
-
-        virtual int  GetPlayerLevel() const = 0;
-        virtual void AddFreeRefreshes(int n) = 0;
-        // ……以后按需要加，但宁少勿多，能放进具体 Strategy 内部状态的不要暴露
+        virtual StageKind Kind() const= 0;
     };
 
     class IStrategy {
