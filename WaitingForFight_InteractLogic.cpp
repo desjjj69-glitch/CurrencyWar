@@ -383,6 +383,11 @@ namespace WaitingForFight {
 			{ .type = MineralContentType::Money, .amount = money }
 			}));
 	}
+	void Logic::AddMineralCharacter(int cost) {
+		AddMineral(GetMineral(MineralType::Blue, {
+			{ .type = MineralContentType::Character, .cost = cost }
+			}));
+	}
 	bool Logic::AddEquipmentByName(const std::string& name) {
 		EquipmentType type;
 		if (!Mineral::FindEquipmentQuality(name, type)) {

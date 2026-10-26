@@ -196,6 +196,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="Strategy\Strategy_3.cpp" />
     <ClCompile Include="Strategy\Strategy_4.cpp" />
     <ClCompile Include="Strategy\Strategy_6.cpp" />
+    <ClCompile Include="Strategy\Strategy_9.cpp" />
     <ClCompile Include="WaitingForFightTexture.cpp" />
     <ClCompile Include="WaitingForFight_CharacterTexture.cpp" />
     <ClCompile Include="WaitingForFight_EnemyTexture.cpp" />
@@ -253,6 +254,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="Strategy\Strategy_3.h" />
     <ClInclude Include="Strategy\Strategy_4.h" />
     <ClInclude Include="Strategy\Strategy_6.h" />
+    <ClInclude Include="Strategy\Strategy_9.h" />
     <ClInclude Include="WaitingForFightTexture.h" />
     <ClInclude Include="WaitingForFight_CharacterTexture.h" />
     <ClInclude Include="WaitingForFight_EnemyTexture.h" />

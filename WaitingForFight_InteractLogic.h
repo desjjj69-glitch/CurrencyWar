@@ -157,6 +157,7 @@ namespace WaitingForFight {
 		//给策略使用的接口
 		void AddMoney(int amount) { MoneyNum += amount; }
 		void AddMineralMoney(int money);//生成一个只有 money 的晶矿并放进 Mineral 槽位
+		void AddMineralCharacter(int cost);//生成一个随机指定费用角色的晶矿并放进 Mineral 槽位
 		bool AddEquipmentByName(const std::string& name);//按名字创建装备并放进装备槽位
 
 		

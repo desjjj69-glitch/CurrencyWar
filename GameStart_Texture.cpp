@@ -4,6 +4,7 @@
 #include"GameStart_Logic.h"
 #include<fstream>
 #include<sstream>
+#include<algorithm>
 using json = nlohmann::json;
 using Logger::Log;
 namespace GameStart {
@@ -17,6 +18,13 @@ namespace GameStart {
 		o.x = r.x - (o.w - r.w) * 0.5f;
 		o.y = r.y - (o.h - r.h) * 0.5f;
 		return o;
+	}
+	static SDL_FRect FitRectCentered(const SDL_FRect& box, float w, float h) {
+		if (w <= 0.f || h <= 0.f) return box;
+		const float scale = std::min(box.w / w, box.h / h);
+		const float dw = w * scale;
+		const float dh = h * scale;
+		return { box.x + (box.w - dw) * 0.5f, box.y + (box.h - dh) * 0.5f, dw, dh };
 	}
 	// 等比 1.2：ScaleRectCentered(r, 1.2f, 1.2f)
 	// 只横向：ScaleRectCentered(r, 1.2f, 1.0f)
@@ -144,11 +152,18 @@ namespace GameStart {
 	void Texture::LoadinPic(const std::filesystem::path& gp, SDL_Renderer*& rdr) {
 		std::filesystem::path gs_picp = gp / "assets" / "GameStart";
 		std::filesystem::path enemy_picp = gp / "assets" / "Enemy";
+		std::filesystem::path strategy_picp = gp / "assets" / "Strategy";
 
 		for (auto& [key, mp] : ui_path) {
+			const bool isStrategy = (key == "strategy_icon");
 			for (auto& [name, path] : mp) {
-				auto tmp = IMG_LoadTexture(rdr, (gs_picp / path).string().c_str());
-				ui_tex[key][name] = tmp;
+				auto tmp = IMG_LoadTexture(rdr, ((isStrategy ? strategy_picp : gs_picp) / path).string().c_str());
+				if (isStrategy) {
+					strategy_tex[name] = tmp;
+				}
+				else {
+					ui_tex[key][name] = tmp;
+				}
 			}
 		}
 
@@ -183,21 +198,63 @@ namespace GameStart {
 				SDL_RenderTexture(rdr, def->second, NULL, &placeIt->second[0]);
 			}
 		}
+
+		auto envIt = ui_place.find("environment");
+		//策略图标：按抽到的 id 取图，等比缩放并居中到对应卡片矩形
+		if (envIt != ui_place.end()) {
+			for (size_t i = 0; i < State.environment_strategies.size() && i < envIt->second.size(); ++i) {
+				auto st = strategy_tex.find(State.environment_strategies[i]);
+				if (st == strategy_tex.end() || !st->second) continue;
+				float tw = 0.f, th = 0.f;
+				if (!SDL_GetTextureSize(st->second, &tw, &th) || tw <= 0.f || th <= 0.f) continue;
+				SDL_FRect dst = FitRectCentered(envIt->second[i], tw, th);
+				SDL_RenderTexture(rdr, st->second, NULL, &dst);
+			}
+		}
+
 		//选中的环境画一圈白色边框
-		auto it = ui_place.find("environment");
-		if (it == ui_place.end()) return;
-		if (State.environment_selected < 0 || State.environment_selected >= static_cast<int>(it->second.size())) return;
-		const SDL_FRect& rect = it->second[static_cast<size_t>(State.environment_selected)];
-		SDL_SetRenderDrawColor(rdr, 255, 255, 255, 255);
-		const float thickness = 6.f;
-		for (float i = 0.f; i < thickness; i += 1.f) {
-			SDL_FRect border{
-				rect.x + i,
-				rect.y + i,
-				rect.w - 2.f * i,
-				rect.h - 2.f * i
-			};
-			SDL_RenderRect(rdr, &border);
+		if (envIt != ui_place.end() &&
+			State.environment_selected >= 0 &&
+			State.environment_selected < static_cast<int>(envIt->second.size())) {
+			const SDL_FRect& rect = envIt->second[static_cast<size_t>(State.environment_selected)];
+			SDL_SetRenderDrawColor(rdr, 255, 255, 255, 255);
+			const float thickness = 6.f;
+			for (float i = 0.f; i < thickness; i += 1.f) {
+				SDL_FRect border{
+					rect.x + i,
+					rect.y + i,
+					rect.w - 2.f * i,
+					rect.h - 2.f * i
+				};
+				SDL_RenderRect(rdr, &border);
+			}
+		}
+
+		//刷新按钮：还有刷新次数时才绘制
+		if (State.environment_refresh_left > 0) {
+			auto placeIt = ui_place.find("refresh");
+			auto texIt = ui_tex.find("refresh");
+			if (placeIt != ui_place.end() && !placeIt->second.empty() &&
+				texIt != ui_tex.end()) {
+				auto t = texIt->second.find("Allowed");
+				if (t != texIt->second.end() && t->second) {
+					SDL_RenderTexture(rdr, t->second, NULL, &placeIt->second[0]);
+				}
+			}
+		}
+
+		//确认按钮：未选择 / 已选择两种贴图
+		{
+			auto placeIt = ui_place.find("confirm");
+			auto texIt = ui_tex.find("confirm");
+			if (placeIt != ui_place.end() && !placeIt->second.empty() &&
+				texIt != ui_tex.end()) {
+				const char* name = State.environment_selected >= 0 ? "Selected" : "NotSelected";
+				auto t = texIt->second.find(name);
+				if (t != texIt->second.end() && t->second) {
+					SDL_RenderTexture(rdr, t->second, NULL, &placeIt->second[0]);
+				}
+			}
 		}
 	}
 }

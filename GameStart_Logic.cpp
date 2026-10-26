@@ -17,6 +17,7 @@ namespace GameStart {
         state = State::Waiting;
         environment_strategies.clear();
         environment_selected = -1;
+        environment_refresh_left = 1;
         Strategy::Registry::Instance().LoadPool(BasicGameRes.GamePath);//完成策略的注册
 		LoadinFromJson(BasicGameRes.GamePath);
         using StageData::g_GameStart_WaitingForFight;
@@ -25,8 +26,18 @@ namespace GameStart {
 	}
     void Logic::BeginEnvironmentChoose() {
         environment_selected = -1;
+        environment_refresh_left = 1;
         environment_strategies = Strategy::Registry::Instance().PickRandom(3);
         Log("EnvironmentChoose pick=" + std::to_string(environment_strategies.size()), __func__, Logcode::OK);
+    }
+    void Logic::RefreshEnvironment() {
+        if (environment_refresh_left <= 0) {
+            return;
+        }
+        --environment_refresh_left;
+        environment_selected = -1;
+        environment_strategies = Strategy::Registry::Instance().PickRandom(3);
+        Log("EnvironmentChoose refresh=" + std::to_string(environment_strategies.size()), __func__, Logcode::OK);
     }
     void Logic::ConfirmEnvironment(int index) {
         if (index < 0 || index >= static_cast<int>(environment_strategies.size())) {
@@ -168,16 +179,31 @@ namespace GameStart {
                     case SDL_EVENT_MOUSE_BUTTON_DOWN:
                     {
                         if (event.button.button != SDL_BUTTON_LEFT) break;
+
+                        //确认按钮：未选择时点击无反应
+                        auto confirmIt = ui_place.find("confirm");
+                        if (confirmIt != ui_place.end() && !confirmIt->second.empty() &&
+                            PlaceInside(event.button.x, event.button.y, confirmIt->second[0])) {
+                            if (environment_selected >= 0) {
+                                ConfirmEnvironment(environment_selected);
+                            }
+                            return;
+                        }
+
+                        //刷新按钮：默认一次，用完后按钮不再绘制
+                        auto refreshIt = ui_place.find("refresh");
+                        if (refreshIt != ui_place.end() && !refreshIt->second.empty() &&
+                            PlaceInside(event.button.x, event.button.y, refreshIt->second[0])) {
+                            RefreshEnvironment();
+                            return;
+                        }
+
+                        //策略卡：只负责选中，不再通过再次点击同一格确认
                         auto it = ui_place.find("environment");
                         if (it == ui_place.end()) break;
                         for (size_t i = 0; i < it->second.size() && i < environment_strategies.size(); ++i) {
                             if (!PlaceInside(event.button.x, event.button.y, it->second[i])) continue;
-                            if (environment_selected == static_cast<int>(i)) {
-                                ConfirmEnvironment(static_cast<int>(i));//再次点击同一格：确认
-                            }
-                            else {
-                                environment_selected = static_cast<int>(i);//第一次点击：选中
-                            }
+                            environment_selected = static_cast<int>(i);
                             return;
                         }
                         break;

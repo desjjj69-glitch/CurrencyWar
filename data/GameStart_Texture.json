@@ -33,16 +33,53 @@
       "1670 350 600 880"
     ]
   },
+  "confirm": {
+    "place": "1200 1420 503 67",
+    "image": [
+      {
+        "name": "NotSelected",
+        "path": "confirm_NotSelected.png"
+      },
+      {
+        "name": "Selected",
+        "path": "confirm_Selected.png"
+      }
+    ]
+  },
+  "refresh": {
+    "place": "859 1420 62 67",
+    "image": [
+      {
+        "name": "Allowed",
+        "path": "Refresh_Allowed.png"
+      }
+    ]
+  },
+  "strategy_icon": {
+    "image": [
+      {
+        "name": "Strategy_3",
+        "path": "Strategy_3.png"
+      },
+      {
+        "name": "Strategy_4",
+        "path": "Strategy_4.png"
+      },
+      {
+        "name": "Strategy_6",
+        "path": "Strategy_6.png"
+      },
+      {
+        "name": "Strategy_9",
+        "path": "Strategy_9.png"
+      }
+    ]
+  },
   "boss": {
     "place": [
       "158 410 369 774",
       "556 410 369 774",
       "966 410 369 774"
-    ]
-  },
-  "strategy": {
-    "place": [
-      "0 0 0 0"
     ]
   }
 }

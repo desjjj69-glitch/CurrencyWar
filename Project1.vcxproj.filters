@@ -147,6 +147,9 @@
     <ClCompile Include="Strategy\Strategy_6.cpp">
       <Filter>Strategy</Filter>
     </ClCompile>
+    <ClCompile Include="Strategy\Strategy_9.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
     <ClCompile Include="Strategy\StrategyBus.cpp">
       <Filter>Strategy</Filter>
     </ClCompile>
@@ -312,6 +315,9 @@
       <Filter>Strategy</Filter>
     </ClInclude>
     <ClInclude Include="Strategy\Strategy_6.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\Strategy_9.h">
       <Filter>Strategy</Filter>
     </ClInclude>
     <ClInclude Include="Strategy\StrategyBus.h">
