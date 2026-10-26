@@ -198,6 +198,9 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="Strategy\Strategy_6.cpp" />
     <ClCompile Include="Strategy\Strategy_9.cpp" />
     <ClCompile Include="Strategy\Strategy_13.cpp" />
+    <ClCompile Include="Strategy\Strategy_1001.cpp" />
+    <ClCompile Include="Strategy\Strategy_1002.cpp" />
+    <ClCompile Include="Strategy\Strategy_1003.cpp" />
     <ClCompile Include="WaitingForFightTexture.cpp" />
     <ClCompile Include="WaitingForFight_CharacterTexture.cpp" />
     <ClCompile Include="WaitingForFight_EnemyTexture.cpp" />
@@ -257,6 +260,9 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="Strategy\Strategy_6.h" />
     <ClInclude Include="Strategy\Strategy_9.h" />
     <ClInclude Include="Strategy\Strategy_13.h" />
+    <ClInclude Include="Strategy\Strategy_1001.h" />
+    <ClInclude Include="Strategy\Strategy_1002.h" />
+    <ClInclude Include="Strategy\Strategy_1003.h" />
     <ClInclude Include="WaitingForFightTexture.h" />
     <ClInclude Include="WaitingForFight_CharacterTexture.h" />
     <ClInclude Include="WaitingForFight_EnemyTexture.h" />

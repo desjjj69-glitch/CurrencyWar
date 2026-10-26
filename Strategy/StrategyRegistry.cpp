@@ -45,13 +45,35 @@ namespace Strategy {
         return fit->second(params);
     }
 
-    std::vector<std::string> Registry::PickRandom(int n, const std::vector<std::string>& exclude) const {
+    std::vector<std::string> Registry::PickRandom(
+        int n,
+        const std::vector<std::string>& exclude,
+        const std::string& kind) const {
         std::vector<std::string> pool;
         pool.reserve(allIds_.size());
+        int environmentCount = 0;
         for (const auto& id : allIds_) {
-            if (std::find(exclude.begin(), exclude.end(), id) == exclude.end()) {
-                pool.push_back(id);
+            if (std::find(exclude.begin(), exclude.end(), id) != exclude.end()) {
+                continue;
             }
+            if (!kind.empty()) {
+                auto pit = params_.find(id);
+                if (pit == params_.end() || !pit->second.is_object()) {
+                    continue;
+                }
+                auto kit = pit->second.find("Kind");
+                if (kit == pit->second.end() || !kit->is_string() ||
+                    kit->get<std::string>() != kind) {
+                    continue;
+                }
+                if (kind == "EnvironmentStrategy") {
+                    if (environmentCount >= 100) {
+                        continue;
+                    }
+                    ++environmentCount;
+                }
+            }
+            pool.push_back(id);
         }
 
         const int total = static_cast<int>(pool.size());

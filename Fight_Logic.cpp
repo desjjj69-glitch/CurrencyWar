@@ -5,6 +5,7 @@
 #include"json.hpp"
 #include"GetRandomNum.h"
 #include<algorithm>
+#include<limits>
 #include<fstream>
 #include<sstream>
 #include"BasicGameResource.h"
@@ -220,6 +221,10 @@ namespace Fight {
 		SkillPointMax = DefaultSkillPointMax;
 		NowActionValue = 0;
 		ActionValueLimit = DefaultActionValueLimit;
+		if (StageData::g_WaitingForFight_to_Fight.stagetype == "Bonus") {
+			//Bonus 关卡：行动值上限视为无穷，不会因行动值耗尽失败
+			ActionValueLimit = std::numeric_limits<double>::infinity();
+		}
 		using StageData::g_WaitingForFight_to_Fight;
 		for (auto& var : actors) {
 			var.clear();//把上一次战斗所有内容都清除

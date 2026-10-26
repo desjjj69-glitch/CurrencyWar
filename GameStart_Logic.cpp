@@ -29,7 +29,7 @@ namespace GameStart {
     void Logic::BeginEnvironmentChoose() {
         environment_selected = -1;
         environment_refresh_left = 1;
-        environment_strategies = Strategy::Registry::Instance().PickRandom(3, environment_acquired);
+        environment_strategies = Strategy::Registry::Instance().PickRandom(3, environment_acquired, "EnvironmentStrategy");
         Log("EnvironmentChoose pick=" + std::to_string(environment_strategies.size()), __func__, Logcode::OK);
     }
     void Logic::RefreshEnvironment() {
@@ -38,7 +38,7 @@ namespace GameStart {
         }
         --environment_refresh_left;
         environment_selected = -1;
-        environment_strategies = Strategy::Registry::Instance().PickRandom(3, environment_acquired);
+        environment_strategies = Strategy::Registry::Instance().PickRandom(3, environment_acquired, "EnvironmentStrategy");
         Log("EnvironmentChoose refresh=" + std::to_string(environment_strategies.size()), __func__, Logcode::OK);
     }
     void Logic::ConfirmEnvironment(int index) {
@@ -57,7 +57,7 @@ namespace GameStart {
             StageData::g_GameStart_WaitingForFight.money_bonus += 6;
             environment_selected = -1;
             environment_refresh_left = 0;
-            environment_strategies = Strategy::Registry::Instance().PickRandom(3, environment_acquired);
+            environment_strategies = Strategy::Registry::Instance().PickRandom(3, environment_acquired, "EnvironmentStrategy");
             Log("EnvironmentChoose redraw after Strategy_13", __func__, Logcode::OK);
             return;
         }

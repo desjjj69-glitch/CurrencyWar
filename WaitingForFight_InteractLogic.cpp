@@ -5,6 +5,7 @@
 #include"json.hpp"
 #include"Logger.h"
 #include"StageData.h"
+#include"Strategy/StrategyRegistry.h"
 #include"GetRandomNum.h"
 #include<fstream>
 #include<string>
@@ -233,6 +234,27 @@ namespace WaitingForFight {
 					buttonplace[key] = ParseFRect(value[0].get<std::string>());
 					Log(key + std::to_string(buttonplace[key].x), __func__, Logcode::OK);
 				}
+			}
+			ui_place.clear();
+			if (jsui.contains("StageStrategy") && jsui["StageStrategy"].is_object()) {
+				auto& ss = jsui["StageStrategy"];
+				auto ParseList = [&](const std::string& key, const std::string& outKey) {
+					auto it = ss.find(key);
+					if (it == ss.end()) return;
+					if (it->is_array()) {
+						for (auto& var : *it) {
+							if (var.is_string()) {
+								ui_place[outKey].push_back(ParseFRect(var.get<std::string>()));
+							}
+						}
+					}
+					else if (it->is_string()) {
+						ui_place[outKey].push_back(ParseFRect(it->get<std::string>()));
+					}
+				};
+				ParseList("Card", "StageStrategy_Card");
+				ParseList("Confirm", "StageStrategy_Confirm");
+				ParseList("Refresh", "StageStrategy_Refresh");
 			}
 		}
 		catch (const json::parse_error& e) {
@@ -507,6 +529,13 @@ namespace WaitingForFight {
 		case SDL_EVENT_MOUSE_BUTTON_DOWN:
 			if (event.button.button == SDL_BUTTON_LEFT) {
 				LeftButtonDown = true;
+				if (Rmode == RealTimeMode::StrategyChoose) {
+					Mmode = MouseMode::Pressed;
+					PressStartTime = SDL_GetTicks();
+					PressStartX = event.button.x;
+					PressStartY = event.button.y;
+					break;
+				}
 				// 晶矿不能拖动：按下时只要点在晶矿上就直接打开，点击/长按/拖动都由这一处兜住
 				if (HandleMineralPress(event.button.x, event.button.y)) {
 					Mmode = MouseMode::Idle;
@@ -538,6 +567,9 @@ namespace WaitingForFight {
 			Mmode = MouseMode::Idle;
 			break;
 		case SDL_EVENT_MOUSE_MOTION:
+			if (Rmode == RealTimeMode::StrategyChoose) {
+				break;
+			}
 			// 手里没东西、左键按住拖动时，经过晶矿就自动开矿
 			if (LeftButtonDown && !holding) {
 				HandleMineralPress(event.motion.x, event.motion.y);
@@ -828,6 +860,65 @@ namespace WaitingForFight {
 	void Logic::LongPress() {
 
 	}
+	void Logic::BeginStageStrategyChoose() {
+		stage_strategy_selected = -1;
+		stage_strategy_refresh_left = 1;
+		stage_strategies = Strategy::Registry::Instance().PickRandom(3, {}, "StageStrategy");
+		Log("StageStrategy pick=" + std::to_string(stage_strategies.size()), __func__, Logcode::OK);
+	}
+	void Logic::RefreshStageStrategyChoose() {
+		if (stage_strategy_refresh_left <= 0) {
+			return;
+		}
+		--stage_strategy_refresh_left;
+		stage_strategy_selected = -1;
+		stage_strategies = Strategy::Registry::Instance().PickRandom(3, {}, "StageStrategy");
+		Log("StageStrategy refresh=" + std::to_string(stage_strategies.size()), __func__, Logcode::OK);
+	}
+	void Logic::ConfirmStageStrategyChoose() {
+		if (stage_strategy_selected < 0 ||
+			stage_strategy_selected >= static_cast<int>(stage_strategies.size())) {
+			return;
+		}
+		const std::string& id = stage_strategies[static_cast<size_t>(stage_strategy_selected)];
+		if (id.empty()) {
+			return;
+		}
+		Strategy::Bus::Instance().AddPermanentStrategy(id);
+		Log("StageStrategy confirm=" + id, __func__, Logcode::OK);
+		stage_strategy_selected = -1;
+		Rmode = RealTimeMode::Normal;
+	}
+	void Logic::HandleStageStrategyClick() {
+		auto First = [&](const std::string& key) -> const SDL_FRect* {
+			auto it = ui_place.find(key);
+			if (it == ui_place.end() || it->second.empty()) return nullptr;
+			return &it->second[0];
+		};
+		if (const SDL_FRect* confirm = First("StageStrategy_Confirm")) {
+			if (PlaceInside(PressStartX, PressStartY, *confirm)) {
+				if (stage_strategy_selected >= 0) {
+					ConfirmStageStrategyChoose();
+				}
+				return;
+			}
+		}
+		if (const SDL_FRect* refresh = First("StageStrategy_Refresh")) {
+			if (PlaceInside(PressStartX, PressStartY, *refresh)) {
+				RefreshStageStrategyChoose();
+				return;
+			}
+		}
+		auto it = ui_place.find("StageStrategy_Card");
+		if (it != ui_place.end()) {
+			for (size_t i = 0; i < it->second.size() && i < stage_strategies.size(); ++i) {
+				if (PlaceInside(PressStartX, PressStartY, it->second[i])) {
+					stage_strategy_selected = static_cast<int>(i);
+					return;
+				}
+			}
+		}
+	}
 	void Logic::Click() {
 		//UI按钮检测
 		Log("Click"+std::to_string(MotionX)+":"+std::to_string(MotionY), __func__, Logcode::OK);
@@ -835,6 +926,10 @@ namespace WaitingForFight {
 			return PlaceInside(PressStartX, PressStartY, buttonplace[s]);
 			};
 		
+		if (Rmode == RealTimeMode::StrategyChoose) {
+			HandleStageStrategyClick();
+			return;
+		}
 		if (Rmode == RealTimeMode::Shop) {
 			if (uiinside("Shop_CloseShopButton")) {
 				Rmode = RealTimeMode::Normal;
@@ -905,6 +1000,9 @@ namespace WaitingForFight {
 		using StageData::g_WaitingForFight_to_Fight;
 		using StageData::g_WaitingForFight_publicData;
 		using StageData::g_WaitingForFight_to_FightResult;
+		if (dimension_index < stage.size() && stage_index < stage[dimension_index].size()) {
+			g_WaitingForFight_to_Fight.stagetype = stage[dimension_index][stage_index];
+		}
 		g_WaitingForFight_to_Fight.BackCharacter = &Zone(OriginPlaceType::BackBattleField);
 		g_WaitingForFight_to_Fight.FrontCharacter = &Zone(OriginPlaceType::FrontBattleField);
 		g_WaitingForFight_to_Fight.Enemys = &Enemys;
@@ -1071,6 +1169,10 @@ namespace WaitingForFight {
 		State.shop.Dcard(m, 1);
 		State.AtWaitingForFight = true;
 		LeftButtonDown = false;
+		Rmode = RealTimeMode::Normal;
+		stage_strategies.clear();
+		stage_strategy_selected = -1;
+		stage_strategy_refresh_left = 1;
 		//TODO 以后所有添加状态的，加一层保险，在这里复位
 		//比如这个鼠标按下，当我鼠标失焦时，可能出现未复位的情况
 
@@ -1104,6 +1206,7 @@ namespace WaitingForFight {
 			Strategy::Bus::Instance().Emit(*this, { Strategy::EventType::WinStreakChanged, "", ContinueWinTimes, 0 });
 		}
 		Strategy::Bus::Instance().Emit(*this, { Strategy::EventType::PrepStageBegin, "", 0, static_cast<int>(stage_index) });
+		const std::string stageTypeName = stage[dimension_index][stage_index];
 		enum StageType {
 			Bonus,
 			Normal,
@@ -1141,6 +1244,11 @@ namespace WaitingForFight {
 			break;
 		default:
 			break;
+		}
+		if (stageTypeName == "Strategy") {
+			//进入阶段策略三选一，确认后才恢复正常备战界面
+			Rmode = RealTimeMode::StrategyChoose;
+			BeginStageStrategyChoose();
 		}
 	}
 	

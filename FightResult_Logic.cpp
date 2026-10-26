@@ -49,9 +49,14 @@ namespace FightResult {
 			return;
 		}
 		if (g_WaitingForFight_to_FightResult.ContinueWinTimes) {//处理连胜
-			if (g_Fight_to_FightResult.ifwin)
-				++(*g_WaitingForFight_to_FightResult.ContinueWinTimes);
-			else 
+			const bool isBonus =
+				(StageData::g_WaitingForFight_to_Fight.stagetype == "Bonus");
+			if (g_Fight_to_FightResult.ifwin) {
+				if (!isBonus) {
+					++(*g_WaitingForFight_to_FightResult.ContinueWinTimes);
+				}
+			}
+			else
 				*g_WaitingForFight_to_FightResult.ContinueWinTimes = 0;
 		}
 		HandleMoney(

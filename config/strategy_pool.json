@@ -2,33 +2,51 @@
   "strategies": [
     {
       "id": "Strategy_3",
-      "params": [
-
-      ]
+      "params": {
+        "Kind": "EnvironmentStrategy"
+      }
     },
     {
       "id": "Strategy_4",
-      "params": [
-
-      ]
+      "params": {
+        "Kind": "EnvironmentStrategy"
+      }
     },
     {
       "id": "Strategy_6",
-      "params": [
-
-      ]
+      "params": {
+        "Kind": "EnvironmentStrategy"
+      }
     },
     {
       "id": "Strategy_9",
-      "params": [
-
-      ]
+      "params": {
+        "Kind": "EnvironmentStrategy"
+      }
     },
     {
       "id": "Strategy_13",
-      "params": [
-
-      ]
+      "params": {
+        "Kind": "EnvironmentStrategy"
+      }
+    },
+    {
+      "id": "Strategy_1001",
+      "params": {
+        "Kind": "StageStrategy"
+      }
+    },
+    {
+      "id": "Strategy_1002",
+      "params": {
+        "Kind": "StageStrategy"
+      }
+    },
+    {
+      "id": "Strategy_1003",
+      "params": {
+        "Kind": "StageStrategy"
+      }
     }
   ]
 }

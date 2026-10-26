@@ -10,6 +10,7 @@
 #include<unordered_map>
 #include<string>
 #include<vector>
+#include<filesystem>
 namespace WaitingForFight {
 	class WaitingForFightTexture :public BasicTexture {//统一管理所有备战阶段的绘制
 	public:
@@ -34,6 +35,13 @@ namespace WaitingForFight {
 		std::unordered_map<std::string, float>word_multiply;
 		std::unordered_map<std::string, SDL_FRect>word_place;
 		std::unordered_map<std::string, SDL_Texture*>word_tex;
+		std::filesystem::path gamepath;
+		std::unordered_map<std::string, SDL_Texture*> stage_strategy_tex;
+		SDL_Texture* stage_confirm_selected = nullptr;
+		SDL_Texture* stage_confirm_notselected = nullptr;
+		SDL_Texture* stage_refresh_tex = nullptr;
+		SDL_Texture* GetStageStrategyTex(const std::string&, SDL_Renderer*&);
+		void Draw_StrategyChoose(SDL_Renderer*&, TTF_Font*&);
 		void Word_Simplepara(SDL_Renderer*&, TTF_Font*&, const std::string&, const std::string&);//text,key
 		void Draw_Background(SDL_Renderer*&);
 		void Draw_QuitButton(SDL_Renderer*&);

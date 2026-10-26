@@ -6,6 +6,7 @@
 #include<sstream>
 #include"Logger.h"
 #include"json.hpp"
+#include<algorithm>
 using Logger::Log;
 using json = nlohmann::json;
 namespace WaitingForFight {
@@ -28,6 +29,10 @@ namespace WaitingForFight {
 
 		
 		Draw_Background(rdr);
+		if (State.Rmode == Logic::RealTimeMode::StrategyChoose) {
+			Draw_StrategyChoose(rdr, ft);
+			return;
+		}
 		Draw_QuitButton(rdr);
 		Draw_Blood(rdr, ft);
 		Draw_Stage(rdr, ft);
@@ -145,8 +150,13 @@ namespace WaitingForFight {
 			}
 
 		}
+		std::filesystem::path gs_picp = gp / "assets" / "GameStart";
+		stage_confirm_selected = IMG_LoadTexture(rdr, (gs_picp / "confirm_Selected.png").string().c_str());
+		stage_confirm_notselected = IMG_LoadTexture(rdr, (gs_picp / "confirm_NotSelected.png").string().c_str());
+		stage_refresh_tex = IMG_LoadTexture(rdr, (gs_picp / "Refresh_Allowed.png").string().c_str());
 	}
 	void WaitingForFightTexture::Loadin(const std::filesystem::path& gp, SDL_Renderer*& rdr) {
+		gamepath = gp;
 		if (!Loaded) {
 			LoadinJson(gp);
 
@@ -173,6 +183,13 @@ namespace WaitingForFight {
 			it->second.clear();
 		}
 		tex.clear();
+		for (auto& [id, t] : stage_strategy_tex) {
+			if (t) SDL_DestroyTexture(t);
+		}
+		stage_strategy_tex.clear();
+		if (stage_confirm_selected) { SDL_DestroyTexture(stage_confirm_selected); stage_confirm_selected = nullptr; }
+		if (stage_confirm_notselected) { SDL_DestroyTexture(stage_confirm_notselected); stage_confirm_notselected = nullptr; }
+		if (stage_refresh_tex) { SDL_DestroyTexture(stage_refresh_tex); stage_refresh_tex = nullptr; }
 		texLoaded = false;
 	}
 	void WaitingForFightTexture::Draw_Background(SDL_Renderer*& rdr) {
@@ -543,6 +560,78 @@ namespace WaitingForFight {
 				NULL,
 				&place["GameStartPreview"][i]
 			);
+		}
+	}
+	SDL_Texture* WaitingForFightTexture::GetStageStrategyTex(const std::string& id, SDL_Renderer*& rdr) {
+		auto it = stage_strategy_tex.find(id);
+		if (it != stage_strategy_tex.end()) {
+			return it->second;
+		}
+		std::filesystem::path path = gamepath / "assets" / "Strategy" / (id + ".png");
+		SDL_Texture* texptr = IMG_LoadTexture(rdr, path.string().c_str());
+		stage_strategy_tex[id] = texptr;
+		if (!texptr) {
+			Log("StageStrategy texture missing: " + id, __func__, Logcode::OPENFAILED);
+		}
+		return texptr;
+	}
+	void WaitingForFightTexture::Draw_StrategyChoose(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		(void)ft;
+		auto Fit = [](const SDL_FRect& box, float w, float h) {
+			if (w <= 0.f || h <= 0.f) return box;
+			const float scale = std::min(box.w / w, box.h / h);
+			const float dw = w * scale;
+			const float dh = h * scale;
+			return SDL_FRect{
+				box.x + (box.w - dw) * 0.5f,
+				box.y + (box.h - dh) * 0.5f,
+				dw, dh
+			};
+			};
+
+		auto cardsIt = State.ui_place.find("StageStrategy_Card");
+		if (cardsIt != State.ui_place.end()) {
+			for (size_t i = 0; i < State.stage_strategies.size() && i < cardsIt->second.size(); ++i) {
+				const std::string& id = State.stage_strategies[i];
+				SDL_Texture* t = GetStageStrategyTex(id, rdr);
+				if (t) {
+					float tw = 0.f, th = 0.f;
+					if (SDL_GetTextureSize(t, &tw, &th) && tw > 0.f && th > 0.f) {
+						SDL_FRect dst = Fit(cardsIt->second[i], tw, th);
+						SDL_RenderTexture(rdr, t, NULL, &dst);
+					}
+				}
+				if (State.stage_strategy_selected == static_cast<int>(i)) {
+					const SDL_FRect& rect = cardsIt->second[i];
+					SDL_SetRenderDrawColor(rdr, 255, 255, 255, 255);
+					const float thickness = 6.f;
+					for (float j = 0.f; j < thickness; j += 1.f) {
+						SDL_FRect border{
+							rect.x + j,
+							rect.y + j,
+							rect.w - 2.f * j,
+							rect.h - 2.f * j
+						};
+						SDL_RenderRect(rdr, &border);
+					}
+				}
+			}
+		}
+
+		auto confirmIt = State.ui_place.find("StageStrategy_Confirm");
+		if (confirmIt != State.ui_place.end() && !confirmIt->second.empty()) {
+			SDL_Texture* t = State.stage_strategy_selected >= 0
+				? stage_confirm_selected : stage_confirm_notselected;
+			if (t) {
+				SDL_RenderTexture(rdr, t, NULL, &confirmIt->second[0]);
+			}
+		}
+
+		if (State.stage_strategy_refresh_left > 0) {
+			auto refreshIt = State.ui_place.find("StageStrategy_Refresh");
+			if (refreshIt != State.ui_place.end() && !refreshIt->second.empty() && stage_refresh_tex) {
+				SDL_RenderTexture(rdr, stage_refresh_tex, NULL, &refreshIt->second[0]);
+			}
 		}
 	}
 }
