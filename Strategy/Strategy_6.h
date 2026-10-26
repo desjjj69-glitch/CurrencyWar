@@ -1,4 +1,4 @@
-// 原 TestStrategy3，现环境策略 Strategy_6
+// 环境策略 Strategy_6：商店刷新 20 次时发放 30 Money
 #pragma once
 #include "StrategyBus.h"
 #include"../json.hpp"

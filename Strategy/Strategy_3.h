@@ -1,4 +1,4 @@
-// 原 TestStrategy1，现环境策略 Strategy_3
+// 环境策略 Strategy_3：位面切换时按位面发放 Money 晶矿
 #pragma once
 #include "StrategyBus.h"
 #include"../json.hpp"

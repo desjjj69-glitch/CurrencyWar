@@ -1,4 +1,4 @@
-// 原 TestStrategy2，现环境策略 Strategy_4
+// 环境策略 Strategy_4：首次连胜达到 5 时发放装备
 #pragma once
 #include "StrategyBus.h"
 #include"../json.hpp"

@@ -1,4 +1,4 @@
-#include"Strategy_TestStrategy2.h"
+#include"Strategy_4.h"
 #include "AutoRegister.h"
 #include "../WaitingForFight_InteractLogic.h"
 REGISTER_STRATEGY("Strategy_4", Strategy::Impl::Strategy_4);

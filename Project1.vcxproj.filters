@@ -138,13 +138,13 @@
     <ClCompile Include="GameStart_Update.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Strategy\Strategy_TestStrategy1.cpp">
+    <ClCompile Include="Strategy\Strategy_3.cpp">
       <Filter>Strategy</Filter>
     </ClCompile>
-    <ClCompile Include="Strategy\Strategy_TestStrategy2.cpp">
+    <ClCompile Include="Strategy\Strategy_4.cpp">
       <Filter>Strategy</Filter>
     </ClCompile>
-    <ClCompile Include="Strategy\Strategy_TestStrategy3.cpp">
+    <ClCompile Include="Strategy\Strategy_6.cpp">
       <Filter>Strategy</Filter>
     </ClCompile>
     <ClCompile Include="Strategy\StrategyBus.cpp">
@@ -305,13 +305,13 @@
     <ClInclude Include="GameStart_Update.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Strategy\Strategy_TestStrategy1.h">
+    <ClInclude Include="Strategy\Strategy_3.h">
       <Filter>Strategy</Filter>
     </ClInclude>
-    <ClInclude Include="Strategy\Strategy_TestStrategy2.h">
+    <ClInclude Include="Strategy\Strategy_4.h">
       <Filter>Strategy</Filter>
     </ClInclude>
-    <ClInclude Include="Strategy\Strategy_TestStrategy3.h">
+    <ClInclude Include="Strategy\Strategy_6.h">
       <Filter>Strategy</Filter>
     </ClInclude>
     <ClInclude Include="Strategy\StrategyBus.h">

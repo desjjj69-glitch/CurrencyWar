@@ -193,9 +193,9 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="StageData.cpp" />
     <ClCompile Include="Strategy\StrategyBus.cpp" />
     <ClCompile Include="Strategy\StrategyRegistry.cpp" />
-    <ClCompile Include="Strategy\Strategy_TestStrategy1.cpp" />
-    <ClCompile Include="Strategy\Strategy_TestStrategy2.cpp" />
-    <ClCompile Include="Strategy\Strategy_TestStrategy3.cpp" />
+    <ClCompile Include="Strategy\Strategy_3.cpp" />
+    <ClCompile Include="Strategy\Strategy_4.cpp" />
+    <ClCompile Include="Strategy\Strategy_6.cpp" />
     <ClCompile Include="WaitingForFightTexture.cpp" />
     <ClCompile Include="WaitingForFight_CharacterTexture.cpp" />
     <ClCompile Include="WaitingForFight_EnemyTexture.cpp" />
@@ -250,9 +250,9 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="Strategy\AutoRegister.h" />
     <ClInclude Include="Strategy\StrategyBus.h" />
     <ClInclude Include="Strategy\StrategyRegistry.h" />
-    <ClInclude Include="Strategy\Strategy_TestStrategy1.h" />
-    <ClInclude Include="Strategy\Strategy_TestStrategy2.h" />
-    <ClInclude Include="Strategy\Strategy_TestStrategy3.h" />
+    <ClInclude Include="Strategy\Strategy_3.h" />
+    <ClInclude Include="Strategy\Strategy_4.h" />
+    <ClInclude Include="Strategy\Strategy_6.h" />
     <ClInclude Include="WaitingForFightTexture.h" />
     <ClInclude Include="WaitingForFight_CharacterTexture.h" />
     <ClInclude Include="WaitingForFight_EnemyTexture.h" />
