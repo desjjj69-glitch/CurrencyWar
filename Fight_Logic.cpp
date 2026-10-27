@@ -836,6 +836,14 @@ namespace Fight {
 				if (NowActing == p)NowActing = nullptr;
 				var.reset();
 				var = GetEnemyFromPool();
+				//补位上场的敌人同样要排进行动条：从当前行动值起算一个完整行动间隔
+				if (var) {
+					var->ActionValue = NowActionValue;
+					AddtoActionList(var.get());
+					Log("EnemyEnter: " + var->Name()
+						+ " action=" + std::to_string(var->ActionValue),
+						__func__);
+				}
 			}
 		}
 		//先检测敌人是不是打完，如果打完，哪怕角色都没了也能赢
