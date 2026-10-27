@@ -1385,7 +1385,22 @@ namespace WaitingForFight {
 		}
 	}
 	void Logic::Init_Boss() {
+		Enemys.clear();
 
+		// Boss 在开局时按位面各生成一个（Boss[i] 对应第 i 个位面）
+		if (dimension_index >= Boss.size()) {
+			Log("Init_Boss: no boss for dimension " + std::to_string(dimension_index), __func__, Logcode::ERROR);
+			return;
+		}
+
+		const EnemyObject& boss = Boss[dimension_index];
+		if (boss.name.empty()) {
+			Log("Init_Boss: boss of dimension " + std::to_string(dimension_index) + " is empty", __func__, Logcode::ERROR);
+			return;
+		}
+
+		// Boss 关卡只放当前位面对应的 Boss，不追加任何小怪
+		Enemys.push_back(boss);
 	}
 	void Logic::Init() {
 		int m = 20;
