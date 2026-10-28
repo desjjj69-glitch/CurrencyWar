@@ -105,10 +105,16 @@
     <ClCompile Include="BattleEventRegistry.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Skill\DataDrivenSkill.cpp">
+    <ClCompile Include="Skill\ActorSkillRegistry.cpp">
       <Filter>Skill</Filter>
     </ClCompile>
-    <ClCompile Include="Skill\HertaTalent.cpp">
+    <ClCompile Include="Skill\Asta.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill\EnemyDefault.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill\Herta.cpp">
       <Filter>Skill</Filter>
     </ClCompile>
     <ClCompile Include="Skill\SkillFactory.cpp">
@@ -302,10 +308,22 @@
     <ClInclude Include="BattleContext.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Skill\DataDrivenSkill.h">
+    <ClInclude Include="Skill\ActorSkillHelpers.h">
       <Filter>Skill</Filter>
     </ClInclude>
-    <ClInclude Include="Skill\HertaTalent.h">
+    <ClInclude Include="Skill\ActorSkillRegistry.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\Asta.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\EnemyDefault.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\Herta.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\IActorSkillSet.h">
       <Filter>Skill</Filter>
     </ClInclude>
     <ClInclude Include="Skill\SkillFactory.h">

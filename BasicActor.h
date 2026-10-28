@@ -21,6 +21,13 @@ namespace Fight {
 
 		BasicSkill* GetSkillByIndex(size_t);
 		const std::vector<std::unique_ptr<BasicSkill>>& Skills() const;
+		// receive a cast signal and let the actor implementation run it
+		virtual bool ExecuteSkill(const Attribute::AttackForm& form,
+			const SkillTargets& targets,
+			BattleContext& ctx) {
+			(void)form; (void)targets; (void)ctx;
+			return false;
+		}
 	private:
 		
 		int id_=-1;

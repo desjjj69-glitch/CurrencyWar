@@ -1,5 +1,9 @@
 #include"Fight_CharacterActor.h"
 #include"Skill/SkillFactory.h"
+#include"Skill/ActorSkillRegistry.h"
+#include"Fight_Logic.h"
+#include"Logger.h"
+using Logger::Log;
 namespace Fight {
 	void Character_Actor::NewActor(const CharacterObject& ch) {
 		config.name = ch.name;
@@ -15,33 +19,26 @@ namespace Fight {
 		for (const auto& skill : config.basic_attribute.SKills) {
 			skills.push_back(CreateSkill(skill));
 		}
-		if (skills.empty()) {//TODO 此处仅为快速测试，之后要在json加入角色技能
-			Attribute::AttackForm fallback;
-			fallback.id = name + "_normal_fallback";
-			fallback.name = "Normal";
-			fallback.slot = Attribute::SkillSlot::Normal;
-			fallback.target = Attribute::TargetAttackType::Single;
-			fallback.element = Attribute::ElementType::Physic;
-			fallback.types.push_back(Attribute::AttackType::Normal);
-			fallback.atkScale = 1.0;
-			fallback.hitCount = 1;
-			fallback.multiply.push_back(1.0);
-			fallback.energyGain = 20;
-			skills.push_back(CreateSkill(fallback));//填充一个默认普攻
 
-			fallback.id = name + "_Skill_fallback";
-			fallback.name = "Skill";
-			fallback.slot = Attribute::SkillSlot::Skill;
-			fallback.target = Attribute::TargetAttackType::Blast;
-			fallback.element = Attribute::ElementType::Physic;
-			fallback.types.clear();
-			fallback.types.push_back(Attribute::AttackType::Skill);
-			fallback.atkScale = 1.0;
-			fallback.hitCount = 1;
-			fallback.multiply.clear();
-			fallback.multiply.push_back(1.0);
-			fallback.energyGain = 30;
-			skills.push_back(CreateSkill(fallback));
+		skillImpl_ = Skill::Registry::Instance().Make(name);
+		if (!skillImpl_) {
+			Log("No skill implementation for character: " + name, __func__, Logcode::ERROR);
 		}
+		if (skills.empty()) {
+			Log("No skills configured for character: " + name, __func__, Logcode::NOTFOUND);
+		}
+	}
+	bool Character_Actor::ExecuteSkill(const Attribute::AttackForm& form,
+		const SkillTargets& targets,
+		BattleContext& ctx) {
+		auto* logic = dynamic_cast<Fight_Logic*>(&ctx);
+		if (!logic) return false;
+		if (!skillImpl_) return false;
+		const bool ok = skillImpl_->Execute(*logic, id(), form, targets);
+		if (!ok) {
+			Log("Skill not implemented: " + name + " / " + form.id,
+				__func__, Logcode::ERROR);
+		}
+		return ok;
 	}
 }

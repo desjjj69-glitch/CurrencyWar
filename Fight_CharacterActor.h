@@ -1,7 +1,9 @@
 #pragma once
 #include"BasicActor.h"
 #include"CharacterObject.h"
+#include"Skill/IActorSkillSet.h"
 #include<vector>
+#include<memory>
 #include<string>
 namespace Fight {
 	
@@ -18,5 +20,8 @@ namespace Fight {
 		Attribute::HeartType MaxHeart = 0;
 		int Energy=0;
 		void NewActor(const CharacterObject&);//从备战阶段的角色构造新的战斗Actor
+		bool ExecuteSkill(const Attribute::AttackForm&, const SkillTargets&, BattleContext&) override;
+	private:
+		std::unique_ptr<Skill::IActorSkillSet> skillImpl_;
 	};
 }

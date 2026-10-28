@@ -190,8 +190,10 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParseSkill.cpp" />
     <ClCompile Include="SDL_Functions.cpp" />
-    <ClCompile Include="Skill\DataDrivenSkill.cpp" />
-    <ClCompile Include="Skill\HertaTalent.cpp" />
+    <ClCompile Include="Skill\ActorSkillRegistry.cpp" />
+    <ClCompile Include="Skill\Asta.cpp" />
+    <ClCompile Include="Skill\EnemyDefault.cpp" />
+    <ClCompile Include="Skill\Herta.cpp" />
     <ClCompile Include="Skill\SkillFactory.cpp" />
     <ClCompile Include="StageData.cpp" />
     <ClCompile Include="Strategy\StrategyBus.cpp" />
@@ -255,8 +257,12 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="ParseSkill.h" />
     <ClInclude Include="SDL_Functions.h" />
     <ClInclude Include="SkillTargets.h" />
-    <ClInclude Include="Skill\DataDrivenSkill.h" />
-    <ClInclude Include="Skill\HertaTalent.h" />
+    <ClInclude Include="Skill\ActorSkillHelpers.h" />
+    <ClInclude Include="Skill\ActorSkillRegistry.h" />
+    <ClInclude Include="Skill\Asta.h" />
+    <ClInclude Include="Skill\EnemyDefault.h" />
+    <ClInclude Include="Skill\Herta.h" />
+    <ClInclude Include="Skill\IActorSkillSet.h" />
     <ClInclude Include="Skill\SkillFactory.h" />
     <ClInclude Include="StageData.h" />
     <ClInclude Include="Strategy\AutoRegister.h" />

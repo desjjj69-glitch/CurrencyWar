@@ -1,6 +1,8 @@
 #pragma once
 #include"BasicActor.h"
 #include"EnemyObject.h"
+#include"Skill/IActorSkillSet.h"
+#include<memory>
 #include<string>
 namespace Fight {
 	class Enemy_Actor :public BasicActor {//基类有速度和id
@@ -16,5 +18,8 @@ namespace Fight {
 		Attribute::HeartType CurrentHeart = 0;
 		Attribute::HeartType MaxHeart = 0;
 		void NewActor(const std::string&,int);
+		bool ExecuteSkill(const Attribute::AttackForm&, const SkillTargets&, BattleContext&) override;
+	private:
+		std::unique_ptr<Skill::IActorSkillSet> skillImpl_;
 	};
 }
