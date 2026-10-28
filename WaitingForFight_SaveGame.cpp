@@ -422,6 +422,13 @@ namespace WaitingForFight::SaveGame {
         for (const auto& enemy : logic.Enemys) root["enemies"].push_back(enemy.name);
 
         root["environment"] = GameStart::State.environment_acquired;
+        root["permanentStrategies"] = json::array();
+        for (const auto& strategy : Strategy::Bus::Instance().SavePermanentStates()) {
+            root["permanentStrategies"].push_back(json{
+                {"id", strategy.id},
+                {"state", strategy.state}
+                });
+        }
         root["stageStrategies"] = logic.stage_strategies;
         root["stageStrategySelected"] = logic.stage_strategy_selected;
         root["stageStrategyRefresh"] = json::array({
@@ -537,9 +544,23 @@ namespace WaitingForFight::SaveGame {
                 root["environment"].get<std::vector<std::string>>();
         }
         Strategy::Registry::Instance().LoadPool(gamePath);
-        Strategy::Bus::Instance().ClearPermanentStrategies();
-        for (const auto& id : GameStart::State.environment_acquired) {
-            Strategy::Bus::Instance().AddPermanentStrategy(id);
+        if (root.contains("permanentStrategies") && root["permanentStrategies"].is_array()) {
+            std::vector<Strategy::PermanentState> states;
+            for (const auto& item : root["permanentStrategies"]) {
+                if (!item.is_object()) continue;
+                Strategy::PermanentState state;
+                state.id = item.value("id", std::string(""));
+                state.state = item.value("state", json::object());
+                if (!state.id.empty()) states.push_back(std::move(state));
+            }
+            Strategy::Bus::Instance().LoadPermanentStates(states);
+        }
+        else {
+            // older save file: only environment IDs were stored
+            Strategy::Bus::Instance().ClearPermanentStrategies();
+            for (const auto& id : GameStart::State.environment_acquired) {
+                Strategy::Bus::Instance().AddPermanentStrategy(id);
+            }
         }
 
         if (root.contains("stageStrategies") && root["stageStrategies"].is_array()) {

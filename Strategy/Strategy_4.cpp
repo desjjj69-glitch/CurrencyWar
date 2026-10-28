@@ -15,4 +15,11 @@ namespace Strategy::Impl {
     Strategy_4::Strategy_4(const nlohmann::json& p) {
         (void)p;
     }
+    nlohmann::json Strategy_4::SaveState() const {
+        return nlohmann::json{ {"granted", granted_} };
+    }
+    void Strategy_4::LoadState(const nlohmann::json& state) {
+        if (!state.is_object()) return;
+        granted_ = state.value("granted", false);
+    }
 }

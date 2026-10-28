@@ -8,6 +8,8 @@ namespace Strategy::Impl {
         explicit Strategy_6(const nlohmann::json& p);
         std::string Id() const override { return "Strategy_6"; }
         void OnEvent(IGameContext& ctx, const Event& e) override;
+        nlohmann::json SaveState() const override;
+        void LoadState(const nlohmann::json& state) override;
     private:
         int refresh_count_ = 0;
         bool granted_ = false;

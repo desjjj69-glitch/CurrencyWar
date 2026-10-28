@@ -16,4 +16,14 @@ namespace Strategy::Impl {
     Strategy_6::Strategy_6(const nlohmann::json& p) {
         (void)p;
     }
+    nlohmann::json Strategy_6::SaveState() const {
+        return nlohmann::json{
+            {"refreshCount", refresh_count_},
+            {"granted", granted_} };
+    }
+    void Strategy_6::LoadState(const nlohmann::json& state) {
+        if (!state.is_object()) return;
+        refresh_count_ = state.value("refreshCount", 0);
+        granted_ = state.value("granted", false);
+    }
 }

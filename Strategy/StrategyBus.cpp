@@ -25,6 +25,27 @@ namespace Strategy {
     void Bus::ClearPermanentStrategies() {
         permanent_.clear();
     }
+    std::vector<PermanentState> Bus::SavePermanentStates() const {
+        std::vector<PermanentState> states;
+        states.reserve(permanent_.size());
+        for (const auto& strategy : permanent_) {
+            if (!strategy) continue;
+            PermanentState state;
+            state.id = strategy->Id();
+            state.state = strategy->SaveState();
+            states.push_back(std::move(state));
+        }
+        return states;
+    }
+    void Bus::LoadPermanentStates(const std::vector<PermanentState>& states) {
+        permanent_.clear();
+        for (const auto& state : states) {
+            auto strategy = Registry::Instance().Make(state.id);
+            if (!strategy) continue;
+            strategy->LoadState(state.state);
+            permanent_.push_back(std::move(strategy));
+        }
+    }
 
     void Bus::BeginStage() { /* 根据玩家本阶段的选择构造 stage_ */ }
     void Bus::EndStage() { /*stage_.clear();*/ } //现在的策略都是永久的，跨阶段的，不要删掉

@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
+#include "../json.hpp"
 
 namespace Strategy {
 
@@ -60,6 +61,14 @@ namespace Strategy {
         virtual std::string Id() const = 0;
         virtual bool IsConsumed() const { return false; }  // 一次性海克斯返回 true
         virtual void OnEvent(IGameContext& ctx, const Event& e) = 0;
+        // persistent state used by the preparation-stage save file
+        virtual nlohmann::json SaveState() const { return nlohmann::json::object(); }
+        virtual void LoadState(const nlohmann::json&) {}
+    };
+
+    struct PermanentState {
+        std::string id;
+        nlohmann::json state = nlohmann::json::object();
     };
 
     class Bus {
@@ -71,6 +80,12 @@ namespace Strategy {
         void AddStageStrategy(const std::string&);
         void AddPermanentStrategy(const std::string&);
         void ClearPermanentStrategies();
+
+        // Save/restore permanent strategies in order, including their
+        // internal one-shot counters/flags.
+        std::vector<PermanentState> SavePermanentStates() const;
+        void LoadPermanentStates(const std::vector<PermanentState>& states);
+
         // 由阶段切换器调用：进入/离开某个阶段时，管理 stage 级策略的生命周期
         void BeginStage();
         void EndStage();
