@@ -68,6 +68,8 @@ namespace Object {
 
             Boss[i].EnemyType = bossattr.at("type").get<std::string>();
             Boss[i].name = name[i];
+            Boss[i].general_description = bossattr.value("General Description", std::string(""));
+            Boss[i].detailed_description = bossattr.value("Detailed Description", std::string(""));
 
             if (bossattr.contains("Attribute")) {
                 LoadAttribute(Boss[i].attribute, bossattr["Attribute"]);
@@ -77,6 +79,8 @@ namespace Object {
             auto& def = Enemy_DefaultSetting[Boss[i].name];
             def.EnemyType = Boss[i].EnemyType;
             def.name = Boss[i].name;
+            def.general_description = Boss[i].general_description;
+            def.detailed_description = Boss[i].detailed_description;
             def.attribute = Boss[i].attribute;
 
             // 记录 mobIds
@@ -102,6 +106,8 @@ namespace Object {
                     auto& target = Enemy_DefaultSetting[mobId];
                     target.EnemyType = mobJson.at("type").get<std::string>();
                     target.name = mobJson.at("name").get<std::string>();
+                    target.general_description = mobJson.value("General Description", std::string(""));
+                    target.detailed_description = mobJson.value("Detailed Description", std::string(""));
                     if (mobJson.contains("Attribute")) {
                         LoadAttribute(target.attribute, mobJson["Attribute"]);
                     }

@@ -12,6 +12,11 @@ namespace Strategy {
     // 策略统一构造签名：接收本策略的 json 参数块（没有参数就传空 json）
     using StrategyFactory = std::function<std::unique_ptr<IStrategy>(const nlohmann::json& params)>;
 
+    struct Description {
+        std::string general;
+        std::string detailed;
+    };
+
     class Registry {
     public:
         static Registry& Instance();
@@ -26,6 +31,9 @@ namespace Strategy {
         //    返回 nullptr 表示 id 未注册或参数加载失败
         std::unique_ptr<IStrategy> Make(const std::string& id) const;
 
+        // 策略展示用文本；未配置时返回 false
+        bool GetDescription(const std::string& id, Description& out) const;
+
         // 用于"给出三选一"的界面：随机抽 n 个已注册的 id
         // exclude 中的 id 不会被抽出（例如已经获得过的策略）
         // kind 非空时，只抽取 params.Kind == kind 的策略
@@ -37,6 +45,7 @@ namespace Strategy {
     private:
         std::unordered_map<std::string, StrategyFactory> factories_;
         std::unordered_map<std::string, nlohmann::json>  params_;     // id -> 参数块
+        std::unordered_map<std::string, Description>      descriptions_;
         std::vector<std::string>                          allIds_;     // 用于随机抽取
     };
 

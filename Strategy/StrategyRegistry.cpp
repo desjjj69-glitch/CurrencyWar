@@ -28,10 +28,20 @@ namespace Strategy {
         for (auto& item : js.at("strategies")) {
             const std::string id = item.at("id").get<std::string>();
             params_[id] = item.value("params", nlohmann::json::object());
+            descriptions_[id] = Description{
+                item.value("General Description", std::string("")),
+                item.value("Detailed Description", std::string("")) };
 
             // 只把"已注册工厂"的 id 纳入可抽取池，避免抽到没实现的
             if (factories_.count(id)) allIds_.push_back(id);
         }
+    }
+
+    bool Registry::GetDescription(const std::string& id, Description& out) const {
+        auto it = descriptions_.find(id);
+        if (it == descriptions_.end()) return false;
+        out = it->second;
+        return true;
     }
 
     std::unique_ptr<IStrategy> Registry::Make(const std::string& id) const {

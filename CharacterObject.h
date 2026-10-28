@@ -14,6 +14,8 @@ public:
 	~CharacterObject() = default;
 	WaitingForFight::ResourceType Type()const override;
 	std::string name;
+	std::string general_description;
+	std::string detailed_description;
 	Attribute::CharacterGameAttribute game_attribute;
 	Attribute::CharacterBasicAttribute basic_attribute;
 	void NewCharacter(const std::string&);

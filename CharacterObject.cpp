@@ -38,6 +38,8 @@ namespace Object{
 
             auto& ch = Character_DefaultSetting[key];
             ch.name = key;
+            ch.general_description = var.value("General Description", std::string(""));
+            ch.detailed_description = var.value("Detailed Description", std::string(""));
 
             // ---- 顶层 ----
             ch.game_attribute.cost = var.value("Cost", 1);
@@ -88,5 +90,7 @@ void CharacterObject::NewCharacter(const std::string& n) {
 	name = n;
 	game_attribute = Object::Character_DefaultSetting[n].game_attribute;
     basic_attribute = Object::Character_DefaultSetting[n].basic_attribute;
+    general_description = Object::Character_DefaultSetting[n].general_description;
+    detailed_description = Object::Character_DefaultSetting[n].detailed_description;
 
 }

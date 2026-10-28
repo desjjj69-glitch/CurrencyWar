@@ -4,6 +4,8 @@
             "type": "boss",
             "name": "boss_1",
             "image": "boss_1.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_74",
                 "mob_30",
@@ -61,6 +63,8 @@
             "type": "boss",
             "name": "boss_2",
             "image": "boss_2.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_48",
                 "mob_49",
@@ -118,6 +122,8 @@
             "type": "boss",
             "name": "boss_3",
             "image": "boss_3.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_55",
                 "mob_56",
@@ -178,6 +184,8 @@
             "type": "boss",
             "name": "boss_4",
             "image": "boss_4.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_8",
                 "mob_13",
@@ -236,6 +244,8 @@
             "type": "boss",
             "name": "boss_5",
             "image": "boss_5.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_48",
                 "mob_49",
@@ -297,6 +307,8 @@
             "type": "boss",
             "name": "boss_6",
             "image": "boss_6.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_79",
                 "mob_26",
@@ -353,6 +365,8 @@
             "type": "boss",
             "name": "boss_7",
             "image": "boss_7.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_38",
                 "mob_81",
@@ -410,6 +424,8 @@
             "type": "boss",
             "name": "boss_8",
             "image": "boss_8.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_86",
                 "mob_16",
@@ -467,6 +483,8 @@
             "type": "boss",
             "name": "boss_9",
             "image": "boss_9.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_79",
                 "mob_26",
@@ -522,6 +540,8 @@
             "type": "boss",
             "name": "boss_10",
             "image": "boss_10.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_74",
                 "mob_30",
@@ -578,6 +598,8 @@
             "type": "boss",
             "name": "boss_11",
             "image": "boss_11.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_55",
                 "mob_56",
@@ -638,6 +660,8 @@
             "type": "boss",
             "name": "boss_12",
             "image": "boss_12.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_76",
                 "mob_47",
@@ -694,6 +718,8 @@
             "type": "boss",
             "name": "boss_13",
             "image": "boss_13.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_8",
                 "mob_13",
@@ -753,6 +779,8 @@
             "type": "boss",
             "name": "boss_14",
             "image": "boss_14.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_18",
                 "mob_86",
@@ -812,6 +840,8 @@
             "type": "boss",
             "name": "boss_15",
             "image": "boss_15.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_31",
                 "mob_11",
@@ -869,6 +899,8 @@
             "type": "boss",
             "name": "boss_16",
             "image": "boss_16.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_39",
                 "mob_37",
@@ -927,6 +959,8 @@
             "type": "boss",
             "name": "boss_17",
             "image": "boss_17.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_31",
                 "mob_11",
@@ -985,6 +1019,8 @@
             "type": "boss",
             "name": "boss_18",
             "image": "boss_18.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_27",
                 "mob_39",
@@ -1042,6 +1078,8 @@
             "type": "boss",
             "name": "boss_19",
             "image": "boss_19.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_27",
                 "mob_39",
@@ -1099,6 +1137,8 @@
             "type": "boss",
             "name": "boss_20",
             "image": "boss_20.png",
+            "General Description": "",
+            "Detailed Description": "",
             "mobIds": [
                 "mob_3",
                 "mob_4",
@@ -1157,6 +1197,8 @@
         "mob_1": {
             "type": "normal",
             "name": "mob_1",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_1.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1188,6 +1230,8 @@
         "mob_2": {
             "type": "elite",
             "name": "mob_2",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_2.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1219,6 +1263,8 @@
         "mob_3": {
             "type": "elite",
             "name": "mob_3",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_3.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1250,6 +1296,8 @@
         "mob_4": {
             "type": "elite",
             "name": "mob_4",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_4.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1281,6 +1329,8 @@
         "mob_5": {
             "type": "normal",
             "name": "mob_5",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_5.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1312,6 +1362,8 @@
         "mob_6": {
             "type": "elite",
             "name": "mob_6",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_6.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1343,6 +1395,8 @@
         "mob_7": {
             "type": "normal",
             "name": "mob_7",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_7.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1374,6 +1428,8 @@
         "mob_8": {
             "type": "elite",
             "name": "mob_8",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_8.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1405,6 +1461,8 @@
         "mob_9": {
             "type": "normal",
             "name": "mob_9",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_9.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1436,6 +1494,8 @@
         "mob_10": {
             "type": "normal",
             "name": "mob_10",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_10.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1467,6 +1527,8 @@
         "mob_11": {
             "type": "elite",
             "name": "mob_11",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_11.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1498,6 +1560,8 @@
         "mob_12": {
             "type": "normal",
             "name": "mob_12",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_12.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1529,6 +1593,8 @@
         "mob_13": {
             "type": "elite",
             "name": "mob_13",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_13.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1560,6 +1626,8 @@
         "mob_14": {
             "type": "normal",
             "name": "mob_14",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_14.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1591,6 +1659,8 @@
         "mob_15": {
             "type": "elite",
             "name": "mob_15",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_15.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1622,6 +1692,8 @@
         "mob_16": {
             "type": "elite",
             "name": "mob_16",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_16.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1653,6 +1725,8 @@
         "mob_17": {
             "type": "normal",
             "name": "mob_17",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_17.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1684,6 +1758,8 @@
         "mob_18": {
             "type": "elite",
             "name": "mob_18",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_18.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1715,6 +1791,8 @@
         "mob_19": {
             "type": "normal",
             "name": "mob_19",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_19.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1746,6 +1824,8 @@
         "mob_20": {
             "type": "normal",
             "name": "mob_20",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_20.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1777,6 +1857,8 @@
         "mob_21": {
             "type": "normal",
             "name": "mob_21",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_21.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1808,6 +1890,8 @@
         "mob_22": {
             "type": "normal",
             "name": "mob_22",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_22.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1839,6 +1923,8 @@
         "mob_23": {
             "type": "normal",
             "name": "mob_23",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_23.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1870,6 +1956,8 @@
         "mob_24": {
             "type": "normal",
             "name": "mob_24",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_24.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1901,6 +1989,8 @@
         "mob_25": {
             "type": "normal",
             "name": "mob_25",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_25.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1932,6 +2022,8 @@
         "mob_26": {
             "type": "elite",
             "name": "mob_26",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_26.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1963,6 +2055,8 @@
         "mob_27": {
             "type": "elite",
             "name": "mob_27",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_27.png",
             "Attribute": {
                 "Heart": 100000,
@@ -1994,6 +2088,8 @@
         "mob_28": {
             "type": "normal",
             "name": "mob_28",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_28.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2025,6 +2121,8 @@
         "mob_29": {
             "type": "normal",
             "name": "mob_29",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_29.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2056,6 +2154,8 @@
         "mob_30": {
             "type": "elite",
             "name": "mob_30",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_30.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2087,6 +2187,8 @@
         "mob_31": {
             "type": "elite",
             "name": "mob_31",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_31.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2118,6 +2220,8 @@
         "mob_32": {
             "type": "normal",
             "name": "mob_32",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_32.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2149,6 +2253,8 @@
         "mob_33": {
             "type": "normal",
             "name": "mob_33",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_33.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2180,6 +2286,8 @@
         "mob_34": {
             "type": "normal",
             "name": "mob_34",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_34.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2211,6 +2319,8 @@
         "mob_35": {
             "type": "normal",
             "name": "mob_35",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_35.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2242,6 +2352,8 @@
         "mob_36": {
             "type": "normal",
             "name": "mob_36",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_36.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2273,6 +2385,8 @@
         "mob_37": {
             "type": "elite",
             "name": "mob_37",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_37.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2304,6 +2418,8 @@
         "mob_38": {
             "type": "elite",
             "name": "mob_38",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_38.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2335,6 +2451,8 @@
         "mob_39": {
             "type": "elite",
             "name": "mob_39",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_39.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2366,6 +2484,8 @@
         "mob_40": {
             "type": "elite",
             "name": "mob_40",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_40.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2397,6 +2517,8 @@
         "mob_41": {
             "type": "normal",
             "name": "mob_41",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_41.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2428,6 +2550,8 @@
         "mob_42": {
             "type": "normal",
             "name": "mob_42",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_42.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2459,6 +2583,8 @@
         "mob_43": {
             "type": "normal",
             "name": "mob_43",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_43.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2490,6 +2616,8 @@
         "mob_44": {
             "type": "normal",
             "name": "mob_44",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_44.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2521,6 +2649,8 @@
         "mob_45": {
             "type": "normal",
             "name": "mob_45",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_45.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2552,6 +2682,8 @@
         "mob_46": {
             "type": "normal",
             "name": "mob_46",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_46.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2583,6 +2715,8 @@
         "mob_47": {
             "type": "elite",
             "name": "mob_47",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_47.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2614,6 +2748,8 @@
         "mob_48": {
             "type": "elite",
             "name": "mob_48",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_48.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2645,6 +2781,8 @@
         "mob_49": {
             "type": "elite",
             "name": "mob_49",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_49.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2676,6 +2814,8 @@
         "mob_50": {
             "type": "elite",
             "name": "mob_50",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_50.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2707,6 +2847,8 @@
         "mob_51": {
             "type": "normal",
             "name": "mob_51",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_51.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2738,6 +2880,8 @@
         "mob_52": {
             "type": "normal",
             "name": "mob_52",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_52.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2769,6 +2913,8 @@
         "mob_53": {
             "type": "normal",
             "name": "mob_53",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_53.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2800,6 +2946,8 @@
         "mob_54": {
             "type": "normal",
             "name": "mob_54",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_54.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2831,6 +2979,8 @@
         "mob_55": {
             "type": "elite",
             "name": "mob_55",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_55.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2862,6 +3012,8 @@
         "mob_56": {
             "type": "elite",
             "name": "mob_56",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_56.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2893,6 +3045,8 @@
         "mob_57": {
             "type": "normal",
             "name": "mob_57",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_57.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2924,6 +3078,8 @@
         "mob_58": {
             "type": "normal",
             "name": "mob_58",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_58.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2955,6 +3111,8 @@
         "mob_59": {
             "type": "elite",
             "name": "mob_59",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_59.png",
             "Attribute": {
                 "Heart": 100000,
@@ -2986,6 +3144,8 @@
         "mob_60": {
             "type": "elite",
             "name": "mob_60",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_60.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3017,6 +3177,8 @@
         "mob_61": {
             "type": "elite",
             "name": "mob_61",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_61.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3048,6 +3210,8 @@
         "mob_62": {
             "type": "elite",
             "name": "mob_62",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_62.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3079,6 +3243,8 @@
         "mob_63": {
             "type": "normal",
             "name": "mob_63",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_63.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3110,6 +3276,8 @@
         "mob_64": {
             "type": "normal",
             "name": "mob_64",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_64.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3141,6 +3309,8 @@
         "mob_65": {
             "type": "normal",
             "name": "mob_65",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_65.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3172,6 +3342,8 @@
         "mob_66": {
             "type": "normal",
             "name": "mob_66",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_66.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3203,6 +3375,8 @@
         "mob_67": {
             "type": "normal",
             "name": "mob_67",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_67.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3234,6 +3408,8 @@
         "mob_68": {
             "type": "elite",
             "name": "mob_68",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_68.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3265,6 +3441,8 @@
         "mob_69": {
             "type": "elite",
             "name": "mob_69",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_69.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3296,6 +3474,8 @@
         "mob_70": {
             "type": "normal",
             "name": "mob_70",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_70.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3327,6 +3507,8 @@
         "mob_71": {
             "type": "normal",
             "name": "mob_71",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_71.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3358,6 +3540,8 @@
         "mob_72": {
             "type": "normal",
             "name": "mob_72",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_72.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3389,6 +3573,8 @@
         "mob_73": {
             "type": "normal",
             "name": "mob_73",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_73.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3420,6 +3606,8 @@
         "mob_74": {
             "type": "elite",
             "name": "mob_74",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_74.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3451,6 +3639,8 @@
         "mob_75": {
             "type": "normal",
             "name": "mob_75",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_75.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3482,6 +3672,8 @@
         "mob_76": {
             "type": "elite",
             "name": "mob_76",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_76.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3513,6 +3705,8 @@
         "mob_77": {
             "type": "normal",
             "name": "mob_77",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_77.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3544,6 +3738,8 @@
         "mob_78": {
             "type": "normal",
             "name": "mob_78",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_78.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3575,6 +3771,8 @@
         "mob_79": {
             "type": "elite",
             "name": "mob_79",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_79.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3606,6 +3804,8 @@
         "mob_80": {
             "type": "normal",
             "name": "mob_80",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_80.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3637,6 +3837,8 @@
         "mob_81": {
             "type": "elite",
             "name": "mob_81",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_81.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3668,6 +3870,8 @@
         "mob_82": {
             "type": "elite",
             "name": "mob_82",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_82.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3699,6 +3903,8 @@
         "mob_83": {
             "type": "normal",
             "name": "mob_83",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_83.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3730,6 +3936,8 @@
         "mob_84": {
             "type": "normal",
             "name": "mob_84",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_84.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3761,6 +3969,8 @@
         "mob_85": {
             "type": "normal",
             "name": "mob_85",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_85.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3792,6 +4002,8 @@
         "mob_86": {
             "type": "elite",
             "name": "mob_86",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_86.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3823,6 +4035,8 @@
         "mob_87": {
             "type": "normal",
             "name": "mob_87",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_87.png",
             "Attribute": {
                 "Heart": 100000,
@@ -3854,6 +4068,8 @@
         "mob_88": {
             "type": "normal",
             "name": "mob_88",
+            "General Description": "",
+            "Detailed Description": "",
             "image": "mob_88.png",
             "Attribute": {
                 "Heart": 100000,

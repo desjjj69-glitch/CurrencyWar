@@ -25,6 +25,8 @@ public:
 	WaitingForFight::ResourceType Type()const override;
 	std::string EnemyType;//Boss/小怪/扑满
 	std::string name;
+	std::string general_description;
+	std::string detailed_description;
 	Attribute::Enemy_Attribute attribute;
 	std::vector<std::string> mobs;//如果是boss就启用这个数组
 	
