@@ -64,11 +64,19 @@ namespace Fight {
 		if (!act || act->id() == -1 || act->Speed == 0) {
 			return;
 		}
+		//已经在行动条上时：既不重复插入，也不能提前推进它的下一次行动值
+		for (const auto& entry : ActionList) {
+			if (entry.id == act->id()) {
+				return;
+			}
+		}
 		act->ActionValue += ActionValueInaRound / act->Speed;
 		AddtoActionList({ act->id(),act->ActionValue });
 	}
 	void Fight_Logic::AddtoExtraAction(ExtraActorEntry act) {
 		if (act.id == -1)return;
+		// duplicates are allowed: multiple follow-ups or multiple extra turns
+		// must each get their own action entry
 		auto it = ExtraAction.begin();
 		while (it != ExtraAction.end()
 			&& static_cast<int>(it->Priority) <= static_cast<int>(act.Priority)) {
@@ -343,6 +351,55 @@ namespace Fight {
 		BuildTargetsByMainIndex(enemies, index, Now_skill->form.target, skill_targets);
 		Log("[ClickSelect] mainIndex=" + std::to_string(index), __func__);
 	}
+	void Fight_Logic::QueueCurrentActorResume() {
+		// states that interrupt the current action:
+		// PlayerStart / EnemyStart / EnemyPreparing
+		if (!NowActing) return;
+		switch (CurrentState) {
+		case StateType::PlayerStart:
+			if (NowActing->Type() == ActorType::Character)
+				AddtoExtraAction({ NowActing->id(), ExtraPriority::CharacterEnforced });
+			break;
+		case StateType::EnemyStart:
+		case StateType::EnemyPreparing:
+			if (NowActing->Type() == ActorType::Enemy)
+				AddtoExtraAction({ NowActing->id(), ExtraPriority::EnemyEnforced });
+			break;
+		default:
+			break;
+		}
+	}
+	bool Fight_Logic::TryStartUlt(Character_Actor* p) {
+		if (!p) return false;
+		if (p->heart <= 0) return false;
+		if (p->Energy < p->config.basic_attribute.EnergyLimit) return false;
+		if (!p->GetSkillBySlot(Attribute::SkillSlot::Ult)) {
+			Log("Ult: no ult skill on " + p->Name(), __func__, Logcode::ERROR);
+			return false;
+		}
+
+		// states where the ultimate interrupts the current action:
+		// Idle / PlayerStart / EnemyStart / EnemyPreparing
+		const bool interrupt =
+			CurrentState == StateType::Idle ||
+			CurrentState == StateType::PlayerStart ||
+			CurrentState == StateType::EnemyStart ||
+			CurrentState == StateType::EnemyPreparing;
+
+		if (interrupt) {
+			QueueCurrentActorResume();// Idle has no active actor, so nothing is queued
+		}
+
+		// every ultimate is a separate entry; extra turns must not be merged
+		AddtoExtraAction({ p->id(), ExtraPriority::CharacterUlt });
+		p->Energy = 0;
+
+		if (interrupt) {
+			// start the extra action now; an earlier queued extra action keeps its order
+			StartActor();
+		}
+		return true;
+	}
 	void Fight_Logic::DispatchEvent() {
 		auto HandleGlobalEvent = [&](const SDL_Event& event)->bool {
 			switch (event.type) {
@@ -376,9 +433,7 @@ namespace Fight {
 					auto* p = dynamic_cast<Character_Actor*>(Actor(PlaceType::FrontCharacter)[i].get());
 					if (!p)return 0;
 					if (p->Energy >= p->config.basic_attribute.EnergyLimit&&p->heart>0) {
-						AddtoExtraAction({ p->id(),ExtraPriority::CharacterUlt });
-						p->Energy = 0;
-						return 1;
+						return TryStartUlt(p) ? 1 : 0;
 					}
 				}
 			}
@@ -392,9 +447,7 @@ namespace Fight {
 					auto* p = dynamic_cast<Character_Actor*>(Actor(PlaceType::FrontCharacter)[i].get());
 					if (!p)return 0;
 					if (p->Energy >= p->config.basic_attribute.EnergyLimit && p->heart > 0) {
-						AddtoExtraAction({ p->id(),ExtraPriority::CharacterUlt });
-						p->Energy = 0;
-						return 1;
+						return TryStartUlt(p) ? 1 : 0;
 					}
 				}
 			}
@@ -407,29 +460,11 @@ namespace Fight {
 				CheckIfUltbyPos(x, y);
 				break;
 			case StateType::PlayerStart:
-				if (CheckIfUltbyPos(x, y)) {
-					for (size_t i = 0;i < ExtraAction.size();i++) {
-						auto* p = FindActorFromExtraAction(i);
-						Log("ExtraList:" + p->Name(), "Debug");
-					}
-					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
-					CurrentState = StateType::PlayerUlt;
-					NowActing = FindActorFromExtraAction(0);
-					RemoveFromExtraList_index(0);
-					Timer = 0;
-					return;
-				}
+				CheckIfUltbyPos(x, y);
 				break;
 			case StateType::PlayerSelecting:
-				if (CheckIfUltbyPos(x, y)) {//如果这次点击的是大招按钮，那么就把当前的选择行为强制结束
-					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
-					CurrentState = StateType::PlayerUlt;
-					NowActing = FindActorFromExtraAction(0);
-					RemoveFromExtraList_index(0);
-					Timer = 0;
-					
-					return;
-				}
+				// 选择阶段不打断当前行动，大招只作为额外回合排队
+				if (CheckIfUltbyPos(x, y)) return;
 				{
 					auto& enemies = Actor(PlaceType::Enemy);
 					auto& slots = ui_place["Enemy"]; // 用选择框区域当点击判定
@@ -471,18 +506,7 @@ namespace Fight {
 				CheckIfUltbyPos(x, y);
 				break;
 			case StateType::EnemyStart:
-				if (CheckIfUltbyPos(x, y)) {
-					for (size_t i = 0;i < ExtraAction.size();i++) {
-						auto* p = FindActorFromExtraAction(i);
-						Log("ExtraList:" + p->Name(), "Debug");
-					}
-					AddtoExtraAction({ NowActing->id(),ExtraPriority::EnemyEnforced });
-					CurrentState = StateType::PlayerUlt;
-					NowActing = FindActorFromExtraAction(0);
-					RemoveFromExtraList_index(0);
-					Timer = 0;
-					return;
-				}
+				CheckIfUltbyPos(x, y);
 				break;
 			case StateType::EnemyPreparing:
 				CheckIfUltbyPos(x, y);
@@ -494,7 +518,16 @@ namespace Fight {
 				CheckIfUltbyPos(x, y);
 				break;
 			case StateType::PlayerUltSelecting:
-				CheckIfUltbyPos(x, y);
+				// 点其他角色的大招：排队，不确认当前大招
+				if (CheckIfUltbyPos(x, y)) return;
+				//其余位置的鼠标左键确认释放当前大招
+				if (Now_skill && NowActing) {
+					Now_skill->Execute(NowActing, skill_targets, *this);
+				}
+				else {
+					Log("Ult: no skill/actor to execute", __func__, Logcode::ERROR);
+				}
+				CurrentState = StateType::PlayerUltExecuting;
 				break;
 			case StateType::PlayerUltExecuting:
 				CheckIfUltbyPos(x, y);
@@ -509,29 +542,11 @@ namespace Fight {
 				CheckIfUltbyKey(key);
 				break;
 			case StateType::PlayerStart:
-				if (CheckIfUltbyKey(key)) {
-					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
-					for (size_t i = 0;i < ExtraAction.size();i++) {
-						auto* p = FindActorFromExtraAction(i);
-						Log("ExtraList:" + p->Name(), "Debug");
-					}
-					CurrentState = StateType::PlayerUlt;
-					NowActing = FindActorFromExtraAction(0);
-					RemoveFromExtraList_index(0);
-					Timer = 0;
-					return;
-				}
+				CheckIfUltbyKey(key);
 				break;
 			case StateType::PlayerSelecting:
-				Log("[Key] PlayerSelecting scancode=" + std::to_string(key.scancode), __func__);
-				if (CheckIfUltbyKey(key)) {//如果这次点击的是大招按钮，那么就把当前的选择行为强制结束
-					AddtoExtraAction({ NowActing->id(),ExtraPriority::CharacterEnforced });
-					CurrentState = StateType::PlayerUlt;
-					NowActing = FindActorFromExtraAction(0);
-					RemoveFromExtraList_index(0);
-					Timer = 0;
-					return;
-				}
+				// 选择阶段不打断当前行动，大招只作为额外回合排队
+				if (CheckIfUltbyKey(key)) return;
 				if (key.scancode == SDL_SCANCODE_LEFT||key.scancode==SDL_SCANCODE_A) {
 					ShiftCharacterMainTarget(-1);
 					return;
@@ -572,18 +587,7 @@ namespace Fight {
 				CheckIfUltbyKey(key);
 				break;
 			case StateType::EnemyStart:
-				if (CheckIfUltbyKey(key)) {
-					AddtoExtraAction({ NowActing->id(),ExtraPriority::EnemyEnforced });
-					for (size_t i = 0;i < ExtraAction.size();i++) {
-						auto* p = FindActorFromExtraAction(i);
-						Log("ExtraList:" + p->Name(), "Debug");
-					}
-					CurrentState = StateType::PlayerUlt;
-					NowActing = FindActorFromExtraAction(0);
-					RemoveFromExtraList_index(0);
-					Timer = 0;
-					return;
-				}
+				CheckIfUltbyKey(key);
 				break;
 			case StateType::EnemyPreparing:
 				CheckIfUltbyKey(key);
@@ -596,7 +600,14 @@ namespace Fight {
 				break;
 			case StateType::PlayerUltSelecting:
 				CheckIfUltbyKey(key);
-				if (key.scancode == SDL_SCANCODE_SPACE) {//TODO 这里只是占位用的，之后补上详细逻辑
+				if (key.scancode == SDL_SCANCODE_SPACE) {
+					//确认释放：增益类大招不需要选敌方目标，直接对已展开的目标结算
+					if (Now_skill && NowActing) {
+						Now_skill->Execute(NowActing, skill_targets, *this);
+					}
+					else {
+						Log("Ult: no skill/actor to execute", __func__, Logcode::ERROR);
+					}
 					CurrentState = StateType::PlayerUltExecuting;
 				}
 				break;
@@ -676,6 +687,9 @@ namespace Fight {
 			NowActing = FindActorFromExtraAction(0);
 			RemoveFromExtraList_index(0);
 
+			// 额外行动不删除 ActionList 上的普通回合：
+			// CharacterEnforced 既可能是“打断后续接”，也可能是“抽中额外回合”，
+			// 后者必须保留角色原本的下一次行动。
 			Timer = 0;                                // 关键：切换状态时重置计时器
 			switch (entry.Priority) {
 			case ExtraPriority::CharacterUlt:
@@ -686,6 +700,17 @@ namespace Fight {
 				break;
 			case ExtraPriority::EnemyEnforced:
 				CurrentState = StateType::EnemyStart; // 敌人被推后的行动
+				break;
+			case ExtraPriority::Normal:
+				// 抽中的额外回合：按行动者类型走一次完整回合
+				if (!NowActing) {
+					CurrentState = StateType::Idle;
+					break;
+				}
+				if (NowActing->Type() == ActorType::Character)
+					CurrentState = StateType::PlayerStart;
+				else if (NowActing->Type() == ActorType::Enemy)
+					CurrentState = StateType::EnemyStart;
 				break;
 			default:
 				// 兜底：按 actor 类型走
@@ -747,6 +772,8 @@ namespace Fight {
 			Timer += dt;
 			CurrentCharacterState = CharacterState::Ultimate;
 			if (Timer >= Animation_LogicDelay[StateType::PlayerUlt]) {
+				//大招开始前就选好大招技能和目标（我方全体技能在这里展开）
+				SetCharacterSkillBySlot(Attribute::SkillSlot::Ult);
 				CurrentState = StateType::PlayerUltSelecting;
 				Timer = 0;
 			}
@@ -757,6 +784,9 @@ namespace Fight {
 		case StateType::PlayerUltExecuting:
 			Timer += dt;
 			if (Timer >= Animation_LogicDelay[StateType::PlayerUltExecuting]) {
+				Now_skill = nullptr;
+				skill_targets.list.clear();
+				CurrentCharacterState = CharacterState::Normal;
 				CurrentState = StateType::Idle;
 				Timer = 0;
 			}
@@ -985,6 +1015,26 @@ namespace Fight {
 			return;
 		}
 
+		//我方全体技能（如全队加速）：目标从场上角色里展开，不选敌方
+		if (Now_skill->form.target == Attribute::TargetAttackType::AllAlly) {
+			skill_targets.list.clear();
+			size_t index = 0;
+			auto PushAllies = [&](PlaceType place) {
+				for (auto& var : Actor(place)) {
+					if (!var || !var->Alive()) continue;
+					if (var->Type() != ActorType::Character) continue;
+					skill_targets.list.push_back({ var.get(), index++, TargetRole::Ally, 1.0 });
+				}
+				};
+			PushAllies(PlaceType::FrontCharacter);
+			PushAllies(PlaceType::BackCharacter);
+			Log("SetCharacterSkillBySlot: OK skill=" + Now_skill->form.id
+				+ " slot=" + std::to_string(static_cast<int>(slot))
+				+ " target_type=AllAlly list_size=" + std::to_string(skill_targets.list.size()),
+				__func__);
+			return;
+		}
+
 		auto& enemies = Actor(PlaceType::Enemy);
 		std::vector<size_t> valid;
 		valid.reserve(enemies.size());
@@ -1025,31 +1075,25 @@ namespace Fight {
 	}
 	void Fight_Logic::DealDamage(BasicActor* caster, BasicActor* target,
 		const Attribute::AttackForm& form,
-		double multiplier) {//TODO 真正的伤害执行，结算没有写
-		//这个唐b deepseek，怎么把target.list里面也搞了个倍率
-		//这个multiplier是没用的
-		//有用的是技能填充进的form里面的倍率
+		double multiplier) {//单段伤害结算：段数和每段倍率由技能在 Execute 里展开
 		if (!caster || !target)
 			return;
-		for (int i = 0;i < form.hitCount;i++) {
-			Attribute::AttackValueType damage = CalculateDamage(caster, target, form, form.multiply[i]);
-			switch (target->Type()) {
-			case ActorType::Character:
-			{
-				auto* c = dynamic_cast<Character_Actor*>(target);
-				c->heart -= damage;
-			}
-			break;
-			case ActorType::Enemy:
-			{
-				auto* e = static_cast<Enemy_Actor*>(target);
-				e->CurrentHeart -= damage;
-				TotalCharacterDamageCount += damage;
-			}
-			break;
-			}//多段伤害计算
+		Attribute::AttackValueType damage = CalculateDamage(caster, target, form, multiplier);
+		switch (target->Type()) {
+		case ActorType::Character:
+		{
+			auto* c = dynamic_cast<Character_Actor*>(target);
+			c->heart -= damage;
 		}
-		
+		break;
+		case ActorType::Enemy:
+		{
+			auto* e = static_cast<Enemy_Actor*>(target);
+			e->CurrentHeart -= damage;
+			TotalCharacterDamageCount += damage;
+		}
+		break;
+		}
 	}
 	void Fight_Logic::GainEnergy(BasicActor* who, double amount) {
 		if (who->Type() == ActorType::Character) {
@@ -1057,6 +1101,29 @@ namespace Fight {
 			p->Energy += static_cast<int>(amount*p->config.basic_attribute.EnergyRecoverEfficiency);
 			
 		}
+	}
+	void Fight_Logic::ApplySpeedBoost(BasicActor* target, double percent) {
+		if (!target || percent <= 0.0) return;
+		const double oldSpeed = target->Speed;
+		if (oldSpeed <= 0.0) return;
+		const double newSpeed = oldSpeed * (1.0 + percent);
+		if (newSpeed <= oldSpeed) return;
+		target->Speed = newSpeed;
+
+		//行动条上的剩余路程按速度比例压缩，然后重排，让加速立刻体现在行动条上
+		if (target->ActionValue > NowActionValue) {
+			const double remaining = target->ActionValue - NowActionValue;
+			target->ActionValue = NowActionValue + remaining * (oldSpeed / newSpeed);
+			for (auto& entry : ActionList) {
+				if (entry.id == target->id()) {
+					entry.ActionValue = target->ActionValue;
+				}
+			}
+			std::sort(ActionList.begin(), ActionList.end());
+		}
+		Log("SpeedBoost: " + target->Name()
+			+ " speed=" + std::to_string(oldSpeed) + "->" + std::to_string(newSpeed)
+			+ " action=" + std::to_string(target->ActionValue), __func__);
 	}
 	void Fight_Logic::ApplyBuff(BasicActor* target, const std::string& buffId) {//上buff也没写
 

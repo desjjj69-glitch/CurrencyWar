@@ -55,6 +55,7 @@ namespace Attribute {
 		Single,
 		AoE,
 		Bounce,
-		Blast
+		Blast,
+		AllAlly//我方全体（用于不造成伤害的增益类技能）
 	};
 }

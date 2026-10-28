@@ -9,6 +9,7 @@ namespace Fight {
 	public:
 		ActorType Type()const override { return ActorType::Character; };
 		std::string Name()const override { return name; }
+		bool Alive()const override { return heart > 0; }
 		Character_Actor() = default;
 		std::string name;
 		CharacterObject config;

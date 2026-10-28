@@ -12,10 +12,12 @@ namespace Fight {
 		double Speed=0;
 		virtual ActorType Type()const = 0;
 		virtual std::string Name()const = 0;
+		virtual bool Alive()const = 0;//是否还能被选为目标
 		BasicActor() = default;
 		int id()const { return id_; }
 		void SetId(int id) { id_ = id; }
 		BasicSkill* GetSkillById(const std::string&);
+		BasicSkill* GetSkillBySlot(Attribute::SkillSlot);
 
 		BasicSkill* GetSkillByIndex(size_t);
 		const std::vector<std::unique_ptr<BasicSkill>>& Skills() const;

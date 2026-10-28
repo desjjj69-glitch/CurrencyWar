@@ -28,6 +28,12 @@ namespace Fight {
 		std::vector<std::unique_ptr<BasicActor>>& GetEnemyPool() {
 			return EnemyActorPool;
 		}
+		// queue one drawn extra turn for the actor (ExtraPriority::Normal).
+		// can be called multiple times; every call adds a separate turn.
+		void AddExtraTurn(BasicActor* actor) {
+			if (!actor) return;
+			AddtoExtraAction({ actor->id(), ExtraPriority::Normal });
+		}
 		std::vector<ActorList>ActionList;
 		std::vector<ExtraActorEntry>ExtraAction;
 		double NowActionValue = 0;
@@ -94,6 +100,7 @@ namespace Fight {
 			double multiplier) override;
 		void GainEnergy(BasicActor* who, double amount) override;
 		void ApplyBuff(BasicActor* target, const std::string& buffId) override;
+		void ApplySpeedBoost(BasicActor* target, double percent) override;
 	private:
 		int GlobalIdIndex = 0;
 		
@@ -121,6 +128,10 @@ namespace Fight {
 		void EnemyExecuting();
 
 		void SetCharacterSkillBySlot(Attribute::SkillSlot);
+		//大招插入：按当前状态决定是立刻打断，还是作为额外回合排队
+		bool TryStartUlt(Character_Actor*);
+		//大招插入前，记住被打断的当前行动者，大招结束后让它继续行动
+		void QueueCurrentActorResume();
 		void ShiftCharacterMainTarget(int delta);
 		void SetCharacterMainTargetByIndex(size_t index);
 		void CharacterStart_Resolution(Character_Actor*);

@@ -7,6 +7,7 @@ namespace Fight {
 	public:
 		ActorType Type()const override { return ActorType::Enemy; };
 		std::string Name()const override { return name; }
+		bool Alive()const override { return CurrentHeart > 0; }
 		Enemy_Actor() = default;
 		std::string name;
 		EnemyObject config;

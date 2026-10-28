@@ -21,6 +21,11 @@ namespace Attribute {
 		int hitCount = 1;//伤害段数
 		double breakValue = 0.0;//削韧值
 		double energyGain = 0.0;//能量获取
+		double speedBoostPercent = 0.0;//行动条加速百分比，0.15 表示 +15%
 
+		//是否包含伤害：全为 0 时表示纯增益/减益技能，不进入伤害结算
+		bool HasDamage()const {
+			return atkScale > 0.0 || hpScale > 0.0 || defScale > 0.0;
+		}
 	};
 }

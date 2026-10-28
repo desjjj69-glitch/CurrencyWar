@@ -71,6 +71,15 @@ namespace Object{
                 b.EffectHitRate = ba.value("EffectHitRate", 0.0);
                 b.EffectResistance = ba.value("EffectResistance", 0.0);
                 b.ElationRate = ba.value("ElationRate", 0.0);
+
+                // ---- 角色技能：与敌人技能共用同一套 JSON 模板 ----
+                b.SKills.clear();
+                if (ba.contains("Skills") && ba["Skills"].is_array()) {
+                    for (const auto& skillJson : ba["Skills"]) {
+                        if (!skillJson.is_object()) continue;
+                        b.SKills.push_back(Object::ParseAttackForm(skillJson));
+                    }
+                }
             }
         }
     }

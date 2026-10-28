@@ -13,40 +13,6 @@ WaitingForFight::ResourceType EnemyObject::Type()const {
 namespace Object {
 	std::unordered_map<std::string, EnemyObject>Enemy_DefaultSetting;
     
-
-    static Attribute::AttackForm ParseAttackForm(const json& j) {
-        Attribute::AttackForm form;
-
-        form.id = j.value("id", std::string(""));
-        form.name = j.value("name", std::string(""));
-
-        form.slot = ParseSkillSlot(j.value("slot", std::string("Normal")));
-        form.target = ParseTargetAttackType(j.value("target", std::string("Single")));
-        form.element = ParseElement(j.value("element", std::string("Physic")));
-
-        if (j.contains("types") && j["types"].is_array()) {
-            for (const auto& t : j["types"]) {
-                if (t.is_string()) {
-                    form.types.push_back(ParseAttackType(t.get<std::string>()));
-                }
-            }
-        }
-        if (form.types.empty()) {
-            form.types.push_back(Attribute::AttackType::Normal);
-        }
-
-        form.atkScale = j.value("atkScale", 0.0);
-        form.hpScale = j.value("hpScale", 0.0);
-        form.defScale = j.value("defScale", 0.0);
-        form.hitCount = j.value("hitCount", 1);
-        for (int i = 0;i < form.hitCount;i++) {
-            form.multiply.push_back(1.0);
-        }
-        form.breakValue = j.value("breakValue", 0.0);
-        form.energyGain = j.value("energyGain", 0.0);
-
-        return form;
-    }
 	static void LoadAttribute(Attribute::Enemy_Attribute& attr, const json& j) {
 		if (!j.is_object()) return;
 		if (j.contains("Heart"))   attr.heart = j.at("Heart").get<Attribute::HeartType>();

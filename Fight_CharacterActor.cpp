@@ -38,6 +38,8 @@ namespace Fight {
 			fallback.types.push_back(Attribute::AttackType::Skill);
 			fallback.atkScale = 1.0;
 			fallback.hitCount = 1;
+			fallback.multiply.clear();
+			fallback.multiply.push_back(1.0);
 			fallback.energyGain = 30;
 			skills.push_back(CreateSkill(fallback));
 		}
