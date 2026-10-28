@@ -42,7 +42,8 @@ namespace WaitingForFight {
 			DetailInfo,
 			StrategyChoose,
 			SupplyChoose,
-			EncounterHardnessChoose
+			EncounterHardnessChoose,
+			Tips_AskIfQuit
 		};
 		RealTimeMode Rmode = RealTimeMode::Normal;
 		bool AtWaitingForFight = false;
@@ -224,6 +225,8 @@ namespace WaitingForFight {
 		bool StarUp();
 		void Init_Enemys();
 		void Init_Boss();
+		void OpenQuitTips();
+		void HandleQuitTipsClick();
 	public:
 		Strategy::StageKind Kind()const { return Strategy::StageKind::WaitingForFight; }
 		

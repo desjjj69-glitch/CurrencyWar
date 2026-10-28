@@ -30,6 +30,18 @@
     "Button_Exit": [
       "Button_Exit.png"
     ],
+    "Tips_AskIfQuit": [
+      "Tips_AskIfQuit.png"
+    ],
+    "Tips_AskIfQuit_Quit": [
+      "Tips_AskIfQuit_Quit.png"
+    ],
+    "Tips_AskIfQuit_SaveAndQuit": [
+      "Tips_AskIfQuit_SaveAndQuit.png"
+    ],
+    "Tips_AskIfQuit_Cancel": [
+      "Tips_AskIfQuit_Cancel.png"
+    ],
     "BuyExp": [
       "BuyExp.png"
     ],
@@ -164,6 +176,27 @@
     ],
     "StartFight": [
       "2258.0 1137.0 354.0 117.0"
+    ],
+    "Tips_GiveUp": [
+      "760 1015 481 79"
+    ],
+    "Tips_Leave": [
+      "1270 1015 484 79"
+    ],
+    "Tips_Close": [
+      "1950 500 50 54"
+    ],
+    "Tips_AskIfQuit": [
+      "520 460 1500 673"
+    ],
+    "Tips_AskIfQuit_Quit": [
+      "760 1015 481 79"
+    ],
+    "Tips_AskIfQuit_SaveAndQuit": [
+      "1270 1015 484 79"
+    ],
+    "Tips_AskIfQuit_Cancel": [
+      "1950 500 50 54"
     ],
     "GameStartPreview": [
       "0 0 400 100",

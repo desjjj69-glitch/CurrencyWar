@@ -28,6 +28,42 @@ namespace WaitingForFight {
 		SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
 		SDL_RenderClear(rdr);
 
+		if (State.Rmode == Logic::RealTimeMode::Tips_AskIfQuit) {
+			EnsureBlurTargets(rdr);
+			bool blurred = false;
+			if (scene_target && blur_target) {
+				if (SDL_SetRenderTarget(rdr, scene_target)) {
+					SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
+					SDL_RenderClear(rdr);
+					DrawScene(rdr, ft);
+
+					if (SDL_SetRenderTarget(rdr, blur_target)) {
+						SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
+						SDL_RenderClear(rdr);
+						SDL_SetTextureScaleMode(scene_target, SDL_SCALEMODE_LINEAR);
+						SDL_RenderTexture(rdr, scene_target, NULL, NULL);
+
+						SDL_SetRenderTarget(rdr, NULL);
+						SDL_SetTextureScaleMode(blur_target, SDL_SCALEMODE_LINEAR);
+						SDL_RenderTexture(rdr, blur_target, NULL, NULL);
+						blurred = true;
+					}
+					else {
+						SDL_SetRenderTarget(rdr, NULL);
+					}
+				}
+			}
+			if (!blurred) {
+				DrawScene(rdr, ft);
+			}
+
+			SDL_SetRenderDrawBlendMode(rdr, SDL_BLENDMODE_BLEND);
+			SDL_SetRenderDrawColor(rdr, 0, 0, 0, 150);
+			SDL_RenderFillRect(rdr, NULL);
+			Draw_QuitTips(rdr, ft);
+			return;
+		}
+
 		
 		if (State.Rmode == Logic::RealTimeMode::EncounterHardnessChoose) {
 			Draw_EncounterHardnessChoose(rdr, ft);
@@ -41,6 +77,79 @@ namespace WaitingForFight {
 			Draw_StrategyChoose(rdr, ft);
 			return;
 		}
+		DrawScene(rdr, ft);
+	}
+	void WaitingForFightTexture::EnsureBlurTargets(SDL_Renderer*& rdr) {
+		if (!scene_target) {
+			scene_target = SDL_CreateTexture(rdr, SDL_PIXELFORMAT_ARGB8888,
+				SDL_TEXTUREACCESS_TARGET, 2560, 1600);
+		}
+		if (!blur_target) {
+			blur_target = SDL_CreateTexture(rdr, SDL_PIXELFORMAT_ARGB8888,
+				SDL_TEXTUREACCESS_TARGET, blurW, blurH);
+		}
+		if (!scene_target || !blur_target) {
+			Log("Tips blur target create failed", __func__, Logcode::CREATEFAILED);
+		}
+	}
+	void WaitingForFightTexture::Draw_QuitTips(SDL_Renderer*& rdr, TTF_Font*& ft) {
+		SDL_FRect panel{ 520.f, 460.f, 1500.f, 673.f };
+		auto panelIt = place.find("Tips_AskIfQuit");
+		if (panelIt != place.end() && !panelIt->second.empty()) panel = panelIt->second[0];
+
+		auto DrawTex = [&](const char* key)->bool {
+			auto t = tex.find(key);
+			auto p = place.find(key);
+			if (t == tex.end() || t->second.empty() || !t->second[0]) return false;
+			if (p == place.end() || p->second.empty()) return false;
+			SDL_RenderTexture(rdr, t->second[0], NULL, &p->second[0]);
+			return true;
+			};
+
+		if (!DrawTex("Tips_AskIfQuit")) {
+			SDL_SetRenderDrawBlendMode(rdr, SDL_BLENDMODE_BLEND);
+			SDL_SetRenderDrawColor(rdr, 242, 242, 242, 245);
+			SDL_RenderFillRect(rdr, &panel);
+			SDL_SetRenderDrawColor(rdr, 180, 180, 180, 255);
+			SDL_RenderRect(rdr, &panel);
+		}
+
+		auto DrawRight = [&](const std::string& text, float rightX, float y,
+			SDL_Color color, SDL_Texture*& cache, SDL_FRect& rect) {
+			MySDL::DisplayWord(ft, rdr, text, 0.f, y, cache, rect, color, 0.95f);
+			if (!cache) return;
+			rect.x = rightX - rect.w;
+			SDL_RenderTexture(rdr, cache, NULL, &rect);
+			};
+
+		static SDL_Texture* progressTex = nullptr;
+		static SDL_FRect progressRect{};
+		static SDL_Texture* hpTex = nullptr;
+		static SDL_FRect hpRect{};
+		static SDL_Texture* moneyTex = nullptr;
+		static SDL_FRect moneyRect{};
+		const SDL_Color valueColor{ 40, 40, 40, 255 };
+		const float rightX = panel.x + panel.w - 90.f;
+		DrawRight(std::to_string(State.dimension_index + 1) + " - " + std::to_string(State.stage_index + 1),
+			rightX, panel.y + 238.f, valueColor, progressTex, progressRect);
+		DrawRight(std::to_string(State.Blood),
+			rightX, panel.y + 303.f, valueColor, hpTex, hpRect);
+		DrawRight(std::to_string(State.MoneyNum),
+			rightX, panel.y + 368.f, valueColor, moneyTex, moneyRect);
+
+		auto DrawButton = [&](const char* key) {
+			if (DrawTex(key)) return;
+			auto p = place.find(key);
+			SDL_FRect button{ panel.x + 240.f, panel.y + 555.f, 481.f, 79.f };
+			if (p != place.end() && !p->second.empty()) button = p->second[0];
+			SDL_SetRenderDrawColor(rdr, 40, 40, 40, 255);
+			SDL_RenderFillRect(rdr, &button);
+			};
+		DrawButton("Tips_AskIfQuit_Quit");
+		DrawButton("Tips_AskIfQuit_SaveAndQuit");
+		DrawTex("Tips_AskIfQuit_Cancel");
+	}
+	void WaitingForFightTexture::DrawScene(SDL_Renderer*& rdr,TTF_Font*& ft) {
 		Draw_Background(rdr);
 		Draw_QuitButton(rdr);
 		Draw_Blood(rdr, ft);
@@ -60,19 +169,11 @@ namespace WaitingForFight {
 			Draw_Shop(rdr,ft);
 		}
 		if (State.holding) {
-			
 			if (State.holding->Type() == WaitingForFight::ResourceType::Character) {
 				Draw_Sell(rdr, ft);
 			}
 			Draw_holding(rdr);
 		}
-		//此处仅绘制一些基本要素，应当最后统一present
-		//static bool presig = false;
-		//bool npresig=SDL_RenderPresent(rdr);
-		//if (presig != npresig) {
-		//	presig = npresig;
-		//	Log("WaitingForFight_Present", __func__, presig ? Logcode::OK : Logcode::RENDERFAILED);
-		//}
 	}
 	void WaitingForFightTexture::LoadinJson(const std::filesystem::path& gp) {
 		std::ifstream configin(gp / "data" / "WaitingForFight.json");
@@ -210,6 +311,8 @@ namespace WaitingForFight {
 			SDL_DestroyTexture(encounter_refresh_text_tex);
 			encounter_refresh_text_tex = nullptr;
 		}
+		if (scene_target) { SDL_DestroyTexture(scene_target); scene_target = nullptr; }
+		if (blur_target) { SDL_DestroyTexture(blur_target); blur_target = nullptr; }
 		texLoaded = false;
 	}
 	void WaitingForFightTexture::Draw_Background(SDL_Renderer*& rdr) {

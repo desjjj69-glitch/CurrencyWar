@@ -57,6 +57,9 @@
     <ClCompile Include="WaitingForFight_Update.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="WaitingForFight_SaveGame.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="Fight_Texture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -234,6 +237,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="WaitingForFight_Update.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingForFight_SaveGame.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Fight_Texture.h">

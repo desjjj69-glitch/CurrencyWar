@@ -22,6 +22,9 @@ namespace Strategy {
     void Bus::AddPermanentStrategy(const std::string& id) { 
         AddPermanentStrategy(Registry::Instance().Make(id));
     }
+    void Bus::ClearPermanentStrategies() {
+        permanent_.clear();
+    }
 
     void Bus::BeginStage() { /* 根据玩家本阶段的选择构造 stage_ */ }
     void Bus::EndStage() { /*stage_.clear();*/ } //现在的策略都是永久的，跨阶段的，不要删掉

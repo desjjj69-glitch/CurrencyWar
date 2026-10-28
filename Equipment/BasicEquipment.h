@@ -24,6 +24,9 @@ public:
 		stacks = std::min(++stacks, stacklimit);
 	}
 	void SetStackLimit(int limit) { stacklimit = limit; }
+	int GetStack() const { return stacks; }
+	int GetStackLimit() const { return stacklimit; }
+	void SetStack(int value) { stacks = value; }
 	int GetId() const{ return id; }
 private:
 	std::string name;

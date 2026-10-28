@@ -70,6 +70,7 @@ namespace Strategy {
         void AddPermanentStrategy(std::unique_ptr<IStrategy> s);
         void AddStageStrategy(const std::string&);
         void AddPermanentStrategy(const std::string&);
+        void ClearPermanentStrategies();
         // 由阶段切换器调用：进入/离开某个阶段时，管理 stage 级策略的生命周期
         void BeginStage();
         void EndStage();

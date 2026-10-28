@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <cctype>
+#include <vector>
 using Logger::Log;
 namespace {
 
@@ -120,5 +121,65 @@ void BasicConfig::LoadConfig(const std::filesystem::path& gp) {
         else if (key == "frametime") {
             FrameTime = static_cast<Uint32>(std::stoi(value));
         }
+        else if (key == "gamesaved") {
+            try { GameSaved = std::stoi(value); }
+            catch (...) {}
+        }
     }
+}
+
+bool BasicConfig::SetGameSaved(const std::filesystem::path& gp, int value) {
+    const std::filesystem::path path = gp / "config" / "BasicConfig.ini";
+    std::ifstream in(path);
+    if (!in.is_open()) {
+        Log("BasicConfig.ini open failed", __func__, Logcode::OPENFAILED);
+        return false;
+    }
+
+    std::vector<std::string> lines;
+    std::string line;
+    bool found = false;
+    while (std::getline(in, line)) {
+        std::string bare = line;
+        size_t hash = bare.find_first_of("#;");
+        if (hash != std::string::npos) bare = bare.substr(0, hash);
+
+        const std::string trimmed = Trim(bare);
+        const size_t eq = trimmed.find('=');
+        if (eq != std::string::npos &&
+            ToLower(Trim(trimmed.substr(0, eq))) == "gamesaved") {
+            lines.push_back("gamesaved=" + std::to_string(value));
+            found = true;
+        }
+        else {
+            lines.push_back(line);
+        }
+    }
+    in.close();
+
+    if (!found) {
+        lines.push_back("gamesaved=" + std::to_string(value));
+    }
+
+    std::error_code ec;
+    std::filesystem::create_directories(path.parent_path(), ec);
+    std::filesystem::path tmp = path;
+    tmp += ".tmp";
+    std::ofstream out(tmp, std::ios::trunc);
+    if (!out.is_open()) {
+        Log("BasicConfig.ini tmp open failed", __func__, Logcode::OPENFAILED);
+        return false;
+    }
+    for (const auto& l : lines) out << l << "\n";
+    out.close();
+
+    std::filesystem::remove(path, ec);
+    std::filesystem::rename(tmp, path, ec);
+    if (ec) {
+        Log("BasicConfig.ini rename failed", __func__, Logcode::ERROR);
+        std::filesystem::remove(tmp, ec);
+        return false;
+    }
+    GameSaved = value;
+    return true;
 }

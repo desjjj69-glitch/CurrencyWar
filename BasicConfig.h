@@ -8,6 +8,7 @@
 class BasicConfig {
 public:
 	void LoadConfig(const std::filesystem::path&);
+	bool SetGameSaved(const std::filesystem::path&, int value);
 	Uint32 GameMode = SDL_INIT_AUDIO | SDL_INIT_VIDEO;
 	std::string GameName = "CurrencyWar";
 	float WindowW = 2560;
@@ -16,4 +17,5 @@ public:
 	std::string FontName = "simhei.ttf";
 	float FontSize = 32;
 	Uint32 FrameTime = 30;
+	int GameSaved = 0;
 };

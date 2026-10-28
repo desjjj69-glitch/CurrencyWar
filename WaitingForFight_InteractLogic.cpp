@@ -1,4 +1,5 @@
 #include"WaitingForFight_InteractLogic.h"
+#include"WaitingForFight_SaveGame.h"
 #include"Mineral.h"
 #include"Equipment/EquipmentSynthesis.h"
 #include"BasicGameResource.h"
@@ -571,6 +572,13 @@ namespace WaitingForFight {
 		case SDL_EVENT_MOUSE_BUTTON_DOWN:
 			if (event.button.button == SDL_BUTTON_LEFT) {
 				LeftButtonDown = true;
+				if (Rmode == RealTimeMode::Tips_AskIfQuit) {
+					Mmode = MouseMode::Pressed;
+					PressStartTime = SDL_GetTicks();
+					PressStartX = event.button.x;
+					PressStartY = event.button.y;
+					break;
+				}
 				if (Rmode == RealTimeMode::StrategyChoose ||
 					Rmode == RealTimeMode::SupplyChoose ||
 					Rmode == RealTimeMode::EncounterHardnessChoose) {
@@ -611,6 +619,9 @@ namespace WaitingForFight {
 			Mmode = MouseMode::Idle;
 			break;
 		case SDL_EVENT_MOUSE_MOTION:
+			if (Rmode == RealTimeMode::Tips_AskIfQuit) {
+				break;
+			}
 			if (Rmode == RealTimeMode::StrategyChoose ||
 				Rmode == RealTimeMode::SupplyChoose ||
 				Rmode == RealTimeMode::EncounterHardnessChoose) {
@@ -649,7 +660,7 @@ namespace WaitingForFight {
 			}
 			
 		}
-		if (Mmode == MouseMode::Pressed) {
+		if (Rmode != RealTimeMode::Tips_AskIfQuit && Mmode == MouseMode::Pressed) {
 			now = SDL_GetTicks();
 			if (now - PressStartTime >= LONG_PRESS_MS) {
 				Mmode = MouseMode::LongPressed;
@@ -1134,12 +1145,58 @@ namespace WaitingForFight {
 			}
 		}
 	}
+	void Logic::OpenQuitTips() {
+		if (holding) PutBack();
+		LeftButtonDown = false;
+		Mmode = MouseMode::Idle;
+		Rmode = RealTimeMode::Tips_AskIfQuit;
+		Log("Tips_AskIfQuit", __func__, Logcode::OK);
+	}
+	void Logic::HandleQuitTipsClick() {
+		auto Hit = [&](const char* key) {
+			auto it = buttonplace.find(key);
+			return it != buttonplace.end() &&
+				PlaceInside(PressStartX, PressStartY, it->second);
+			};
+
+		// X / cancel: continue the run
+		if (Hit("Tips_Close") || Hit("Tips_Cancel")) {
+			Rmode = RealTimeMode::Normal;
+			return;
+		}
+
+		// abandon: clear the save flag/file and exit
+		if (Hit("Tips_GiveUp")) {
+			if (!BasicGameRes.GameConfig.SetGameSaved(BasicGameRes.GamePath, 0)) {
+				Log("QuitTips: failed to clear GameSaved", __func__, Logcode::ERROR);
+			}
+			SaveGame::Delete(BasicGameRes.GamePath);
+			exit(0);
+		}
+
+		// leave temporarily: save the preparation-stage snapshot and exit
+		if (Hit("Tips_Leave")) {
+			if (!SaveGame::Save(State, BasicGameRes.GamePath)) {
+				Log("QuitTips: save failed", __func__, Logcode::ERROR);
+				return;
+			}
+			if (!BasicGameRes.GameConfig.SetGameSaved(BasicGameRes.GamePath, 1)) {
+				Log("QuitTips: failed to set GameSaved", __func__, Logcode::ERROR);
+			}
+			exit(0);
+		}
+	}
 	void Logic::Click() {
 		//UI按钮检测
 		Log("Click"+std::to_string(MotionX)+":"+std::to_string(MotionY), __func__, Logcode::OK);
 		auto uiinside = [&](const std::string& s) {
 			return PlaceInside(PressStartX, PressStartY, buttonplace[s]);
 			};
+
+		if (Rmode == RealTimeMode::Tips_AskIfQuit) {
+			HandleQuitTipsClick();
+			return;
+		}
 		
 		if (Rmode == RealTimeMode::EncounterHardnessChoose) {
 			HandleEncounterHardnessClick();
@@ -1184,7 +1241,8 @@ namespace WaitingForFight {
 			Rmode = RealTimeMode::Normal;
 		}
 		if (uiinside("Button_Exit")) {
-			exit(0);
+			OpenQuitTips();
+			return;
 		}
 		if (uiinside("ContinueWin")) {
 

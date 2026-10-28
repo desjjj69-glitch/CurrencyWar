@@ -4,7 +4,6 @@
 #include"BasicGameResource.h"
 namespace GameStart {
 	void Update() {
-		BasicGameRes.init();
 		Texture tex;
 		State.Init();
 		tex.Loadin(BasicGameRes.GamePath, BasicGameRes.GameRenderer);

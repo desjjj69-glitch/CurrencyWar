@@ -47,7 +47,14 @@ namespace WaitingForFight {
 		SDL_FRect supply_refresh_text_rect{};
 		SDL_Texture* encounter_refresh_text_tex = nullptr;
 		SDL_FRect encounter_refresh_text_rect{};
+		SDL_Texture* scene_target = nullptr;
+		SDL_Texture* blur_target = nullptr;
+		int blurW = 320;
+		int blurH = 200;
 		SDL_Texture* GetStageStrategyTex(const std::string&, SDL_Renderer*&);
+		void DrawScene(SDL_Renderer*&, TTF_Font*&);
+		void EnsureBlurTargets(SDL_Renderer*&);
+		void Draw_QuitTips(SDL_Renderer*&, TTF_Font*&);
 		void Draw_StrategyChoose(SDL_Renderer*&, TTF_Font*&);
 		void Draw_SupplyChoose(SDL_Renderer*&, TTF_Font*&);
 		void Draw_EncounterHardnessChoose(SDL_Renderer*&, TTF_Font*&);
