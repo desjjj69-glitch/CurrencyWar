@@ -4,6 +4,7 @@
 #include"Fight_EnemyActor.h"
 #include"BasicActor.h"
 #include"BattleContext.h"
+#include"BattleEventBus.h"
 #include"SDL_Functions.h"
 #include<unordered_map>
 #include<memory>
@@ -11,7 +12,7 @@
 #include<vector>
 #include<array>
 namespace Fight {
-	class Fight_Logic : public BattleContext {
+	class Fight_Logic : public BattleContext, public BattleEvent::IContext {
 	public:
 		enum class PlaceType {
 			FrontCharacter,
@@ -28,6 +29,9 @@ namespace Fight {
 		std::vector<std::unique_ptr<BasicActor>>& GetEnemyPool() {
 			return EnemyActorPool;
 		}
+		BasicActor* FindActorById(int id);
+		// rebuild the battle event handlers from all actors' event-triggered skills
+		void RegisterBattleEventHandlers();
 		// queue one drawn extra turn for the actor (ExtraPriority::Normal).
 		// can be called multiple times; every call adds a separate turn.
 		void AddExtraTurn(BasicActor* actor) {
@@ -101,6 +105,7 @@ namespace Fight {
 		void GainEnergy(BasicActor* who, double amount) override;
 		void ApplyBuff(BasicActor* target, const std::string& buffId) override;
 		void ApplySpeedBoost(BasicActor* target, double percent) override;
+		void Emit(const BattleEvent::Event& e) override;
 	private:
 		int GlobalIdIndex = 0;
 		

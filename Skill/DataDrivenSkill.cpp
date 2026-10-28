@@ -21,6 +21,12 @@ namespace Fight {
             return i < form.multiply.size() ? form.multiply[i] : form.multiply.back();
             };
 
+        //some skills (e.g. Herta's talent) restore energy on every hit
+        auto GainPerHit = [&]() {
+            if (form.energyGainPerHit > 0.0)
+                ctx.GainEnergy(user, form.energyGainPerHit);
+            };
+
         if (form.HasDamage() && !targets.list.empty()) {
             if (form.target == Attribute::TargetAttackType::Bounce) {
                 //bounce: hitCount hits total, each hit picks a random living target
@@ -33,6 +39,7 @@ namespace Fight {
                 for (int hit = 0; hit < form.hitCount && !alive.empty(); ++hit) {
                     const size_t idx = static_cast<size_t>(
                         GetRandomNum(0, static_cast<int>(alive.size()) - 1));
+                    GainPerHit();
                     ctx.DealDamage(user, alive[idx].actor, form, MultiplierAt(hit));
 
                     //drop targets killed by this hit so later hits are not wasted
@@ -50,6 +57,7 @@ namespace Fight {
                     if (!t.actor) continue;
                     for (int hit = 0; hit < form.hitCount; ++hit) {
                         if (!t.actor->Alive()) break;
+                        GainPerHit();
                         ctx.DealDamage(user, t.actor, form, MultiplierAt(hit));
                     }
                 }

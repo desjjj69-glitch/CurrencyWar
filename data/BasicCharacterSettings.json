@@ -789,14 +789,76 @@
         "Level": 80,
         "CritRate": 50,
         "CritDamage": 100,
-        "Element": "Physic",
+        "Element": "Ice",
         "BreakEffect": 0,
         "HealingBonus": 0,
         "EnergyLimit": 100,
         "EnergyRecoverEfficiency": 1,
         "EffectHitRate": 0,
         "EffectResistance": 0,
-        "ElationRate": 0
+        "ElationRate": 0,
+        "Skills": [
+          {
+            "id": "herta_normal",
+            "name": "普攻",
+            "slot": "Normal",
+            "target": "Single",
+            "types": [ "Normal" ],
+            "element": "Ice",
+            "atkScale": 0.5,
+            "hpScale": 0.0,
+            "defScale": 0.0,
+            "hitCount": 1,
+            "breakValue": 10,
+            "energyGain": 20
+          },
+          {
+            "id": "herta_skill",
+            "name": "战技",
+            "slot": "Skill",
+            "target": "AoE",
+            "types": [ "Skill" ],
+            "element": "Ice",
+            "atkScale": 1.5,
+            "hpScale": 0.0,
+            "defScale": 0.0,
+            "hitCount": 1,
+            "breakValue": 10,
+            "energyGain": 40
+          },
+          {
+            "id": "herta_ult",
+            "name": "大招",
+            "slot": "Ult",
+            "target": "AoE",
+            "types": [ "Ult" ],
+            "element": "Ice",
+            "atkScale": 2.5,
+            "hpScale": 0.0,
+            "defScale": 0.0,
+            "hitCount": 1,
+            "breakValue": 20,
+            "energyGain": 10
+          },
+          {
+            "id": "herta_talent",
+            "name": "天赋",
+            "slot": "Talent",
+            "target": "Bounce",
+            "types": [ "FollowUpAttack" ],
+            "element": "Ice",
+            "atkScale": 0.3,
+            "hpScale": 0.0,
+            "defScale": 0.0,
+            "hitCount": 5,
+            "breakValue": 0,
+            "energyGain": 0,
+            "energyGainPerHit": 5,
+            "triggerHpThreshold": 0.5,
+            "eventTriggered": true,
+            "eventHandler": "HertaTalent"
+          }
+        ]
       }
     },
     {

@@ -75,7 +75,11 @@ namespace Object {
         form.hitCount = std::max(1, j.value("hitCount", 1));
         form.breakValue = j.value("breakValue", 0.0);
         form.energyGain = j.value("energyGain", 0.0);
+        form.energyGainPerHit = j.value("energyGainPerHit", 0.0);
         form.speedBoostPercent = j.value("speedBoostPercent", j.value("speedBoost", 0.0));
+        form.triggerHpThreshold = j.value("triggerHpThreshold", 0.0);
+        form.eventTriggered = j.value("eventTriggered", false);
+        form.eventHandler = j.value("eventHandler", std::string(""));
 
         //每段倍率：优先读 multiply 数组；没写则把 atkScale 当作每段倍率
         if (j.contains("multiply") && j["multiply"].is_array()) {

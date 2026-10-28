@@ -1,4 +1,5 @@
 #include"Fight_Logic.h"
+#include"BattleEventRegistry.h"
 #include"StageData.h"
 #include"SDL_Functions.h"
 #include"Logger.h"
@@ -223,6 +224,7 @@ namespace Fight {
 	void Fight_Logic::Init() {
 		Timer = 0;
 		TotalCharacterDamageCount = 0;
+		BattleEvent::Bus::Instance().Clear();
 		AtFight = FightGlobalState::AtFight;
 		GlobalIdIndex = 0;
 		SkillPoint = DefaultSkillPoint;
@@ -286,6 +288,12 @@ namespace Fight {
 				enemyact.push_back(std::move(var));
 			}
 		}
+
+		//所有角色/敌人（含待上场敌人）的事件触发技能在本局开始时注册
+		RegisterBattleEventHandlers();
+		BattleEvent::Event begin;
+		begin.type = BattleEvent::Type::FightBegin;
+		Emit(begin);
 		
 	
 		
@@ -669,6 +677,50 @@ namespace Fight {
 		}
 		return nullptr;
 	}
+	BasicActor* Fight_Logic::FindActorById(int id) {
+		if (id == -1) return nullptr;
+		for (auto& vec : actors) {
+			for (auto& actor : vec) {
+				if (actor && actor->id() == id) return actor.get();
+			}
+		}
+		for (auto& actor : EnemyActorPool) {
+			if (actor && actor->id() == id) return actor.get();
+		}
+		return nullptr;
+	}
+	void Fight_Logic::RegisterBattleEventHandlers() {
+		auto& bus = BattleEvent::Bus::Instance();
+		bus.Clear();
+
+		auto RegisterActor = [&](BasicActor* actor) {
+			if (!actor) return;
+			for (const auto& skill : actor->Skills()) {
+				if (!skill) continue;
+				if (!skill->form.eventTriggered) continue;
+				if (skill->form.eventHandler.empty()) {
+					Log("BattleEvent: empty handler for skill " + skill->form.id,
+						__func__, Logcode::ERROR);
+					continue;
+				}
+				auto handler = BattleEvent::Registry::Instance().Make(
+					skill->form.eventHandler, actor->id(), skill.get());
+				if (!handler) continue;
+				Log("BattleEvent: " + skill->form.eventHandler
+					+ " owner=" + std::to_string(actor->id())
+					+ " skill=" + skill->form.id, __func__);
+				bus.AddHandler(std::move(handler));
+			}
+			};
+
+		for (auto& vec : actors) {
+			for (auto& actor : vec) RegisterActor(actor.get());
+		}
+		for (auto& actor : EnemyActorPool) RegisterActor(actor.get());
+	}
+	void Fight_Logic::Emit(const BattleEvent::Event& e) {
+		BattleEvent::Bus::Instance().Emit(*this, e);
+	}
 	void Fight_Logic::StartActor() {
 		auto StateShifter = [&](BasicActor* act) {
 			if (!act)return;
@@ -860,6 +912,12 @@ namespace Fight {
 			auto* p = dynamic_cast<Enemy_Actor*>(var.get());
 			if (!p)continue;
 			if (p->CurrentHeart <= 0) {
+				BattleEvent::Event death;
+				death.type = BattleEvent::Type::EnemyDeath;
+				death.targetId = p->id();
+				Emit(death);
+				BattleEvent::Bus::Instance().RemoveHandlerByOwner(p->id());
+
 				RemoveFromActionList_id(p->id());
 				RemoveFromExtraList_id(p->id());
 
@@ -873,6 +931,10 @@ namespace Fight {
 					Log("EnemyEnter: " + var->Name()
 						+ " action=" + std::to_string(var->ActionValue),
 						__func__);
+					BattleEvent::Event enter;
+					enter.type = BattleEvent::Type::EnemyEnter;
+					enter.targetId = var->id();
+					Emit(enter);
 				}
 			}
 		}
@@ -1094,6 +1156,25 @@ namespace Fight {
 		}
 		break;
 		}
+
+		// broadcast to battle event handlers (talents, triggered skills, ...)
+		BattleEvent::Event ev;
+		ev.type = BattleEvent::Type::AfterDamage;
+		ev.sourceId = caster->id();
+		ev.targetId = target->id();
+		ev.skillId = form.id;
+		ev.amount = static_cast<double>(damage);
+		if (target->Type() == ActorType::Enemy) {
+			auto* e = static_cast<Enemy_Actor*>(target);
+			ev.targetHpRatio = e->MaxHeart > 0
+				? static_cast<double>(e->CurrentHeart) / e->MaxHeart : 0.0;
+		}
+		else if (target->Type() == ActorType::Character) {
+			auto* c = static_cast<Character_Actor*>(target);
+			ev.targetHpRatio = c->MaxHeart > 0
+				? static_cast<double>(c->heart) / c->MaxHeart : 0.0;
+		}
+		Emit(ev);
 	}
 	void Fight_Logic::GainEnergy(BasicActor* who, double amount) {
 		if (who->Type() == ActorType::Character) {
@@ -1131,6 +1212,11 @@ namespace Fight {
 	void Fight_Logic::DataHandOff(int wintype) {//标志位为胜利还是失败,0是失败，1是胜利
 		using StageData::g_Fight_to_FightResult;
 		g_Fight_to_FightResult.ifwin = wintype;
-		
+
+		BattleEvent::Event end;
+		end.type = BattleEvent::Type::FightEnd;
+		end.aux = wintype;
+		Emit(end);
+		BattleEvent::Bus::Instance().Clear();
 	}
 }
