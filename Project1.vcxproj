@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\SDL\SDL3_ttf-3.2.2\include;D:\SDL\SDL3_image-3.4.4\include;D:\SDL\SDL3-3.4.12\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\SDL\SDL3_ttf-3.2.2\lib\x64;D:\SDL\SDL3_image-3.4.4\lib\x64;D:\SDL\SDL3-3.4.12\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\SDL\mixer\SDL3_mixer-3.2.4\include;D:\SDL\SDL3_ttf-3.2.2\include;D:\SDL\SDL3_image-3.4.4\include;D:\SDL\SDL3-3.4.12\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\SDL\mixer\SDL3_mixer-3.2.4\lib\x64;D:\SDL\SDL3_ttf-3.2.2\lib\x64;D:\SDL\SDL3_image-3.4.4\lib\x64;D:\SDL\SDL3-3.4.12\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\SDL\SDL3_ttf-3.2.2\include;D:\SDL\SDL3_image-3.4.4\include;D:\SDL\SDL3-3.4.12\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\SDL\SDL3_ttf-3.2.2\lib\x64;D:\SDL\SDL3_image-3.4.4\lib\x64;D:\SDL\SDL3-3.4.12\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\SDL\mixer\SDL3_mixer-3.2.4\include;D:\SDL\SDL3_ttf-3.2.2\include;D:\SDL\SDL3_image-3.4.4\include;D:\SDL\SDL3-3.4.12\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\SDL\mixer\SDL3_mixer-3.2.4\lib\x64;D:\SDL\SDL3_ttf-3.2.2\lib\x64;D:\SDL\SDL3_image-3.4.4\lib\x64;D:\SDL\SDL3-3.4.12\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -126,7 +126,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL3.lib;SDL3_image.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL3.lib;SDL3_image.lib;SDL3_ttf.lib;SDL3_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
@@ -152,7 +152,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL3.lib;SDL3_image.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL3.lib;SDL3_image.lib;SDL3_ttf.lib;SDL3_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
@@ -175,6 +175,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClCompile Include="Equipment\AdvancedEquipment.cpp" />
     <ClCompile Include="Equipment\EquipmentSynthesis.cpp" />
     <ClCompile Include="BasicGameResource.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="CharacterObject.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
     <ClCompile Include="FightResult_Logic.cpp" />
@@ -242,6 +243,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <ClInclude Include="BattleEventRegistry.h" />
     <ClInclude Include="BasicConfig.h" />
     <ClInclude Include="BasicGameResource.h" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BasicObject.h" />
     <ClInclude Include="BasicTexture.h" />
     <ClInclude Include="CharacterObject.h" />
@@ -300,6 +302,7 @@ xcopy /y /i "$(SolutionDir)lib\dll\*.dll" "$(OutDir)"</Command>
     <None Include="config\GameResource.json" />
     <None Include="config\strategy_pool.json" />
     <None Include="data\BasicCharacterSettings.json" />
+    <None Include="data\AudioSettings.json" />
     <None Include="data\BasicEquipmentSettings.json" />
     <None Include="data\Enemy.json" />
     <None Include="data\Fight_Texture.json" />

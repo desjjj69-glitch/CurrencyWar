@@ -33,6 +33,9 @@
     <ClCompile Include="BasicGameResource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="BasicConfig.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -201,6 +204,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BasicGameResource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BasicConfig.h">
@@ -401,6 +407,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="data\BasicCharacterSettings.json">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="data\AudioSettings.json">
       <Filter>资源文件</Filter>
     </None>
     <None Include="data\BasicEquipmentSettings.json">

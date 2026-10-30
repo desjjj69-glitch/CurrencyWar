@@ -1,0 +1,8 @@
+{
+  "AudioEvents": {
+    "Click": "Click.wav"
+  },
+  "AudioStreams": {
+    "Fight_Bgm1": "Fight_Bgm1.mp3"
+  }
+}

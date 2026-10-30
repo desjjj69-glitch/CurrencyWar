@@ -36,10 +36,21 @@ void BasicGameResource::init() {
 	Log("Font", __func__, GameFont == nullptr ? Logcode::CREATEFAILED : Logcode::OK);
 	SDL_SetRenderDrawBlendMode(GameRenderer, SDL_BLENDMODE_BLEND);
 	FrameTime = GameConfig.FrameTime;
+	if (!MIX_Init()) {
+		Log("Fail to init mix", __func__, Logcode::ERROR);
+	}
+	GameMixer=MIX_CreateMixerDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, NULL);
+	Audio.Init(GamePath, GameMixer);
 }
 void BasicGameResource::quit() {
+	Audio.Shutdown();
+	if (GameMixer) {
+		MIX_DestroyMixer(GameMixer);
+		MIX_Quit();
+	}
 	if (GameFont) {
 		TTF_CloseFont(GameFont);
+		TTF_Quit();
 	}
 	if (GameRenderer) {
 		SDL_DestroyRenderer(GameRenderer);
